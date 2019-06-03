@@ -29,9 +29,9 @@ import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
 import com.github.benmanes.caffeine.cache.CacheLoader;
 
 import me.lucko.luckperms.api.ChatMetaType;
-import me.lucko.luckperms.api.caching.CachedData;
-import me.lucko.luckperms.api.caching.MetaData;
-import me.lucko.luckperms.api.caching.PermissionData;
+import me.lucko.luckperms.api.cacheddata.CachedDataManager;
+import me.lucko.luckperms.api.cacheddata.CachedMetaData;
+import me.lucko.luckperms.api.cacheddata.CachedPermissionData;
 import me.lucko.luckperms.api.metastacking.MetaStackDefinition;
 import me.lucko.luckperms.api.query.DefaultQueryOptions;
 import me.lucko.luckperms.api.query.QueryOptions;
@@ -54,9 +54,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Abstract implementation of {@link CachedData}.
+ * Abstract implementation of {@link CachedDataManager}.
  */
-public abstract class AbstractCachedData implements CachedData {
+public abstract class AbstractCachedDataManager implements CachedDataManager {
 
     /**
      * The plugin instance
@@ -66,7 +66,7 @@ public abstract class AbstractCachedData implements CachedData {
     private final Permission permissionDataManager;
     private final Meta metaDataManager;
 
-    public AbstractCachedData(LuckPermsPlugin plugin) {
+    public AbstractCachedDataManager(LuckPermsPlugin plugin) {
         this.plugin = plugin;
         this.permissionDataManager = new Permission();
         this.metaDataManager = new Meta();
@@ -77,12 +77,12 @@ public abstract class AbstractCachedData implements CachedData {
     }
 
     @Override
-    public @NonNull Manager<PermissionData> permissionData() {
+    public @NonNull Container<CachedPermissionData> permissionData() {
         return this.permissionDataManager;
     }
 
     @Override
-    public @NonNull Manager<MetaData> metaData() {
+    public @NonNull Container<CachedMetaData> metaData() {
         return this.metaDataManager;
     }
 
@@ -178,7 +178,7 @@ public abstract class AbstractCachedData implements CachedData {
         this.metaDataManager.cache.synchronous().cleanUp();
     }
 
-    private final class Permission implements Manager<PermissionData> {
+    private final class Permission implements Container<CachedPermissionData> {
         private final AsyncLoadingCache<QueryOptions, PermissionCache> cache = CaffeineFactory.newBuilder()
                 .expireAfterAccess(2, TimeUnit.MINUTES)
                 .buildAsync(new PermissionCacheLoader());
@@ -262,7 +262,7 @@ public abstract class AbstractCachedData implements CachedData {
         }
     }
 
-    private final class Meta implements Manager<MetaData> {
+    private final class Meta implements Container<CachedMetaData> {
         private final AsyncLoadingCache<QueryOptions, MetaCache> cache = CaffeineFactory.newBuilder()
                 .expireAfterAccess(2, TimeUnit.MINUTES)
                 .buildAsync(new MetaCacheLoader());

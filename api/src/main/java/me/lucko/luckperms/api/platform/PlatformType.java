@@ -34,7 +34,11 @@ import org.checkerframework.checker.nullness.qual.NonNull;
  */
 public enum PlatformType {
 
-    BUKKIT("Bukkit"), BUNGEE("Bungee"), SPONGE("Sponge"), NUKKIT("Nukkit"), VELOCITY("Velocity");
+    BUKKIT("Bukkit"),
+    BUNGEE("Bungee"),
+    SPONGE("Sponge"),
+    NUKKIT("Nukkit"),
+    VELOCITY("Velocity");
 
     private final String friendlyName;
 

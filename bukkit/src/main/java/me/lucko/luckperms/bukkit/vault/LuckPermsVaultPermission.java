@@ -31,7 +31,7 @@ import me.lucko.luckperms.api.Tristate;
 import me.lucko.luckperms.api.context.ContextSet;
 import me.lucko.luckperms.api.context.DefaultContextKeys;
 import me.lucko.luckperms.api.context.MutableContextSet;
-import me.lucko.luckperms.api.node.types.InheritanceNode;
+import me.lucko.luckperms.api.node.NodeType;
 import me.lucko.luckperms.api.query.Flag;
 import me.lucko.luckperms.api.query.QueryOptions;
 import me.lucko.luckperms.bukkit.LPBukkitPlugin;
@@ -261,8 +261,8 @@ public class LuckPermsVaultPermission extends AbstractVaultPermission {
         ContextSet contexts = getQueryOptions(uuid, world).context();
 
         String[] ret = user.enduringData().immutable().values().stream()
-                .filter(n -> n instanceof InheritanceNode)
-                .map(n -> ((InheritanceNode) n))
+                .filter(NodeType.INHERITANCE::matches)
+                .map(NodeType.INHERITANCE::cast)
                 .filter(n -> n.shouldApplyWithContext(contexts))
                 .map(n -> {
                     Group group = this.plugin.getGroupManager().getIfLoaded(n.getGroupName());

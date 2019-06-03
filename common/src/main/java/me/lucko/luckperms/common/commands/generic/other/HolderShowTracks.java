@@ -28,6 +28,7 @@ package me.lucko.luckperms.common.commands.generic.other;
 import com.google.common.collect.Maps;
 
 import me.lucko.luckperms.api.node.Node;
+import me.lucko.luckperms.api.node.NodeType;
 import me.lucko.luckperms.api.node.types.InheritanceNode;
 import me.lucko.luckperms.common.command.CommandResult;
 import me.lucko.luckperms.common.command.abstraction.SubCommand;
@@ -76,8 +77,8 @@ public class HolderShowTracks<T extends PermissionHolder> extends SubCommand<T> 
         if (holder.getType() == HolderType.USER) {
             // if the holder is a user, we want to query parent groups for tracks
             Set<InheritanceNode> nodes = holder.enduringData().immutable().values().stream()
-                    .filter(n -> n instanceof InheritanceNode)
-                    .map(n -> ((InheritanceNode) n))
+                    .filter(NodeType.INHERITANCE::matches)
+                    .map(NodeType.INHERITANCE::cast)
                     .filter(Node::getValue)
                     .filter(n -> !n.hasExpiry())
                     .collect(Collectors.toSet());

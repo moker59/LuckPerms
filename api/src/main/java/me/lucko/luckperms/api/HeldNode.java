@@ -25,6 +25,7 @@
 
 package me.lucko.luckperms.api;
 
+import me.lucko.luckperms.api.model.PermissionHolder;
 import me.lucko.luckperms.api.node.Node;
 
 import org.checkerframework.checker.nullness.qual.NonNull;

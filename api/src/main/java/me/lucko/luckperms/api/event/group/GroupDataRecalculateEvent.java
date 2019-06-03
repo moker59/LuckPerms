@@ -25,10 +25,9 @@
 
 package me.lucko.luckperms.api.event.group;
 
-import me.lucko.luckperms.api.Group;
-import me.lucko.luckperms.api.caching.GroupData;
 import me.lucko.luckperms.api.event.LuckPermsEvent;
 import me.lucko.luckperms.api.event.Param;
+import me.lucko.luckperms.api.model.Group;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -51,6 +50,7 @@ public interface GroupDataRecalculateEvent extends LuckPermsEvent {
      *
      * @return the data
      */
-    @NonNull @Param(1) GroupData getData();
+    @Param(1)
+    me.lucko.luckperms.common.cacheddata.GroupCachedDataManager getData();
 
 }

@@ -1,5 +1,5 @@
 /*
- * This file is part of LuckPerms, licensed under the MIT License.
+ * This file is part of luckperms, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
  *  Copyright (c) contributors
@@ -23,9 +23,8 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api;
+package me.lucko.luckperms.api.model;
 
-import me.lucko.luckperms.api.caching.GroupData;
 import me.lucko.luckperms.api.context.ContextSet;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -77,14 +76,5 @@ public interface Group extends PermissionHolder {
      * @since 2.17
      */
     @NonNull OptionalInt getWeight();
-
-    /**
-     * Gets the groups's {@link GroupData} cache.
-     *
-     * @return the groups cached data.
-     * @since 4.0
-     */
-    @Override
-    @NonNull GroupData getCachedData();
 
 }

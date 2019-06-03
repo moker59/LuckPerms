@@ -30,8 +30,6 @@ import com.google.common.collect.ImmutableSet;
 
 import me.lucko.luckperms.api.PlayerSaveResult;
 import me.lucko.luckperms.api.actionlog.Action;
-import me.lucko.luckperms.api.caching.GroupData;
-import me.lucko.luckperms.api.caching.UserData;
 import me.lucko.luckperms.api.event.Cancellable;
 import me.lucko.luckperms.api.event.LuckPermsEvent;
 import me.lucko.luckperms.api.event.cause.CreationCause;
@@ -73,6 +71,8 @@ import me.lucko.luckperms.api.event.user.track.UserPromoteEvent;
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.common.api.implementation.ApiPermissionHolder;
 import me.lucko.luckperms.common.api.implementation.ApiUser;
+import me.lucko.luckperms.common.cacheddata.GroupCachedDataManager;
+import me.lucko.luckperms.common.cacheddata.UserCachedDataManager;
 import me.lucko.luckperms.common.event.gen.GeneratedEventSpec;
 import me.lucko.luckperms.common.event.model.EntitySourceImpl;
 import me.lucko.luckperms.common.event.model.SenderEntity;
@@ -131,7 +131,7 @@ public final class EventFactory {
         return (T) GeneratedEventSpec.lookup(eventClass).newInstance(this.eventBus.getApiProvider(), params);
     }
 
-    public void handleGroupCacheLoad(Group group, GroupData data) {
+    public void handleGroupCacheLoad(Group group, GroupCachedDataManager data) {
         post(GroupCacheLoadEvent.class, () -> generate(GroupCacheLoadEvent.class, group.getApiDelegate(), data));
     }
 
@@ -263,7 +263,7 @@ public final class EventFactory {
         post(TrackRemoveGroupEvent.class, () -> generate(TrackRemoveGroupEvent.class, track.getApiDelegate(), ImmutableList.copyOf(before), ImmutableList.copyOf(after), group));
     }
 
-    public void handleUserCacheLoad(User user, UserData data) {
+    public void handleUserCacheLoad(User user, UserCachedDataManager data) {
         post(UserCacheLoadEvent.class, () -> generate(UserCacheLoadEvent.class, new ApiUser(user), data));
     }
 

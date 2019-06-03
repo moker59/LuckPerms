@@ -29,6 +29,7 @@ import com.google.common.collect.Maps;
 
 import me.lucko.luckperms.api.ChatMetaType;
 import me.lucko.luckperms.api.node.Node;
+import me.lucko.luckperms.api.node.NodeType;
 import me.lucko.luckperms.api.node.metadata.types.InheritedFromMetadata;
 import me.lucko.luckperms.api.node.types.MetaNode;
 import me.lucko.luckperms.api.node.types.PrefixNode;
@@ -47,7 +48,6 @@ import me.lucko.luckperms.common.model.HolderType;
 import me.lucko.luckperms.common.model.PermissionHolder;
 import me.lucko.luckperms.common.node.comparator.NodeWithContextComparator;
 import me.lucko.luckperms.common.node.factory.NodeFactory;
-import me.lucko.luckperms.common.node.utils.MetaType;
 import me.lucko.luckperms.common.plugin.LuckPermsPlugin;
 import me.lucko.luckperms.common.sender.Sender;
 import me.lucko.luckperms.common.util.Predicates;
@@ -90,7 +90,7 @@ public class MetaInfo extends SharedSubCommand {
 
         // Collect data
         for (Node node : holder.resolveInheritances(QueryOptions.nonContextual())) {
-            if (!MetaType.ANY.matches(node)) {
+            if (!NodeType.META_OR_CHAT_META.matches(node)) {
                 continue;
             }
 

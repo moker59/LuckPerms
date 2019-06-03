@@ -34,6 +34,7 @@ import me.lucko.luckperms.api.PlayerSaveResult;
 import me.lucko.luckperms.api.actionlog.Action;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
 import me.lucko.luckperms.api.node.Node;
+import me.lucko.luckperms.api.node.NodeType;
 import me.lucko.luckperms.api.node.types.InheritanceNode;
 import me.lucko.luckperms.api.node.types.MetaNode;
 import me.lucko.luckperms.common.actionlog.Log;
@@ -46,7 +47,6 @@ import me.lucko.luckperms.common.model.User;
 import me.lucko.luckperms.common.model.UserIdentifier;
 import me.lucko.luckperms.common.node.factory.NodeFactory;
 import me.lucko.luckperms.common.node.model.NodeDataContainer;
-import me.lucko.luckperms.common.node.utils.MetaType;
 import me.lucko.luckperms.common.plugin.LuckPermsPlugin;
 import me.lucko.luckperms.common.storage.implementation.StorageImplementation;
 import me.lucko.luckperms.common.storage.implementation.file.loader.ConfigurateLoader;
@@ -650,7 +650,7 @@ public abstract class AbstractConfigurateStorage implements StorageImplementatio
                     parentsSection.getAppendedNode().setValue(((InheritanceNode) n).getGroupName());
                     continue;
                 }
-                if (!MetaType.ANY.matches(n)) {
+                if (!NodeType.META_OR_CHAT_META.matches(n)) {
                     permissionsSection.getAppendedNode().setValue(node.getPermission());
                     continue;
                 }

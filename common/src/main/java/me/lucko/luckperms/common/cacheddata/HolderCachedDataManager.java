@@ -38,14 +38,14 @@ import java.util.Map;
 /**
  * Holds an easily accessible cache of a holders data in a number of contexts
  */
-public abstract class HolderCachedData<T extends PermissionHolder> extends AbstractCachedData {
+public abstract class HolderCachedDataManager<T extends PermissionHolder> extends AbstractCachedDataManager {
 
     /**
      * The holder whom this data instance is representing
      */
     protected final T holder;
 
-    public HolderCachedData(T holder) {
+    public HolderCachedDataManager(T holder) {
         super(holder.getPlugin());
         this.holder = holder;
     }

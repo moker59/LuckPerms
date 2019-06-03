@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.api.node.metadata.types;
 
-import me.lucko.luckperms.api.PermissionHolder;
+import me.lucko.luckperms.api.model.PermissionHolder;
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.metadata.NodeMetadata;
 import me.lucko.luckperms.api.node.metadata.NodeMetadataKey;

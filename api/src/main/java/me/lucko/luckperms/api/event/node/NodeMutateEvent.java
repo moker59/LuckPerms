@@ -25,11 +25,11 @@
 
 package me.lucko.luckperms.api.event.node;
 
-import me.lucko.luckperms.api.Group;
-import me.lucko.luckperms.api.PermissionHolder;
-import me.lucko.luckperms.api.User;
 import me.lucko.luckperms.api.event.LuckPermsEvent;
 import me.lucko.luckperms.api.event.Param;
+import me.lucko.luckperms.api.model.Group;
+import me.lucko.luckperms.api.model.PermissionHolder;
+import me.lucko.luckperms.api.model.User;
 import me.lucko.luckperms.api.node.Node;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -63,7 +63,7 @@ public interface NodeMutateEvent extends LuckPermsEvent {
     @NonNull @Param(2) Set<Node> getDataAfter();
 
     /**
-     * Gets whether the target of this event is a {@link me.lucko.luckperms.api.User}
+     * Gets whether the target of this event is a {@link User}
      *
      * <p>This is equivalent to checking if getTarget() instanceof User</p>
      *
@@ -74,7 +74,7 @@ public interface NodeMutateEvent extends LuckPermsEvent {
     }
 
     /**
-     * Gets whether the target of this event is a {@link me.lucko.luckperms.api.Group}
+     * Gets whether the target of this event is a {@link Group}
      *
      * <p>This is equivalent to checking if getTarget() instanceof Group</p>
      *

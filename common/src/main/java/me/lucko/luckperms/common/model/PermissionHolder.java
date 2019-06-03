@@ -38,17 +38,17 @@ import me.lucko.luckperms.api.context.ContextSet;
 import me.lucko.luckperms.api.context.DefaultContextKeys;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
 import me.lucko.luckperms.api.node.Node;
+import me.lucko.luckperms.api.node.NodeType;
 import me.lucko.luckperms.api.node.types.InheritanceNode;
 import me.lucko.luckperms.api.node.types.MetaNode;
 import me.lucko.luckperms.api.query.Flag;
 import me.lucko.luckperms.api.query.QueryOptions;
-import me.lucko.luckperms.common.cacheddata.HolderCachedData;
+import me.lucko.luckperms.common.cacheddata.HolderCachedDataManager;
 import me.lucko.luckperms.common.cacheddata.type.MetaAccumulator;
 import me.lucko.luckperms.common.inheritance.InheritanceComparator;
 import me.lucko.luckperms.common.inheritance.InheritanceGraph;
 import me.lucko.luckperms.common.node.comparator.NodeWithContextComparator;
 import me.lucko.luckperms.common.node.utils.InheritanceInfo;
-import me.lucko.luckperms.common.node.utils.MetaType;
 import me.lucko.luckperms.common.node.utils.NodeTools;
 import me.lucko.luckperms.common.plugin.LuckPermsPlugin;
 
@@ -205,7 +205,7 @@ public abstract class PermissionHolder {
      *
      * @return the holders cached data
      */
-    public abstract HolderCachedData<?> getCachedData();
+    public abstract HolderCachedDataManager<?> getCachedData();
 
     /**
      * Returns the type of this PermissionHolder.
@@ -389,7 +389,7 @@ public abstract class PermissionHolder {
             List<? extends Node> nodes = holder.getOwnNodes(queryOptions);
             for (Node node : nodes) {
                 if (!node.getValue()) continue;
-                if (!MetaType.ANY.matches(node)) continue;
+                if (!NodeType.META_OR_CHAT_META.matches(node)) continue;
 
                 // effectively: if not (we're applying global groups or it's specific anyways)
                 if (!((queryOptions.flag(Flag.APPLY_PARENTS_SET_WITHOUT_SERVER) || node.getContexts().containsKey(DefaultContextKeys.SERVER_KEY)) &&
@@ -672,11 +672,11 @@ public abstract class PermissionHolder {
         });
     }
 
-    public boolean clearMeta(MetaType type) {
+    public boolean clearMeta(NodeType type) {
         return removeIfEnduring(type::matches);
     }
 
-    public boolean clearMeta(MetaType type, ContextSet contextSet) {
+    public boolean clearMeta(NodeType type, ContextSet contextSet) {
         return removeIfEnduring(contextSet, type::matches);
     }
 

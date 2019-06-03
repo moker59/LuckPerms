@@ -23,7 +23,7 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api.caching;
+package me.lucko.luckperms.api.cacheddata;
 
 import me.lucko.luckperms.api.query.QueryOptions;
 
@@ -34,7 +34,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
  *
  * @since 4.1
  */
-public interface CachedDataContainer {
+public interface CachedData {
 
     /**
      * Gets the query options this container is holding data for.

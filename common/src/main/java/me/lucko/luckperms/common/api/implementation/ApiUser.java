@@ -29,7 +29,7 @@ import com.google.common.base.Preconditions;
 
 import me.lucko.luckperms.api.DataMutateResult;
 import me.lucko.luckperms.api.NodeEqualityPredicate;
-import me.lucko.luckperms.api.caching.UserData;
+import me.lucko.luckperms.common.cacheddata.UserCachedDataManager;
 import me.lucko.luckperms.common.model.NodeMapType;
 import me.lucko.luckperms.common.model.User;
 import me.lucko.luckperms.common.node.factory.NodeFactory;
@@ -39,8 +39,8 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import java.util.Objects;
 import java.util.UUID;
 
-public class ApiUser extends ApiPermissionHolder implements me.lucko.luckperms.api.User {
-    public static User cast(me.lucko.luckperms.api.User u) {
+public class ApiUser extends ApiPermissionHolder implements me.lucko.luckperms.api.model.User {
+    public static User cast(me.lucko.luckperms.api.model.User u) {
         Preconditions.checkState(u instanceof ApiUser, "Illegal instance " + u.getClass() + " cannot be handled by this implementation.");
         return ((ApiUser) u).getHandle();
     }
@@ -87,8 +87,9 @@ public class ApiUser extends ApiPermissionHolder implements me.lucko.luckperms.a
         return DataMutateResult.SUCCESS;
     }
 
+    @NonNull
     @Override
-    public @NonNull UserData getCachedData() {
+    public UserCachedDataManager getCachedData() {
         return this.handle.getCachedData();
     }
 

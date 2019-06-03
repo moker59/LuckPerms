@@ -33,6 +33,7 @@ import me.lucko.luckperms.api.DataMutateResult;
 import me.lucko.luckperms.api.Tristate;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
 import me.lucko.luckperms.api.node.Node;
+import me.lucko.luckperms.api.node.NodeType;
 import me.lucko.luckperms.api.node.types.InheritanceNode;
 import me.lucko.luckperms.api.node.types.MetaNode;
 import me.lucko.luckperms.api.node.types.PrefixNode;
@@ -46,7 +47,6 @@ import me.lucko.luckperms.common.model.PermissionHolder;
 import me.lucko.luckperms.common.model.User;
 import me.lucko.luckperms.common.node.factory.NodeFactory;
 import me.lucko.luckperms.common.node.factory.NodeTypes;
-import me.lucko.luckperms.common.node.utils.MetaType;
 import me.lucko.luckperms.sponge.service.LuckPermsService;
 import me.lucko.luckperms.sponge.service.ProxyFactory;
 import me.lucko.luckperms.sponge.service.model.LPSubject;
@@ -337,7 +337,7 @@ public class PermissionHolderSubjectData implements LPSubjectData {
 
         for (Node n : nodes) {
             if (!n.getValue()) continue;
-            if (!MetaType.ANY.matches(n)) continue;
+            if (!NodeType.META_OR_CHAT_META.matches(n)) continue;
 
             if (n instanceof PrefixNode) {
                 PrefixNode pn = (PrefixNode) n;
@@ -443,7 +443,7 @@ public class PermissionHolderSubjectData implements LPSubjectData {
         Objects.requireNonNull(contexts, "contexts");
 
         List<Node> toRemove = streamNodes()
-                .filter(MetaType.ANY::matches)
+                .filter(NodeType.META_OR_CHAT_META::matches)
                 .filter(n -> n.getContexts().equals(contexts))
                 .collect(Collectors.toList());
 
@@ -462,7 +462,7 @@ public class PermissionHolderSubjectData implements LPSubjectData {
     @Override
     public CompletableFuture<Boolean> clearOptions() {
         List<Node> toRemove = streamNodes()
-                .filter(MetaType.ANY::matches)
+                .filter(NodeType.META_OR_CHAT_META::matches)
                 .collect(Collectors.toList());
 
         toRemove.forEach(node -> this.type.run(

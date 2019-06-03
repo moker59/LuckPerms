@@ -1,5 +1,5 @@
 /*
- * This file is part of LuckPerms, licensed under the MIT License.
+ * This file is part of luckperms, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
  *  Copyright (c) contributors
@@ -23,16 +23,19 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api;
+package me.lucko.luckperms.api.model;
 
 import com.google.common.collect.ImmutableSetMultimap;
 import com.google.common.collect.Multimap;
 
-import me.lucko.luckperms.api.caching.CachedData;
+import me.lucko.luckperms.api.DataMutateResult;
+import me.lucko.luckperms.api.NodeEqualityPredicate;
+import me.lucko.luckperms.api.TemporaryDataMutateResult;
+import me.lucko.luckperms.api.TemporaryMergeBehaviour;
+import me.lucko.luckperms.api.Tristate;
+import me.lucko.luckperms.api.cacheddata.CachedDataManager;
 import me.lucko.luckperms.api.context.ContextSet;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
-import me.lucko.luckperms.api.manager.GroupManager;
-import me.lucko.luckperms.api.manager.UserManager;
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.types.MetaNode;
 import me.lucko.luckperms.api.node.types.PrefixNode;
@@ -89,12 +92,12 @@ public interface PermissionHolder {
     @NonNull String getFriendlyName();
 
     /**
-     * Gets the holders {@link CachedData} cache.
+     * Gets the holders {@link CachedDataManager} cache.
      *
      * @return the holders cached data.
      * @since 3.2
      */
-    @NonNull CachedData getCachedData();
+    @NonNull CachedDataManager getCachedData();
 
     /**
      * Refreshes and applies any changes to the cached holder data.

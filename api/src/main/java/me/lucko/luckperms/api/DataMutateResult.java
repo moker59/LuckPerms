@@ -25,6 +25,9 @@
 
 package me.lucko.luckperms.api;
 
+import me.lucko.luckperms.api.model.PermissionHolder;
+import me.lucko.luckperms.api.model.Track;
+
 /**
  * Represents the result of a data mutation call on a LuckPerms object.
  *

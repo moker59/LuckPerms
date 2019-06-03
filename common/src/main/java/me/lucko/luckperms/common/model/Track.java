@@ -32,6 +32,7 @@ import me.lucko.luckperms.api.DemotionResult;
 import me.lucko.luckperms.api.PromotionResult;
 import me.lucko.luckperms.api.context.ContextSet;
 import me.lucko.luckperms.api.node.Node;
+import me.lucko.luckperms.api.node.NodeType;
 import me.lucko.luckperms.api.node.types.InheritanceNode;
 import me.lucko.luckperms.common.api.implementation.ApiTrack;
 import me.lucko.luckperms.common.node.factory.NodeFactory;
@@ -276,8 +277,8 @@ public final class Track implements Identifiable<String> {
 
         // find all groups that are inherited by the user in the exact contexts given and applicable to this track
         List<InheritanceNode> nodes = user.enduringData().immutable().get(context.makeImmutable()).stream()
-                .filter(n -> n instanceof InheritanceNode)
-                .map(n -> ((InheritanceNode) n))
+                .filter(NodeType.INHERITANCE::matches)
+                .map(NodeType.INHERITANCE::cast)
                 .filter(Node::getValue)
                 .filter(node -> containsGroup(node.getGroupName()))
                 .distinct()

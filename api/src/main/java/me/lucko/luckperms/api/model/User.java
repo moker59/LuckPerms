@@ -1,5 +1,5 @@
 /*
- * This file is part of LuckPerms, licensed under the MIT License.
+ * This file is part of luckperms, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
  *  Copyright (c) contributors
@@ -23,9 +23,9 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api;
+package me.lucko.luckperms.api.model;
 
-import me.lucko.luckperms.api.caching.UserData;
+import me.lucko.luckperms.api.DataMutateResult;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -76,14 +76,5 @@ public interface User extends PermissionHolder {
      * @throws NullPointerException  if the group is null
      */
     @NonNull DataMutateResult setPrimaryGroup(@NonNull String group);
-
-    /**
-     * Gets the user's {@link UserData} cache.
-     *
-     * @return the users cached data.
-     * @since 3.2
-     */
-    @Override
-    @NonNull UserData getCachedData();
 
 }

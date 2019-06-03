@@ -1,5 +1,5 @@
 /*
- * This file is part of LuckPerms, licensed under the MIT License.
+ * This file is part of luckperms, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
  *  Copyright (c) contributors
@@ -23,8 +23,11 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api;
+package me.lucko.luckperms.api.model;
 
+import me.lucko.luckperms.api.DataMutateResult;
+import me.lucko.luckperms.api.DemotionResult;
+import me.lucko.luckperms.api.PromotionResult;
 import me.lucko.luckperms.api.context.ContextSet;
 
 import org.checkerframework.checker.nullness.qual.NonNull;

@@ -25,6 +25,9 @@
 
 package me.lucko.luckperms.api;
 
+import me.lucko.luckperms.api.model.Track;
+import me.lucko.luckperms.api.model.User;
+
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.Optional;

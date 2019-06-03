@@ -23,18 +23,24 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api.caching;
+package me.lucko.luckperms.common.cacheddata;
 
-import me.lucko.luckperms.api.User;
+import me.lucko.luckperms.api.cacheddata.CachedDataManager;
+import me.lucko.luckperms.api.query.QueryOptions;
+import me.lucko.luckperms.common.model.HolderType;
+import me.lucko.luckperms.common.model.User;
 
 /**
- * Holds cached permission and meta lookup data for a {@link User}.
- *
- * <p>All calls will account for inheritance, as well as any default data provided by
- * the platform. This calls are heavily cached and are therefore fast.</p>
- *
- * @since 2.13
+ * Holds an easily accessible cache of a user's data in a number of contexts
  */
-public interface UserData extends CachedData {
+public class UserCachedDataManager extends HolderCachedDataManager<User> implements CachedDataManager {
 
+    public UserCachedDataManager(User holder) {
+        super(holder);
+    }
+
+    @Override
+    protected CacheMetadata getMetadataForQueryOptions(QueryOptions queryOptions) {
+        return new CacheMetadata(this, HolderType.USER, this.holder.getPlainDisplayName(), queryOptions);
+    }
 }

@@ -23,7 +23,7 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api.caching;
+package me.lucko.luckperms.api.cacheddata;
 
 import com.google.common.collect.ListMultimap;
 
@@ -40,7 +40,7 @@ import java.util.SortedMap;
  *
  * @since 2.13
  */
-public interface MetaData extends CachedDataContainer {
+public interface CachedMetaData extends CachedData {
 
     /**
      * Gets an immutable copy of the meta this user has.

@@ -45,13 +45,13 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-public class ApiGroupManager extends ApiAbstractManager<Group, me.lucko.luckperms.api.Group, GroupManager<?>> implements me.lucko.luckperms.api.manager.GroupManager {
+public class ApiGroupManager extends ApiAbstractManager<Group, me.lucko.luckperms.api.model.Group, GroupManager<?>> implements me.lucko.luckperms.api.model.GroupManager {
     public ApiGroupManager(LuckPermsPlugin plugin, GroupManager<?> handle) {
         super(plugin, handle);
     }
 
     @Override
-    protected me.lucko.luckperms.api.Group getDelegateFor(me.lucko.luckperms.common.model.Group internal) {
+    protected me.lucko.luckperms.api.model.Group getDelegateFor(me.lucko.luckperms.common.model.Group internal) {
         if (internal == null) {
             return null;
         }
@@ -60,20 +60,20 @@ public class ApiGroupManager extends ApiAbstractManager<Group, me.lucko.luckperm
     }
 
     @Override
-    public @NonNull CompletableFuture<me.lucko.luckperms.api.Group> createAndLoadGroup(@NonNull String name) {
+    public @NonNull CompletableFuture<me.lucko.luckperms.api.model.Group> createAndLoadGroup(@NonNull String name) {
         name = ApiUtils.checkName(Objects.requireNonNull(name, "name"));
         return this.plugin.getStorage().createAndLoadGroup(name, CreationCause.API)
                 .thenApply(this::getDelegateFor);
     }
 
     @Override
-    public @NonNull CompletableFuture<Optional<me.lucko.luckperms.api.Group>> loadGroup(@NonNull String name) {
+    public @NonNull CompletableFuture<Optional<me.lucko.luckperms.api.model.Group>> loadGroup(@NonNull String name) {
         name = ApiUtils.checkName(Objects.requireNonNull(name, "name"));
         return this.plugin.getStorage().loadGroup(name).thenApply(opt -> opt.map(this::getDelegateFor));
     }
 
     @Override
-    public @NonNull CompletableFuture<Void> saveGroup(me.lucko.luckperms.api.@NonNull Group group) {
+    public @NonNull CompletableFuture<Void> saveGroup(me.lucko.luckperms.api.model.Group group) {
         Objects.requireNonNull(group, "group");
         return this.plugin.getStorage().saveGroup(ApiGroup.cast(group)).thenRun(() -> {
             // invalidate caches - they have potentially been affected by
@@ -84,7 +84,7 @@ public class ApiGroupManager extends ApiAbstractManager<Group, me.lucko.luckperm
     }
 
     @Override
-    public @NonNull CompletableFuture<Void> deleteGroup(me.lucko.luckperms.api.@NonNull Group group) {
+    public @NonNull CompletableFuture<Void> deleteGroup(me.lucko.luckperms.api.model.Group group) {
         Objects.requireNonNull(group, "group");
         if (group.getName().equalsIgnoreCase(NodeFactory.DEFAULT_GROUP_NAME)) {
             throw new IllegalArgumentException("Cannot delete the default group.");
@@ -110,13 +110,13 @@ public class ApiGroupManager extends ApiAbstractManager<Group, me.lucko.luckperm
     }
 
     @Override
-    public me.lucko.luckperms.api.Group getGroup(@NonNull String name) {
+    public me.lucko.luckperms.api.model.Group getGroup(@NonNull String name) {
         Objects.requireNonNull(name, "name");
         return getDelegateFor(this.handle.getIfLoaded(name));
     }
 
     @Override
-    public @NonNull Set<me.lucko.luckperms.api.Group> getLoadedGroups() {
+    public @NonNull Set<me.lucko.luckperms.api.model.Group> getLoadedGroups() {
         return this.handle.getAll().values().stream()
                 .map(this::getDelegateFor)
                 .collect(ImmutableCollectors.toSet());

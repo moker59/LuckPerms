@@ -25,10 +25,9 @@
 
 package me.lucko.luckperms.api.event.user;
 
-import me.lucko.luckperms.api.User;
-import me.lucko.luckperms.api.caching.UserData;
 import me.lucko.luckperms.api.event.LuckPermsEvent;
 import me.lucko.luckperms.api.event.Param;
+import me.lucko.luckperms.api.model.User;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -49,6 +48,7 @@ public interface UserCacheLoadEvent extends LuckPermsEvent {
      *
      * @return the loaded data
      */
-    @NonNull @Param(1) UserData getLoadedData();
+    @Param(1)
+    me.lucko.luckperms.common.cacheddata.UserCachedDataManager getLoadedData();
 
 }

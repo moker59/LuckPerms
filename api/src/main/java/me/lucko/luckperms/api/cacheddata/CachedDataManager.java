@@ -23,9 +23,9 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api.caching;
+package me.lucko.luckperms.api.cacheddata;
 
-import me.lucko.luckperms.api.PermissionHolder;
+import me.lucko.luckperms.api.model.PermissionHolder;
 import me.lucko.luckperms.api.query.QueryOptions;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -41,21 +41,21 @@ import java.util.concurrent.CompletableFuture;
  *
  * @since 4.0
  */
-public interface CachedData {
+public interface CachedDataManager {
 
     /**
-     * Gets the manager for {@link PermissionData}.
+     * Gets the manager for {@link CachedPermissionData}.
      *
      * @return the permission data manager
      */
-    @NonNull Manager<PermissionData> permissionData();
+    @NonNull Container<CachedPermissionData> permissionData();
 
     /**
-     * Gets the manager for {@link MetaData}.
+     * Gets the manager for {@link CachedMetaData}.
      *
      * @return the meta data manager
      */
-    @NonNull Manager<MetaData> metaData();
+    @NonNull Container<CachedMetaData> metaData();
 
     /**
      * Gets PermissionData from the cache, given a specified context.
@@ -64,7 +64,7 @@ public interface CachedData {
      * @return a permission data instance
      * @throws NullPointerException if contexts is null
      */
-    @NonNull PermissionData getPermissionData(@NonNull QueryOptions queryOptions);
+    @NonNull CachedPermissionData getPermissionData(@NonNull QueryOptions queryOptions);
 
     /**
      * Gets MetaData from the cache, given a specified context.
@@ -73,10 +73,10 @@ public interface CachedData {
      * @return a meta data instance
      * @throws NullPointerException if contexts is null
      */
-    @NonNull MetaData getMetaData(@NonNull QueryOptions queryOptions);
+    @NonNull CachedMetaData getMetaData(@NonNull QueryOptions queryOptions);
 
     /**
-     * Invalidates all cached {@link PermissionData} and {@link MetaData}
+     * Invalidates all cached {@link CachedPermissionData} and {@link CachedMetaData}
      * instances.
      *
      * @since 5.0
@@ -91,12 +91,12 @@ public interface CachedData {
     void invalidatePermissionCalculators();
 
     /**
-     * Manages a specific type of {@link CachedDataContainer cached data} within
-     * a {@link CachedData} instance.
+     * Manages a specific type of {@link CachedData cached data} within
+     * a {@link CachedDataManager} instance.
      *
      * @param <T> the data type
      */
-    interface Manager<T extends CachedDataContainer> {
+    interface Container<T extends CachedData> {
 
         /**
          * Gets {@link T data} from the cache.

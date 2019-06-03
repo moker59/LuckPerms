@@ -30,7 +30,7 @@ import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.types.DisplayNameNode;
 import me.lucko.luckperms.common.api.implementation.ApiGroup;
 import me.lucko.luckperms.common.cache.Cache;
-import me.lucko.luckperms.common.cacheddata.GroupCachedData;
+import me.lucko.luckperms.common.cacheddata.GroupCachedDataManager;
 import me.lucko.luckperms.common.plugin.LuckPermsPlugin;
 
 import java.util.Optional;
@@ -57,13 +57,13 @@ public class Group extends PermissionHolder implements Identifiable<String> {
     /**
      * The groups data cache instance
      */
-    private final GroupCachedData cachedData;
+    private final GroupCachedDataManager cachedData;
 
     public Group(String name, LuckPermsPlugin plugin) {
         super(plugin);
         this.name = name.toLowerCase();
 
-        this.cachedData = new GroupCachedData(this);
+        this.cachedData = new GroupCachedDataManager(this);
         getPlugin().getEventFactory().handleGroupCacheLoad(this, this.cachedData);
     }
 
@@ -128,7 +128,7 @@ public class Group extends PermissionHolder implements Identifiable<String> {
     }
 
     @Override
-    public GroupCachedData getCachedData() {
+    public GroupCachedDataManager getCachedData() {
         return this.cachedData;
     }
 

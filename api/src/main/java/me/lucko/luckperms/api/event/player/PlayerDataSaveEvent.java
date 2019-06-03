@@ -28,7 +28,7 @@ package me.lucko.luckperms.api.event.player;
 import me.lucko.luckperms.api.PlayerSaveResult;
 import me.lucko.luckperms.api.event.LuckPermsEvent;
 import me.lucko.luckperms.api.event.Param;
-import me.lucko.luckperms.api.manager.UserManager;
+import me.lucko.luckperms.api.model.UserManager;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 

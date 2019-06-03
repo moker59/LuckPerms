@@ -32,7 +32,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.ListMultimap;
 
-import me.lucko.luckperms.api.caching.MetaData;
+import me.lucko.luckperms.api.cacheddata.CachedMetaData;
 import me.lucko.luckperms.api.metastacking.MetaStackDefinition;
 import me.lucko.luckperms.api.query.QueryOptions;
 import me.lucko.luckperms.common.cacheddata.CacheMetadata;
@@ -51,7 +51,7 @@ import java.util.SortedMap;
 /**
  * Holds cached meta for a given context
  */
-public class MetaCache implements MetaData {
+public class MetaCache implements CachedMetaData {
 
     /**
      * The query options this container is holding data for

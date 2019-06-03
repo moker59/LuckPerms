@@ -33,16 +33,15 @@ import me.lucko.luckperms.api.NodeEqualityPredicate;
 import me.lucko.luckperms.api.TemporaryDataMutateResult;
 import me.lucko.luckperms.api.TemporaryMergeBehaviour;
 import me.lucko.luckperms.api.Tristate;
-import me.lucko.luckperms.api.caching.CachedData;
+import me.lucko.luckperms.api.cacheddata.CachedDataManager;
 import me.lucko.luckperms.api.context.ContextSet;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
 import me.lucko.luckperms.api.node.Node;
-import me.lucko.luckperms.api.node.types.InheritanceNode;
+import me.lucko.luckperms.api.node.NodeType;
 import me.lucko.luckperms.api.query.QueryOptions;
 import me.lucko.luckperms.common.model.NodeMapType;
 import me.lucko.luckperms.common.model.PermissionHolder;
 import me.lucko.luckperms.common.node.comparator.NodeWithContextComparator;
-import me.lucko.luckperms.common.node.utils.MetaType;
 import me.lucko.luckperms.common.node.utils.NodeTools;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -55,7 +54,7 @@ import java.util.TreeSet;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Predicate;
 
-public class ApiPermissionHolder implements me.lucko.luckperms.api.PermissionHolder {
+public class ApiPermissionHolder implements me.lucko.luckperms.api.model.PermissionHolder {
     private final PermissionHolder handle;
 
     private final Enduring enduringData;
@@ -82,7 +81,7 @@ public class ApiPermissionHolder implements me.lucko.luckperms.api.PermissionHol
     }
 
     @Override
-    public @NonNull CachedData getCachedData() {
+    public @NonNull CachedDataManager getCachedData() {
         return this.handle.getCachedData();
     }
 
@@ -207,12 +206,12 @@ public class ApiPermissionHolder implements me.lucko.luckperms.api.PermissionHol
 
         @Override
         public void clearMeta() {
-            ApiPermissionHolder.this.handle.removeIfEnduring(MetaType.ANY::matches);
+            ApiPermissionHolder.this.handle.removeIfEnduring(NodeType.META_OR_CHAT_META::matches);
         }
 
         @Override
         public void clearMeta(@NonNull ContextSet contextSet) {
-            ApiPermissionHolder.this.handle.removeIfEnduring(contextSet, MetaType.ANY::matches);
+            ApiPermissionHolder.this.handle.removeIfEnduring(contextSet, NodeType.META_OR_CHAT_META::matches);
         }
     }
 
@@ -264,22 +263,22 @@ public class ApiPermissionHolder implements me.lucko.luckperms.api.PermissionHol
 
         @Override
         public void clearParents() {
-            ApiPermissionHolder.this.handle.removeIfTransient(n -> n instanceof InheritanceNode);
+            ApiPermissionHolder.this.handle.removeIfTransient(NodeType.INHERITANCE::matches);
         }
 
         @Override
         public void clearParents(@NonNull ContextSet contextSet) {
-            ApiPermissionHolder.this.handle.removeIfTransient(contextSet, n -> n instanceof InheritanceNode);
+            ApiPermissionHolder.this.handle.removeIfTransient(contextSet, NodeType.INHERITANCE::matches);
         }
 
         @Override
         public void clearMeta() {
-            ApiPermissionHolder.this.handle.removeIfTransient(MetaType.ANY::matches);
+            ApiPermissionHolder.this.handle.removeIfTransient(NodeType.META_OR_CHAT_META::matches);
         }
 
         @Override
         public void clearMeta(@NonNull ContextSet contextSet) {
-            ApiPermissionHolder.this.handle.removeIfTransient(contextSet, MetaType.ANY::matches);
+            ApiPermissionHolder.this.handle.removeIfTransient(contextSet, NodeType.META_OR_CHAT_META::matches);
         }
     }
 

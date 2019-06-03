@@ -47,11 +47,11 @@ import java.util.Set;
 
 public abstract class CalculatedSubject implements LPSubject {
     private final LPSpongePlugin plugin;
-    private final CalculatedSubjectCachedData cachedData;
+    private final CalculatedSubjectCachedDataManager cachedData;
 
     protected CalculatedSubject(LPSpongePlugin plugin) {
         this.plugin = plugin;
-        this.cachedData = new CalculatedSubjectCachedData(this, plugin);
+        this.cachedData = new CalculatedSubjectCachedDataManager(this, plugin);
     }
 
     @Override

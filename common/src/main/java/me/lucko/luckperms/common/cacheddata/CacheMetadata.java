@@ -25,19 +25,19 @@
 
 package me.lucko.luckperms.common.cacheddata;
 
-import me.lucko.luckperms.api.caching.CachedDataContainer;
+import me.lucko.luckperms.api.cacheddata.CachedData;
 import me.lucko.luckperms.api.query.QueryOptions;
 import me.lucko.luckperms.common.model.HolderType;
 
 /**
- * Metadata about a given {@link CachedDataContainer}.
+ * Metadata about a given {@link CachedData}.
  */
 public class CacheMetadata {
 
     /**
      * The cached data instance which creates this container
      */
-    private final AbstractCachedData parentContainer;
+    private final AbstractCachedDataManager parentContainer;
 
     /**
      * The type of the object which owns the cache
@@ -54,14 +54,14 @@ public class CacheMetadata {
      */
     private final QueryOptions queryOptions;
 
-    public CacheMetadata(AbstractCachedData parentContainer, HolderType holderType, String objectName, QueryOptions queryOptions) {
+    public CacheMetadata(AbstractCachedDataManager parentContainer, HolderType holderType, String objectName, QueryOptions queryOptions) {
         this.parentContainer = parentContainer;
         this.holderType = holderType;
         this.objectName = objectName;
         this.queryOptions = queryOptions;
     }
 
-    public AbstractCachedData getParentContainer() {
+    public AbstractCachedDataManager getParentContainer() {
         return this.parentContainer;
     }
 

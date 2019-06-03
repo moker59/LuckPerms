@@ -31,7 +31,7 @@ import me.lucko.luckperms.api.ChatMetaType;
 import me.lucko.luckperms.api.metastacking.DuplicateRemovalFunction;
 import me.lucko.luckperms.api.metastacking.MetaStackDefinition;
 import me.lucko.luckperms.api.query.QueryOptions;
-import me.lucko.luckperms.common.cacheddata.AbstractCachedData;
+import me.lucko.luckperms.common.cacheddata.AbstractCachedDataManager;
 import me.lucko.luckperms.common.cacheddata.CacheMetadata;
 import me.lucko.luckperms.common.cacheddata.type.MetaAccumulator;
 import me.lucko.luckperms.common.calculator.CalculatorFactory;
@@ -47,7 +47,7 @@ import me.lucko.luckperms.sponge.calculator.SpongeWildcardProcessor;
 
 import java.util.Map;
 
-public class CalculatedSubjectCachedData extends AbstractCachedData implements CalculatorFactory {
+public class CalculatedSubjectCachedDataManager extends AbstractCachedDataManager implements CalculatorFactory {
     private static final MetaStackDefinition DEFAULT_META_STACK = new SimpleMetaStackDefinition(
             ImmutableList.of(StandardStackElements.HIGHEST),
             DuplicateRemovalFunction.RETAIN_ALL,
@@ -56,7 +56,7 @@ public class CalculatedSubjectCachedData extends AbstractCachedData implements C
 
     private final CalculatedSubject subject;
 
-    CalculatedSubjectCachedData(CalculatedSubject subject, LuckPermsPlugin plugin) {
+    CalculatedSubjectCachedDataManager(CalculatedSubject subject, LuckPermsPlugin plugin) {
         super(plugin);
         this.subject = subject;
     }

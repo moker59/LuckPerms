@@ -23,31 +23,42 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api.manager;
+package me.lucko.luckperms.api.cacheddata;
 
-import me.lucko.luckperms.api.Group;
-import me.lucko.luckperms.api.User;
-import me.lucko.luckperms.api.caching.CachedData;
+import me.lucko.luckperms.api.Tristate;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
+
+import java.util.Map;
 
 /**
- * Represents an object responsible for managing {@link CachedData} instances.
+ * Holds cached permission lookup data for a specific set of contexts.
  *
- * @since 4.5
+ * @since 2.13
  */
-public interface CachedDataManager {
+public interface CachedPermissionData extends CachedData {
 
     /**
-     * Invalidate the {@link CachedData} instances for all loaded {@link User}s.
+     * Gets a permission check result for the given permission node.
      *
-     * @see CachedData#invalidate()
+     * @param permission the permission node
+     * @return a tristate result
+     * @throws NullPointerException if permission is null
      */
-    void invalidateAllUserCaches();
+    @NonNull Tristate getPermissionValue(@NonNull String permission);
 
     /**
-     * Invalidate the {@link CachedData} instances for all loaded {@link Group}s.
+     * Invalidates the underlying permission calculator cache.
      *
-     * @see CachedData#invalidate()
+     * <p>Can be called to allow for an update in defaults.</p>
      */
-    void invalidateAllGroupCaches();
+    void invalidateCache();
+
+    /**
+     * Gets an immutable copy of the permission map backing the permission calculator
+     *
+     * @return an immutable set of permissions
+     */
+    @NonNull Map<String, Boolean> getImmutableBacking();
 
 }

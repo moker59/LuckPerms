@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.api.context;
 
-import me.lucko.luckperms.api.User;
+import me.lucko.luckperms.api.model.User;
 import me.lucko.luckperms.api.query.QueryMode;
 import me.lucko.luckperms.api.query.QueryOptions;
 

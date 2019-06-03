@@ -1,5 +1,5 @@
 /*
- * This file is part of LuckPerms, licensed under the MIT License.
+ * This file is part of luckperms, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
  *  Copyright (c) contributors
@@ -23,13 +23,14 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api.manager;
+package me.lucko.luckperms.api.model;
 
-import me.lucko.luckperms.api.Track;
+import me.lucko.luckperms.api.HeldNode;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -37,7 +38,7 @@ import java.util.concurrent.Executor;
 import java.util.function.Consumer;
 
 /**
- * Represents the object responsible for managing {@link Track} instances.
+ * Represents the object responsible for managing {@link Group} instances.
  *
  * <p>All blocking methods return {@link CompletableFuture}s, which will be
  * populated with the result once the data has been loaded/saved asynchronously.
@@ -51,100 +52,110 @@ import java.util.function.Consumer;
  *
  * @since 4.0
  */
-public interface TrackManager {
+public interface GroupManager {
 
     /**
-     * Creates a new track in the plugin's storage provider and then loads it
+     * Creates a new group in the plugin's storage provider and then loads it
      * into memory.
      *
-     * <p>If a track by the same name already exists, it will be loaded.</p>
+     * <p>If a group by the same name already exists, it will be loaded.</p>
      *
-     * @param name the name of the track
-     * @return the resultant track
+     * @param name the name of the group
+     * @return the resultant group
      * @throws NullPointerException if the name is null
      * @since 4.1
      */
-    @NonNull CompletableFuture<Track> createAndLoadTrack(@NonNull String name);
+    @NonNull CompletableFuture<Group> createAndLoadGroup(@NonNull String name);
 
     /**
-     * Loads a track from the plugin's storage provider into memory.
+     * Loads a group from the plugin's storage provider into memory.
      *
-     * <p>Returns an {@link Optional#empty() empty optional} if the track does
+     * <p>Returns an {@link Optional#empty() empty optional} if the group does
      * not exist.</p>
      *
-     * @param name the name of the track
-     * @return the resultant track
+     * @param name the name of the group
+     * @return the resultant group
      * @throws NullPointerException if the name is null
      * @since 4.1
      */
-    @NonNull CompletableFuture<Optional<Track>> loadTrack(@NonNull String name);
+    @NonNull CompletableFuture<Optional<Group>> loadGroup(@NonNull String name);
 
     /**
-     * Saves a track's data back to the plugin's storage provider.
+     * Saves a group's data back to the plugin's storage provider.
      *
-     * <p>You should call this after you make any changes to a track.</p>
+     * <p>You should call this after you make any changes to a group.</p>
      *
-     * @param track the track to save
+     * @param group the group to save
      * @return a future to encapsulate the operation.
-     * @throws NullPointerException  if track is null
-     * @throws IllegalStateException if the track instance was not obtained from LuckPerms.
+     * @throws NullPointerException  if group is null
+     * @throws IllegalStateException if the group instance was not obtained from LuckPerms.
      * @since 4.1
      */
-    @NonNull CompletableFuture<Void> saveTrack(@NonNull Track track);
+    @NonNull CompletableFuture<Void> saveGroup(@NonNull Group group);
 
     /**
-     * Permanently deletes a track from the plugin's storage provider.
+     * Permanently deletes a group from the plugin's storage provider.
      *
-     * @param track the track to delete
+     * @param group the group to delete
      * @return a future to encapsulate the operation.
-     * @throws NullPointerException  if track is null
-     * @throws IllegalStateException if the track instance was not obtained from LuckPerms.
+     * @throws NullPointerException  if group is null
+     * @throws IllegalStateException if the group instance was not obtained from LuckPerms.
      * @since 4.1
      */
-    @NonNull CompletableFuture<Void> deleteTrack(@NonNull Track track);
+    @NonNull CompletableFuture<Void> deleteGroup(@NonNull Group group);
 
     /**
-     * Loads all tracks into memory.
+     * Loads all groups into memory.
      *
      * @return a future to encapsulate the operation.
      * @since 4.1
      */
-    @NonNull CompletableFuture<Void> loadAllTracks();
+    @NonNull CompletableFuture<Void> loadAllGroups();
 
     /**
-     * Gets a loaded track.
+     * Searches for a list of groups with a given permission.
      *
-     * @param name the name of the track to get
-     * @return a {@link Track} object, if one matching the name exists, or null if not
+     * @param permission the permission to search for
+     * @return a list of held permissions, or null if the operation failed
+     * @throws NullPointerException if the permission is null
+     * @since 4.2
+     */
+    @NonNull CompletableFuture<List<HeldNode<String>>> getWithPermission(@NonNull String permission);
+
+    /**
+     * Gets a loaded group.
+     *
+     * @param name the name of the group to get
+     * @return a {@link Group} object, if one matching the name exists, or null if not
      * @throws NullPointerException if the name is null
      */
-    @Nullable Track getTrack(@NonNull String name);
+    @Nullable Group getGroup(@NonNull String name);
 
     /**
-     * Gets a loaded track.
+     * Gets a loaded group.
      *
-     * <p>This method does not return null, unlike {@link #getTrack}</p>
+     * <p>This method does not return null, unlike {@link #getGroup}</p>
      *
-     * @param name the name of the track to get
-     * @return an optional {@link Track} object
+     * @param name the name of the group to get
+     * @return an optional {@link Group} object
      * @throws NullPointerException if the name is null
      */
-    default @NonNull Optional<Track> getTrackOpt(@NonNull String name) {
-        return Optional.ofNullable(getTrack(name));
+    default @NonNull Optional<Group> getGroupOpt(@NonNull String name) {
+        return Optional.ofNullable(getGroup(name));
     }
 
     /**
-     * Gets a set of all loaded tracks.
+     * Gets a set of all loaded groups.
      *
-     * @return a {@link Set} of {@link Track} objects
+     * @return a {@link Set} of {@link Group} objects
      */
-    @NonNull Set<Track> getLoadedTracks();
+    @NonNull Set<Group> getLoadedGroups();
 
     /**
-     * Check if a track is loaded in memory
+     * Check if a group is loaded in memory
      *
      * @param name the name to check for
-     * @return true if the track is loaded
+     * @return true if the group is loaded
      * @throws NullPointerException if the name is null
      */
     boolean isLoaded(@NonNull String name);
