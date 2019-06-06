@@ -178,7 +178,7 @@ public abstract class CalculatedSubject implements LPSubject {
 
     @Override
     public Tristate getPermissionValue(QueryOptions options, String permission) {
-        return this.cachedData.getPermissionData(options).getPermissionValue(permission, PermissionCheckEvent.Origin.INTERNAL).result();
+        return this.cachedData.getPermissionData(options).checkPermission(permission, PermissionCheckEvent.Origin.INTERNAL).result();
     }
 
     @Override

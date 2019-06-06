@@ -139,7 +139,7 @@ public class LPPermissible extends PermissibleBase {
             throw new NullPointerException("permission");
         }
 
-        TristateResult result = this.user.getCachedData().getPermissionData(this.queryOptionsSupplier.getQueryOptions()).getPermissionValue(permission, PermissionCheckEvent.Origin.PLATFORM_LOOKUP_CHECK);
+        TristateResult result = this.user.getCachedData().getPermissionData(this.queryOptionsSupplier.getQueryOptions()).checkPermission(permission, PermissionCheckEvent.Origin.PLATFORM_LOOKUP_CHECK);
         if (result.result() == Tristate.UNDEFINED) {
             return false;
         }
@@ -167,7 +167,7 @@ public class LPPermissible extends PermissibleBase {
             throw new NullPointerException("permission");
         }
 
-        Tristate ts = this.user.getCachedData().getPermissionData(this.queryOptionsSupplier.getQueryOptions()).getPermissionValue(permission, PermissionCheckEvent.Origin.PLATFORM_PERMISSION_CHECK).result();
+        Tristate ts = this.user.getCachedData().getPermissionData(this.queryOptionsSupplier.getQueryOptions()).checkPermission(permission, PermissionCheckEvent.Origin.PLATFORM_PERMISSION_CHECK).result();
         return ts != Tristate.UNDEFINED ? ts.asBoolean() : PermissionDefault.OP.getValue(isOp());
     }
 
@@ -177,7 +177,7 @@ public class LPPermissible extends PermissibleBase {
             throw new NullPointerException("permission");
         }
 
-        Tristate ts = this.user.getCachedData().getPermissionData(this.queryOptionsSupplier.getQueryOptions()).getPermissionValue(permission.getName(), PermissionCheckEvent.Origin.PLATFORM_PERMISSION_CHECK).result();
+        Tristate ts = this.user.getCachedData().getPermissionData(this.queryOptionsSupplier.getQueryOptions()).checkPermission(permission.getName(), PermissionCheckEvent.Origin.PLATFORM_PERMISSION_CHECK).result();
         if (ts != Tristate.UNDEFINED) {
             return ts.asBoolean();
         }

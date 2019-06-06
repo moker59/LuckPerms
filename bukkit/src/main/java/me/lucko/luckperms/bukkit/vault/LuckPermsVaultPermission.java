@@ -193,7 +193,7 @@ public class LuckPermsVaultPermission extends AbstractVaultPermission {
         QueryOptions queryOptions = getQueryOptions(uuid, world);
         PermissionCache permissionData = user.getCachedData().getPermissionData(queryOptions);
 
-        Tristate result = permissionData.getPermissionValue(permission, PermissionCheckEvent.Origin.THIRD_PARTY_API).result();
+        Tristate result = permissionData.checkPermission(permission, PermissionCheckEvent.Origin.THIRD_PARTY_API).result();
         if (log()) {
             logMsg("#userHasPermission: %s - %s - %s - %s", user.getPlainDisplayName(), queryOptions.context().toMultimap(), permission, result);
         }
@@ -233,7 +233,7 @@ public class LuckPermsVaultPermission extends AbstractVaultPermission {
         QueryOptions queryOptions = getQueryOptions(uuid, world);
         PermissionCache permissionData = user.getCachedData().getPermissionData(queryOptions);
 
-        TristateResult result = permissionData.getPermissionValue(NodeFactory.groupNode(rewriteGroupName(group)), PermissionCheckEvent.Origin.THIRD_PARTY_API);
+        TristateResult result = permissionData.checkPermission(NodeFactory.groupNode(rewriteGroupName(group)), PermissionCheckEvent.Origin.THIRD_PARTY_API);
         if (log()) {
             logMsg("#userInGroup: %s - %s - %s - %s", user.getPlainDisplayName(), queryOptions.context().toMultimap(), group, result);
         }
@@ -317,7 +317,7 @@ public class LuckPermsVaultPermission extends AbstractVaultPermission {
         QueryOptions queryOptions = getQueryOptions(null, world);
         PermissionCache permissionData = group.getCachedData().getPermissionData(queryOptions);
 
-        Tristate result = permissionData.getPermissionValue(permission, PermissionCheckEvent.Origin.THIRD_PARTY_API).result();
+        Tristate result = permissionData.checkPermission(permission, PermissionCheckEvent.Origin.THIRD_PARTY_API).result();
         if (log()) {
             logMsg("#groupHasPermission: %s - %s - %s - %s", group.getName(), queryOptions.context().toMultimap(), permission, result);
         }

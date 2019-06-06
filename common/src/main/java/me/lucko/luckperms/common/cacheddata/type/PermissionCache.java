@@ -103,16 +103,16 @@ public class PermissionCache implements CachedPermissionData {
         return this.permissionsUnmodifiable;
     }
 
-    public TristateResult getPermissionValue(String permission, PermissionCheckEvent.Origin origin) {
+    public TristateResult checkPermission(String permission, PermissionCheckEvent.Origin origin) {
         if (permission == null) {
             throw new NullPointerException("permission");
         }
-        return this.calculator.getPermissionValue(permission, origin);
+        return this.calculator.checkPermission(permission, origin);
     }
 
     @Override
-    public @NonNull Tristate getPermissionValue(@NonNull String permission) {
-        return getPermissionValue(permission, PermissionCheckEvent.Origin.LUCKPERMS_API).result();
+    public @NonNull Tristate checkPermission(@NonNull String permission) {
+        return checkPermission(permission, PermissionCheckEvent.Origin.LUCKPERMS_API).result();
     }
 
     @Override

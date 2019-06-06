@@ -57,6 +57,6 @@ public class PlayerPermissionProvider implements PermissionProvider, PermissionF
 
     @Override
     public @NonNull Tristate getPermissionValue(@NonNull String permission) {
-        return CompatibilityUtil.convertTristate(this.user.getCachedData().getPermissionData(this.queryOptionsSupplier.getQueryOptions()).getPermissionValue(permission, PermissionCheckEvent.Origin.PLATFORM_PERMISSION_CHECK).result());
+        return CompatibilityUtil.convertTristate(this.user.getCachedData().getPermissionData(this.queryOptionsSupplier.getQueryOptions()).checkPermission(permission, PermissionCheckEvent.Origin.PLATFORM_PERMISSION_CHECK).result());
     }
 }

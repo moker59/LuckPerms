@@ -304,7 +304,7 @@ public final class ArgumentPermissions {
         }
 
         PermissionCache permissionData = user.getCachedData().getPermissionData(QueryOptions.defaultContextualOptions().toBuilder().context(contextSet).build());
-        TristateResult result = permissionData.getPermissionValue(NodeFactory.groupNode(targetGroupName), PermissionCheckEvent.Origin.INTERNAL);
+        TristateResult result = permissionData.checkPermission(NodeFactory.groupNode(targetGroupName), PermissionCheckEvent.Origin.INTERNAL);
         return result.result() != Tristate.TRUE || result.processorClass() != MapProcessor.class;
     }
     

@@ -110,7 +110,7 @@ public abstract class PermissionHolderSubject<T extends PermissionHolder> implem
 
     @Override
     public Tristate getPermissionValue(QueryOptions options, String permission) {
-        return this.parent.getCachedData().getPermissionData(options).getPermissionValue(permission, PermissionCheckEvent.Origin.PLATFORM_LOOKUP_CHECK).result();
+        return this.parent.getCachedData().getPermissionData(options).checkPermission(permission, PermissionCheckEvent.Origin.PLATFORM_LOOKUP_CHECK).result();
     }
 
     @Override

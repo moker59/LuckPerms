@@ -66,7 +66,7 @@ public class BungeePermissionCheckListener implements Listener {
         }
 
         QueryOptions queryOptions = this.plugin.getContextManager().getQueryOptions(player);
-        Tristate result = user.getCachedData().getPermissionData(queryOptions).getPermissionValue(e.getPermission(), me.lucko.luckperms.common.verbose.event.PermissionCheckEvent.Origin.PLATFORM_PERMISSION_CHECK).result();
+        Tristate result = user.getCachedData().getPermissionData(queryOptions).checkPermission(e.getPermission(), me.lucko.luckperms.common.verbose.event.PermissionCheckEvent.Origin.PLATFORM_PERMISSION_CHECK).result();
         if (result == Tristate.UNDEFINED && this.plugin.getConfiguration().get(ConfigKeys.APPLY_BUNGEE_CONFIG_PERMISSIONS)) {
             return; // just use the result provided by the proxy when the event was created
         }
@@ -92,7 +92,7 @@ public class BungeePermissionCheckListener implements Listener {
         }
 
         QueryOptions queryOptions = this.plugin.getContextManager().getQueryOptions(player);
-        Tristate result = user.getCachedData().getPermissionData(queryOptions).getPermissionValue(e.getPermission(), me.lucko.luckperms.common.verbose.event.PermissionCheckEvent.Origin.PLATFORM_LOOKUP_CHECK).result();
+        Tristate result = user.getCachedData().getPermissionData(queryOptions).checkPermission(e.getPermission(), me.lucko.luckperms.common.verbose.event.PermissionCheckEvent.Origin.PLATFORM_LOOKUP_CHECK).result();
         if (result == Tristate.UNDEFINED && this.plugin.getConfiguration().get(ConfigKeys.APPLY_BUNGEE_CONFIG_PERMISSIONS)) {
             return; // just use the result provided by the proxy when the event was created
         }

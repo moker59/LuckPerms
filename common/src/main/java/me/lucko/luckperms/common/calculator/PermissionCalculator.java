@@ -81,7 +81,7 @@ public class PermissionCalculator implements Function<String, TristateResult> {
      * @param origin marks where this check originated from
      * @return the result
      */
-    public TristateResult getPermissionValue(String permission, PermissionCheckEvent.Origin origin) {
+    public TristateResult checkPermission(String permission, PermissionCheckEvent.Origin origin) {
         // get the result
         TristateResult result = this.lookupCache.get(permission);
 

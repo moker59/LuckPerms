@@ -45,7 +45,7 @@ public interface CachedPermissionData extends CachedData {
      * @return a tristate result
      * @throws NullPointerException if permission is null
      */
-    @NonNull Tristate getPermissionValue(@NonNull String permission);
+    @NonNull Tristate checkPermission(@NonNull String permission);
 
     /**
      * Invalidates the underlying permission calculator cache.
