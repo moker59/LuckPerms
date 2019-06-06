@@ -25,6 +25,7 @@
 
 package me.lucko.luckperms.api.event.group;
 
+import me.lucko.luckperms.api.cacheddata.CachedDataManager;
 import me.lucko.luckperms.api.event.LuckPermsEvent;
 import me.lucko.luckperms.api.event.Param;
 import me.lucko.luckperms.api.model.Group;
@@ -51,6 +52,6 @@ public interface GroupDataRecalculateEvent extends LuckPermsEvent {
      * @return the data
      */
     @Param(1)
-    me.lucko.luckperms.common.cacheddata.GroupCachedDataManager getData();
+    CachedDataManager getData();
 
 }

@@ -25,6 +25,7 @@
 
 package me.lucko.luckperms.api.event.user;
 
+import me.lucko.luckperms.api.cacheddata.CachedDataManager;
 import me.lucko.luckperms.api.event.LuckPermsEvent;
 import me.lucko.luckperms.api.event.Param;
 import me.lucko.luckperms.api.model.User;
@@ -49,6 +50,6 @@ public interface UserDataRecalculateEvent extends LuckPermsEvent {
      * @return the data
      */
     @Param(1)
-    me.lucko.luckperms.common.cacheddata.UserCachedDataManager getData();
+    CachedDataManager getData();
 
 }

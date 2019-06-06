@@ -48,12 +48,10 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -107,28 +105,28 @@ public final class NodeMap {
         this.holder = holder;
     }
 
-    public List<Node> asList() {
-        List<Node> list = new ArrayList<>();
-        copyTo(list);
-        return list;
-    }
-
     public LinkedHashSet<Node> asSet() {
         LinkedHashSet<Node> set = new LinkedHashSet<>();
-        copyTo(set);
+        copyTo(set, QueryOptions.nonContextual());
         return set;
     }
 
     public SortedSet<Node> asSortedSet() {
         SortedSet<Node> ret = new TreeSet<>(NodeWithContextComparator.reverse());
-        copyTo(ret);
+        copyTo(ret, QueryOptions.nonContextual());
         return ret;
     }
 
-    public void copyTo(Collection<? super Node> collection) {
-        for (SortedSet<Node> nodes : this.map.values()) {
-            collection.addAll(nodes);
-        }
+    public LinkedHashSet<InheritanceNode> inheritanceAsSet() {
+        LinkedHashSet<InheritanceNode> set = new LinkedHashSet<>();
+        copyInheritanceNodesTo(set, QueryOptions.nonContextual());
+        return set;
+    }
+
+    public SortedSet<InheritanceNode> inheritanceAsSortedSet() {
+        SortedSet<InheritanceNode> ret = new TreeSet<>(NodeWithContextComparator.reverse());
+        copyInheritanceNodesTo(ret, QueryOptions.nonContextual());
+        return ret;
     }
 
     public void copyTo(Collection<? super Node> collection, QueryOptions filter) {
@@ -139,7 +137,7 @@ public final class NodeMap {
         }
     }
 
-    public void copyGroupNodesTo(Collection<? super InheritanceNode> collection, QueryOptions filter) {
+    public void copyInheritanceNodesTo(Collection<? super InheritanceNode> collection, QueryOptions filter) {
         for (Map.Entry<ImmutableContextSet, SortedSet<InheritanceNode>> e : this.inheritanceMap.entrySet()) {
             if (filter.satisfies(e.getKey())) {
                 collection.addAll(e.getValue());
@@ -208,14 +206,12 @@ public final class NodeMap {
         ImmutableContextSet context = node.getContexts();
         SortedSet<Node> nodesInContext = this.map.get(context);
         if (nodesInContext != null) {
-            //noinspection SuspiciousMethodCalls
             nodesInContext.remove(node);
         }
 
         if (node instanceof InheritanceNode && node.getValue()) {
             SortedSet<InheritanceNode> groupNodesInContext = this.inheritanceMap.get(context);
             if (groupNodesInContext != null) {
-                //noinspection SuspiciousMethodCalls
                 groupNodesInContext.remove(node);
             }
         }

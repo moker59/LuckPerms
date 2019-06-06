@@ -1,5 +1,5 @@
 /*
- * This file is part of luckperms, licensed under the MIT License.
+ * This file is part of LuckPerms, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
  *  Copyright (c) contributors
@@ -37,6 +37,7 @@ import me.lucko.luckperms.api.node.types.WeightNode;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -47,192 +48,54 @@ public interface NodeType<T extends Node> {
     /**
      * 
      */
-    NodeType<PermissionNode> PERMISSION = new NodeType<PermissionNode>() {
-        @Override
-        public boolean matches(Node node) {
-            Objects.requireNonNull(node, "node");
-            return node instanceof PermissionNode;
-        }
-
-        @Override
-        public PermissionNode cast(Node node) {
-            if (!matches(node)) {
-                throw new IllegalArgumentException("Node " + node.getClass() + " does not match " + this);
-            }
-            return ((PermissionNode) node);
-        }
-    };
+    NodeType<PermissionNode> PERMISSION = new SimpleNodeType<>("PERMISSION", n ->  n instanceof PermissionNode, n -> ((PermissionNode) n));
 
     /**
      * 
      */
-    NodeType<RegexPermissionNode> REGEX_PERMISSION = new NodeType<RegexPermissionNode>() {
-        @Override
-        public boolean matches(Node node) {
-            Objects.requireNonNull(node, "node");
-            return node instanceof RegexPermissionNode;
-        }
-
-        @Override
-        public RegexPermissionNode cast(Node node) {
-            if (!matches(node)) {
-                throw new IllegalArgumentException("Node " + node.getClass() + " does not match " + this);
-            }
-            return ((RegexPermissionNode) node);
-        }
-    };
+    NodeType<RegexPermissionNode> REGEX_PERMISSION = new SimpleNodeType<>("REGEX_PERMISSION", n ->  n instanceof RegexPermissionNode, n -> ((RegexPermissionNode) n));
 
     /**
      * 
      */
-    NodeType<InheritanceNode> INHERITANCE = new NodeType<InheritanceNode>() {
-        @Override
-        public boolean matches(Node node) {
-            Objects.requireNonNull(node, "node");
-            return node instanceof InheritanceNode;
-        }
-
-        @Override
-        public InheritanceNode cast(Node node) {
-            if (!matches(node)) {
-                throw new IllegalArgumentException("Node " + node.getClass() + " does not match " + this);
-            }
-            return ((InheritanceNode) node);
-        }
-    };
+    NodeType<InheritanceNode> INHERITANCE = new SimpleNodeType<>("INHERITANCE", n ->  n instanceof InheritanceNode, n -> ((InheritanceNode) n));
 
     /**
      * Represents a prefix
      */
-    NodeType<PrefixNode> PREFIX = new NodeType<PrefixNode>() {
-        @Override
-        public boolean matches(Node node) {
-            Objects.requireNonNull(node, "node");
-            return node instanceof PrefixNode;
-        }
-
-        @Override
-        public PrefixNode cast(Node node) {
-            if (!matches(node)) {
-                throw new IllegalArgumentException("Node " + node.getClass() + " does not match " + this);
-            }
-            return ((PrefixNode) node);
-        }
-    };
+    NodeType<PrefixNode> PREFIX = new SimpleNodeType<>("PREFIX", n ->  n instanceof PrefixNode, n -> ((PrefixNode) n));
 
     /**
      * Represents a suffix
      */
-    NodeType<SuffixNode> SUFFIX = new NodeType<SuffixNode>() {
-        @Override
-        public boolean matches(Node node) {
-            Objects.requireNonNull(node, "node");
-            return node instanceof SuffixNode;
-        }
-
-        @Override
-        public SuffixNode cast(Node node) {
-            if (!matches(node)) {
-                throw new IllegalArgumentException("Node " + node.getClass() + " does not match " + this);
-            }
-            return ((SuffixNode) node);
-        }
-    };
+    NodeType<SuffixNode> SUFFIX = new SimpleNodeType<>("SUFFIX", n ->  n instanceof SuffixNode, n -> ((SuffixNode) n));
 
     /**
      * Represents a meta key-value pair
      */
-    NodeType<MetaNode> META = new NodeType<MetaNode>() {
-        @Override
-        public boolean matches(Node node) {
-            Objects.requireNonNull(node, "node");
-            return node instanceof MetaNode;
-        }
-
-        @Override
-        public MetaNode cast(Node node) {
-            if (!matches(node)) {
-                throw new IllegalArgumentException("Node " + node.getClass() + " does not match " + this);
-            }
-            return ((MetaNode) node);
-        }
-    };
+    NodeType<MetaNode> META = new SimpleNodeType<>("META", n ->  n instanceof MetaNode, n -> ((MetaNode) n));
 
     /**
      * 
      */
-    NodeType<WeightNode> WEIGHT = new NodeType<WeightNode>() {
-        @Override
-        public boolean matches(Node node) {
-            Objects.requireNonNull(node, "node");
-            return node instanceof WeightNode;
-        }
-
-        @Override
-        public WeightNode cast(Node node) {
-            if (!matches(node)) {
-                throw new IllegalArgumentException("Node " + node.getClass() + " does not match " + this);
-            }
-            return ((WeightNode) node);
-        }
-    };
+    NodeType<WeightNode> WEIGHT = new SimpleNodeType<>("WEIGHT", n ->  n instanceof WeightNode, n -> ((WeightNode) n));
 
     /**
      * 
      */
-    NodeType<DisplayNameNode> DISPLAY_NAME = new NodeType<DisplayNameNode>() {
-        @Override
-        public boolean matches(Node node) {
-            Objects.requireNonNull(node, "node");
-            return node instanceof DisplayNameNode;
-        }
-
-        @Override
-        public DisplayNameNode cast(Node node) {
-            if (!matches(node)) {
-                throw new IllegalArgumentException("Node " + node.getClass() + " does not match " + this);
-            }
-            return ((DisplayNameNode) node);
-        }
-    };
-
-    /**
-     * Represents any meta type
-     */
-    NodeType<Node> META_OR_CHAT_META = new NodeType<Node>() {
-        @Override
-        public boolean matches(Node node) {
-            Objects.requireNonNull(node, "node");
-            return META.matches(node) || CHAT_META.matches(node);
-        }
-
-        @Override
-        public Node cast(Node node) {
-            if (!matches(node)) {
-                throw new IllegalArgumentException("Node " + node.getClass() + " does not match " + this);
-            }
-            return node;
-        }
-    };
+    NodeType<DisplayNameNode> DISPLAY_NAME = new SimpleNodeType<>("DISPLAY_NAME", n ->  n instanceof DisplayNameNode, n -> ((DisplayNameNode) n));
 
     /**
      * Represents any chat meta type
      */
-    NodeType<ChatMetaNode<?, ?>> CHAT_META = new NodeType<ChatMetaNode<?, ?>>() {
-        @Override
-        public boolean matches(Node node) {
-            Objects.requireNonNull(node, "node");
-            return node instanceof ChatMetaNode<?, ?>;
-        }
+    NodeType<ChatMetaNode<?, ?>> CHAT_META = new SimpleNodeType<>("CHAT_META", n ->  n instanceof ChatMetaNode<?, ?>, n -> ((ChatMetaNode<?, ?>) n));
 
-        @Override
-        public ChatMetaNode<?, ?> cast(Node node) {
-            if (!matches(node)) {
-                throw new IllegalArgumentException("Node " + node.getClass() + " does not match " + this);
-            }
-            return (ChatMetaNode<?, ?>) node;
-        }
-    };
+    /**
+     * Represents any meta type
+     */
+    NodeType<Node> META_OR_CHAT_META = new SimpleNodeType<>("META_OR_CHAT_META", n ->  META.matches(n) || CHAT_META.matches(n), Function.identity());
+
+    String name();
 
     /**
      * Returns if the passed node matches the type
@@ -258,11 +121,11 @@ public interface NodeType<T extends Node> {
         }
     }
 
-    default Predicate<? super Node> predicate() {
+    default Predicate<Node> predicate() {
         return this::matches;
     }
 
-    default Predicate<? extends Node> predicate(Predicate<? super T> and) {
+    default Predicate<Node> predicate(Predicate<? super T> and) {
         return node -> matches(node) && and.test(cast(node));
     }
 

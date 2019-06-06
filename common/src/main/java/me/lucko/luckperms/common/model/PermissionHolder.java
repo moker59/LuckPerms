@@ -234,8 +234,8 @@ public abstract class PermissionHolder {
 
     public List<Node> getOwnNodes() {
         List<Node> ret = new ArrayList<>();
-        this.transientNodes.copyTo(ret);
-        this.enduringNodes.copyTo(ret);
+        this.transientNodes.copyTo(ret, QueryOptions.nonContextual());
+        this.enduringNodes.copyTo(ret, QueryOptions.nonContextual());
         return ret;
     }
 
@@ -248,15 +248,15 @@ public abstract class PermissionHolder {
 
     public List<InheritanceNode> getOwnGroupNodes(QueryOptions queryOptions) {
         List<InheritanceNode> ret = new ArrayList<>();
-        this.transientNodes.copyGroupNodesTo(ret, queryOptions);
-        this.enduringNodes.copyGroupNodesTo(ret, queryOptions);
+        this.transientNodes.copyInheritanceNodesTo(ret, queryOptions);
+        this.enduringNodes.copyInheritanceNodesTo(ret, queryOptions);
         return ret;
     }
 
     public SortedSet<Node> getOwnNodesSorted() {
         SortedSet<Node> ret = new TreeSet<>(NodeWithContextComparator.reverse());
-        this.transientNodes.copyTo(ret);
-        this.enduringNodes.copyTo(ret);
+        this.transientNodes.copyTo(ret, QueryOptions.nonContextual());
+        this.enduringNodes.copyTo(ret, QueryOptions.nonContextual());
         return ret;
     }
 

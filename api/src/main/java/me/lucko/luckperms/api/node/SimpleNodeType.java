@@ -23,29 +23,44 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.common.api.implementation;
+package me.lucko.luckperms.api.node;
 
-import me.lucko.luckperms.api.manager.CachedDataManager;
-import me.lucko.luckperms.common.model.manager.group.GroupManager;
-import me.lucko.luckperms.common.model.manager.user.UserManager;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
-public class ApiCachedDataManager implements CachedDataManager {
-    private final UserManager<?> userManager;
-    private final GroupManager<?> groupManager;
+final class SimpleNodeType<T extends Node> implements NodeType<T> {
+    private final String name;
+    private final Predicate<Node> matches;
+    private final Function<Node, T> cast;
 
-    public ApiCachedDataManager(UserManager<?> userManager, GroupManager<?> groupManager) {
-        this.userManager = userManager;
-        this.groupManager = groupManager;
-    }
-
-
-    @Override
-    public void invalidateAllUserCaches() {
-        this.userManager.invalidateAllUserCaches();
+    SimpleNodeType(String name, Predicate<Node> matches, Function<Node, T> cast) {
+        this.name = name;
+        this.matches = matches;
+        this.cast = cast;
     }
 
     @Override
-    public void invalidateAllGroupCaches() {
-        this.groupManager.invalidateAllGroupCaches();
+    public String name() {
+        return this.name;
+    }
+
+    @Override
+    public boolean matches(Node node) {
+        Objects.requireNonNull(node, "node");
+        return this.matches.test(node);
+    }
+
+    @Override
+    public T cast(Node node) {
+        if (!matches(node)) {
+            throw new IllegalArgumentException("Node " + node.getClass() + " does not match " + this.name);
+        }
+        return this.cast.apply(node);
+    }
+
+    @Override
+    public String toString() {
+        return name();
     }
 }

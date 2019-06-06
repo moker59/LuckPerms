@@ -29,6 +29,7 @@ import com.google.common.collect.ImmutableCollection;
 
 import me.lucko.luckperms.api.context.ImmutableContextSet;
 import me.lucko.luckperms.api.node.Node;
+import me.lucko.luckperms.api.node.NodeType;
 import me.lucko.luckperms.api.node.types.InheritanceNode;
 import me.lucko.luckperms.common.config.ConfigKeys;
 import me.lucko.luckperms.common.model.User;
@@ -98,8 +99,8 @@ public abstract class AbstractUserManager<T extends User> extends AbstractManage
             // need to find a new primary group for the user.
             if (!has) {
                 String group = user.enduringData().immutable().get(ImmutableContextSet.empty()).stream()
-                        .filter(n -> n instanceof InheritanceNode)
-                        .map(n -> ((InheritanceNode) n))
+                        .filter(NodeType.INHERITANCE::matches)
+                        .map(NodeType.INHERITANCE::cast)
                         .findFirst()
                         .map(InheritanceNode::getGroupName)
                         .orElse(null);

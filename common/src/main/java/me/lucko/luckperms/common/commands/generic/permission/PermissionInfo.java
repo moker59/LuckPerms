@@ -27,7 +27,6 @@ package me.lucko.luckperms.common.commands.generic.permission;
 
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.NodeType;
-import me.lucko.luckperms.api.node.types.InheritanceNode;
 import me.lucko.luckperms.common.command.CommandManager;
 import me.lucko.luckperms.common.command.CommandResult;
 import me.lucko.luckperms.common.command.abstraction.SharedSubCommand;
@@ -61,7 +60,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 public class PermissionInfo extends SharedSubCommand {
     public PermissionInfo(LocaleManager locale) {
@@ -82,11 +80,8 @@ public class PermissionInfo extends SharedSubCommand {
         List<Node> nodes = new ArrayList<>(holder.enduringData().asSortedSet());
 
         // remove irrelevant types (these are displayed in the other info commands)
-        Predicate<? extends Node> predicate = NodeType.INHERITANCE.predicate(n -> n.getValue() && plugin.getGroupManager().isLoaded(n.getGroupName()));
-        predicate.or(NodeType.META_OR_CHAT_META.predicate());
-        nodes.removeIf(node ->
-                (node instanceof InheritanceNode && node.getValue() && plugin.getGroupManager().isLoaded(((InheritanceNode) node).getGroupName())) ||
-                NodeType.META_OR_CHAT_META.matches(node));
+        nodes.removeIf(NodeType.INHERITANCE.predicate(n -> n.getValue() && plugin.getGroupManager().isLoaded(n.getGroupName()))
+                .or(NodeType.META_OR_CHAT_META.predicate()));
 
         // handle empty
         if (nodes.isEmpty()) {

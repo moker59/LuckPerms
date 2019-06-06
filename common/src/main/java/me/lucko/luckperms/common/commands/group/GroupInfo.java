@@ -42,7 +42,6 @@ import me.lucko.luckperms.common.util.DurationFormatter;
 import me.lucko.luckperms.common.util.Predicates;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GroupInfo extends SubCommand<Group> {
@@ -63,17 +62,15 @@ public class GroupInfo extends SubCommand<Group> {
                 group.getWeight().isPresent() ? group.getWeight().getAsInt() : "None"
         );
 
-        Set<InheritanceNode> parents = group.enduringData().asSet().stream()
-                .filter(n -> n instanceof InheritanceNode)
-                .map(n -> ((InheritanceNode) n))
+        List<InheritanceNode> parents = group.enduringData().inheritanceAsSortedSet().stream()
+                .filter(Node::getValue)
                 .filter(n -> !n.hasExpiry())
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
 
-        Set<InheritanceNode> tempParents = group.enduringData().asSet().stream()
-                .filter(n -> n instanceof InheritanceNode)
-                .map(n -> ((InheritanceNode) n))
+        List<InheritanceNode> tempParents = group.enduringData().inheritanceAsSortedSet().stream()
+                .filter(Node::getValue)
                 .filter(Node::hasExpiry)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
 
         if (!parents.isEmpty()) {
             Message.INFO_PARENT_HEADER.send(sender);

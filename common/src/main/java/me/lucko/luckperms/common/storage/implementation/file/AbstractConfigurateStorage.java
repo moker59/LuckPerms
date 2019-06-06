@@ -684,7 +684,7 @@ public abstract class AbstractConfigurateStorage implements StorageImplementatio
                 writeAttributesTo(attributes, node, false);
 
                 appendNode(metaSection, meta.getMetaKey(), attributes, "key");
-            } else if (n instanceof InheritanceNode&& n.getValue()) {
+            } else if (n instanceof InheritanceNode && n.getValue()) {
                 // handle group nodes
                 ConfigurationNode attributes = SimpleConfigurationNode.root();
                 writeAttributesTo(attributes, node, false);
