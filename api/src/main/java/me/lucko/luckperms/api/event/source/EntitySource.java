@@ -25,12 +25,12 @@
 
 package me.lucko.luckperms.api.event.source;
 
-import me.lucko.luckperms.api.Entity;
+import me.lucko.luckperms.api.platform.PlatformEntity;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
- * Represents an {@link Entity} which was the {@link Source} of something.
+ * Represents an {@link PlatformEntity} which was the {@link Source} of something.
  *
  * @since 4.1
  */
@@ -41,6 +41,6 @@ public interface EntitySource extends Source {
      *
      * @return the entity
      */
-    @NonNull Entity getEntity();
+    @NonNull PlatformEntity getEntity();
 
 }

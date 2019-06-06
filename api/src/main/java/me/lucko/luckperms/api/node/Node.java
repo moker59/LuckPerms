@@ -25,8 +25,7 @@
 
 package me.lucko.luckperms.api.node;
 
-import me.lucko.luckperms.LuckPerms;
-import me.lucko.luckperms.api.NodeEqualityPredicate;
+import me.lucko.luckperms.LuckPermsProvider;
 import me.lucko.luckperms.api.context.ContextSet;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
 import me.lucko.luckperms.api.node.metadata.NodeMetadata;
@@ -102,7 +101,7 @@ public interface Node {
      * @since 5.0
      */
     static @NonNull NodeBuilder builder(@NonNull String key) {
-        return LuckPerms.getApi().getNodeBuilderRegistry().forKey(key);
+        return LuckPermsProvider.getApi().getNodeBuilderRegistry().forKey(key);
     }
 
     /**

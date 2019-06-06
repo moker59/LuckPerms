@@ -26,7 +26,7 @@
 package me.lucko.luckperms.common.node.types;
 
 import me.lucko.luckperms.api.context.ImmutableContextSet;
-import me.lucko.luckperms.api.model.Group;
+import me.lucko.luckperms.api.model.group.Group;
 import me.lucko.luckperms.api.node.metadata.NodeMetadata;
 import me.lucko.luckperms.api.node.metadata.NodeMetadataKey;
 import me.lucko.luckperms.api.node.types.InheritanceNode;

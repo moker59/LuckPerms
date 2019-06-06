@@ -27,9 +27,9 @@ package me.lucko.luckperms.bukkit.vault;
 
 import com.google.common.base.Strings;
 
-import me.lucko.luckperms.api.ChatMetaType;
 import me.lucko.luckperms.api.context.DefaultContextKeys;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
+import me.lucko.luckperms.api.node.ChatMetaType;
 import me.lucko.luckperms.api.node.NodeBuilder;
 import me.lucko.luckperms.api.node.types.MetaNode;
 import me.lucko.luckperms.api.query.Flag;
@@ -263,7 +263,7 @@ public class LuckPermsVaultChat extends AbstractVaultChat {
         }
 
         // remove all prefixes/suffixes directly set on the user/group
-        holder.removeIfEnduring(type::matches);
+        holder.removeIfEnduring(node -> type.nodeType().matches(node));
 
         if (value == null) {
             this.vaultPermission.holderSave(holder);

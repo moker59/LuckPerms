@@ -25,9 +25,9 @@
 
 package me.lucko.luckperms.common.commands.generic.parent;
 
-import me.lucko.luckperms.api.NodeEqualityPredicate;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
 import me.lucko.luckperms.api.node.Node;
+import me.lucko.luckperms.api.node.NodeEqualityPredicate;
 import me.lucko.luckperms.common.actionlog.ExtendedLogEntry;
 import me.lucko.luckperms.common.command.CommandResult;
 import me.lucko.luckperms.common.command.abstraction.SharedSubCommand;

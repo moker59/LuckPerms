@@ -25,8 +25,9 @@
 
 package me.lucko.luckperms.common.metastacking;
 
-import me.lucko.luckperms.api.ChatMetaType;
 import me.lucko.luckperms.api.metastacking.MetaStackElement;
+import me.lucko.luckperms.api.node.ChatMetaType;
+import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.metadata.types.InheritedFromMetadata;
 import me.lucko.luckperms.api.node.types.ChatMetaNode;
 import me.lucko.luckperms.common.model.Track;
@@ -94,9 +95,9 @@ public final class StandardStackElements {
 
     // utility functions, used in combination with FluentMetaStackElement for form full MetaStackElements
 
-    private static final MetaStackElement TYPE_CHECK = (node, type, current) -> type.matches(node);
-    private static final MetaStackElement HIGHEST_CHECK = (node, type, current) -> current == null || type.getEntry(node).getKey() > current.getKey();
-    private static final MetaStackElement LOWEST_CHECK = (node, type, current) -> current == null || type.getEntry(node).getKey() < current.getKey();
+    private static final MetaStackElement TYPE_CHECK = (node, type, current) -> type.nodeType().matches(node);
+    private static final MetaStackElement HIGHEST_CHECK = (node, type, current) -> current == null || type.nodeType().cast((Node) node).getAsEntry().getKey() > current.getKey();
+    private static final MetaStackElement LOWEST_CHECK = (node, type, current) -> current == null || type.nodeType().cast((Node) node).getAsEntry().getKey() < current.getKey();
     private static final MetaStackElement OWN_CHECK = (node, type, current) -> Uuids.fromString(node.metadata(InheritedFromMetadata.KEY).getLocation()) != null;
     private static final MetaStackElement INHERITED_CHECK = (node, type, current) -> Uuids.fromString(node.metadata(InheritedFromMetadata.KEY).getLocation()) == null;
 

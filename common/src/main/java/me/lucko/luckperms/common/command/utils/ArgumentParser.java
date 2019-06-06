@@ -25,10 +25,10 @@
 
 package me.lucko.luckperms.common.command.utils;
 
-import me.lucko.luckperms.api.TemporaryMergeBehaviour;
 import me.lucko.luckperms.api.context.DefaultContextKeys;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
 import me.lucko.luckperms.api.context.MutableContextSet;
+import me.lucko.luckperms.api.model.TemporaryMergeBehaviour;
 import me.lucko.luckperms.common.command.abstraction.CommandException;
 import me.lucko.luckperms.common.commands.user.UserMainCommand;
 import me.lucko.luckperms.common.plugin.LuckPermsPlugin;

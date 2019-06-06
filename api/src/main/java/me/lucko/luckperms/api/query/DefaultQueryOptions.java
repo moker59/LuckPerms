@@ -26,40 +26,18 @@
 package me.lucko.luckperms.api.query;
 
 import me.lucko.luckperms.api.context.ImmutableContextSet;
-import me.lucko.luckperms.api.metastacking.MetaStackDefinition;
 
 import java.util.EnumSet;
 
 /**
  * TODO
  */
-public final class DefaultQueryOptions {
+final class DefaultQueryOptions {
     private DefaultQueryOptions() {}
 
     private static final EnumSet<Flag> DEFAULT_FLAGS = EnumSet.allOf(Flag.class);
 
     static final QueryOptions CONTEXTUAL = QueryOptions.contextual(ImmutableContextSet.empty(), DEFAULT_FLAGS);
     static final QueryOptions NON_CONTEXTUAL = QueryOptions.nonContextual(DEFAULT_FLAGS);
-
-    private static final OptionKey<MetaStackDefinition> PREFIX_STACK_DEFINITION_KEY = new OptionKey<MetaStackDefinition>(){};
-    private static final OptionKey<MetaStackDefinition> SUFFIX_STACK_DEFINITION_KEY = new OptionKey<MetaStackDefinition>(){};
-
-    /**
-     * TODO
-     *
-     * @return
-     */
-    public static OptionKey<MetaStackDefinition> prefixStackDefinitionKey() {
-        return PREFIX_STACK_DEFINITION_KEY;
-    }
-
-    /**
-     * TODO
-     *
-     * @return
-     */
-    public static OptionKey<MetaStackDefinition> suffixStackDefinitionKey() {
-        return SUFFIX_STACK_DEFINITION_KEY;
-    }
 
 }

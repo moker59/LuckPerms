@@ -27,8 +27,8 @@ package me.lucko.luckperms.sponge.service.model.permissionholder;
 
 import com.google.common.collect.ImmutableList;
 
-import me.lucko.luckperms.api.Tristate;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
+import me.lucko.luckperms.api.node.Tristate;
 import me.lucko.luckperms.api.query.QueryOptions;
 import me.lucko.luckperms.common.cacheddata.type.MetaCache;
 import me.lucko.luckperms.common.graph.TraversalAlgorithm;

@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.api.node.types;
 
-import me.lucko.luckperms.LuckPerms;
+import me.lucko.luckperms.LuckPermsProvider;
 import me.lucko.luckperms.api.node.Node;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -50,7 +50,7 @@ public interface PrefixNode extends ChatMetaNode<PrefixNode, PrefixNode.Builder>
      * @return
      */
     static @NonNull Builder builder() {
-        return LuckPerms.getApi().getNodeBuilderRegistry().forPrefix();
+        return LuckPermsProvider.getApi().getNodeBuilderRegistry().forPrefix();
     }
 
     /**

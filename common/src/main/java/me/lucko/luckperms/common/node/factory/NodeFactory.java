@@ -25,9 +25,9 @@
 
 package me.lucko.luckperms.common.node.factory;
 
-import me.lucko.luckperms.api.ChatMetaType;
 import me.lucko.luckperms.api.context.ContextSet;
 import me.lucko.luckperms.api.context.DefaultContextKeys;
+import me.lucko.luckperms.api.node.ChatMetaType;
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.NodeBuilder;
 import me.lucko.luckperms.api.node.types.ChatMetaNode;
@@ -245,10 +245,10 @@ public final class NodeFactory {
 
             sb.append(chatMetaType)
                     .append(" ")
-                    .append(chatMetaType.getEntry(node).getKey()) // weight
+                    .append(chatMetaType.nodeType().cast(node).getAsEntry().getKey()) // weight
                     .append(" ");
 
-            String value = chatMetaType.getEntry(node).getValue();
+            String value = chatMetaType.nodeType().cast(node).getAsEntry().getValue();
             if (value.contains(" ")) {
                 // wrap value in quotes
                 sb.append("\"").append(value).append("\"");

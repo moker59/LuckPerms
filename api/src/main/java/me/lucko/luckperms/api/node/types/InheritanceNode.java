@@ -25,8 +25,8 @@
 
 package me.lucko.luckperms.api.node.types;
 
-import me.lucko.luckperms.LuckPerms;
-import me.lucko.luckperms.api.model.Group;
+import me.lucko.luckperms.LuckPermsProvider;
+import me.lucko.luckperms.api.model.group.Group;
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.NodeBuilder;
 import me.lucko.luckperms.api.node.ScopedNode;
@@ -56,7 +56,7 @@ public interface InheritanceNode extends ScopedNode<InheritanceNode, Inheritance
      * @return
      */
     static @NonNull Builder builder() {
-        return LuckPerms.getApi().getNodeBuilderRegistry().forInheritance();
+        return LuckPermsProvider.getApi().getNodeBuilderRegistry().forInheritance();
     }
 
     /**

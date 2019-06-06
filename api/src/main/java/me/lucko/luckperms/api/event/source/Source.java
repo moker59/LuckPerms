@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.api.event.source;
 
-import me.lucko.luckperms.api.Entity;
+import me.lucko.luckperms.api.platform.PlatformEntity;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -51,7 +51,7 @@ public interface Source {
     enum Type {
 
         /**
-         * Represents an {@link Entity} source
+         * Represents an {@link PlatformEntity} source
          *
          * @see EntitySource
          */

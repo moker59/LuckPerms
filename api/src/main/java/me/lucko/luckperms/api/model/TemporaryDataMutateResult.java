@@ -1,5 +1,5 @@
 /*
- * This file is part of LuckPerms, licensed under the MIT License.
+ * This file is part of luckperms, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
  *  Copyright (c) contributors
@@ -23,46 +23,35 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api;
+package me.lucko.luckperms.api.model;
 
-import me.lucko.luckperms.api.model.PermissionHolder;
-import me.lucko.luckperms.api.model.Track;
+import me.lucko.luckperms.api.node.Node;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
- * Represents the result of a data mutation call on a LuckPerms object.
+ * Extension of {@link DataMutateResult} for temporary set operations.
  *
- * <p>Usually as the result to a call on a {@link PermissionHolder} or {@link Track}.</p>
+ * @since 4.3
  */
-public enum DataMutateResult implements MutateResult {
+public interface TemporaryDataMutateResult {
 
     /**
-     * Indicates the mutation was a success
+     * Gets the underlying result.
+     *
+     * @return the result
      */
-    SUCCESS(true),
+    @NonNull DataMutateResult getResult();
 
     /**
-     * Indicates the mutation failed because the subject of the action already has something
+     * Gets the node that resulted from any {@link TemporaryMergeBehaviour}
+     * processing.
+     *
+     * <p>If no processing took place, the same instance will be returned by
+     * this method.</p>
+     *
+     * @return the resultant node
      */
-    ALREADY_HAS(false),
+    @NonNull Node getMergedNode();
 
-    /**
-     * Indicates the mutation failed because the subject of the action lacks something
-     */
-    LACKS(false),
-
-    /**
-     * Indicates the mutation failed
-     */
-    FAIL(false);
-
-    private final boolean success;
-
-    DataMutateResult(boolean success) {
-        this.success = success;
-    }
-
-    @Override
-    public boolean wasSuccess() {
-        return this.success;
-    }
 }

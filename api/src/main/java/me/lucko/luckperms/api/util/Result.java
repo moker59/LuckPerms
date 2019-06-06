@@ -1,5 +1,5 @@
 /*
- * This file is part of LuckPerms, licensed under the MIT License.
+ * This file is part of luckperms, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
  *  Copyright (c) contributors
@@ -23,35 +23,31 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api;
-
-import me.lucko.luckperms.api.node.Node;
-
-import org.checkerframework.checker.nullness.qual.NonNull;
+package me.lucko.luckperms.api.util;
 
 /**
- * Extension of {@link DataMutateResult} for temporary set operations.
+ * Represents the result to a "mutation" on an object.
  *
- * @since 4.3
+ * @since 4.2
  */
-public interface TemporaryDataMutateResult {
+@FunctionalInterface
+public interface Result {
 
     /**
-     * Gets the underlying result.
-     *
-     * @return the result
+     * Instance of {@link Result} which always reports success.
      */
-    @NonNull DataMutateResult getResult();
+    Result GENERIC_SUCCESS = () -> true;
 
     /**
-     * Gets the node that resulted from any {@link TemporaryMergeBehaviour}
-     * processing.
-     *
-     * <p>If no processing took place, the same instance will be returned by
-     * this method.</p>
-     *
-     * @return the resultant node
+     * Instance of {@link Result} which always reports failure.
      */
-    @NonNull Node getMergedNode();
+    Result GENERIC_FAILURE = () -> false;
+
+    /**
+     * Gets if the operation which produced this result completed successfully.
+     *
+     * @return if the result indicates a success
+     */
+    boolean wasSuccess();
 
 }

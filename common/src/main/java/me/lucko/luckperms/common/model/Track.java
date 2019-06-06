@@ -27,13 +27,13 @@ package me.lucko.luckperms.common.model;
 
 import com.google.common.collect.ImmutableList;
 
-import me.lucko.luckperms.api.DataMutateResult;
-import me.lucko.luckperms.api.DemotionResult;
-import me.lucko.luckperms.api.PromotionResult;
 import me.lucko.luckperms.api.context.ContextSet;
+import me.lucko.luckperms.api.model.DataMutateResult;
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.NodeType;
 import me.lucko.luckperms.api.node.types.InheritanceNode;
+import me.lucko.luckperms.api.track.DemotionResult;
+import me.lucko.luckperms.api.track.PromotionResult;
 import me.lucko.luckperms.common.api.implementation.ApiTrack;
 import me.lucko.luckperms.common.node.factory.NodeFactory;
 import me.lucko.luckperms.common.plugin.LuckPermsPlugin;

@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.bukkit;
 
-import me.lucko.luckperms.api.LuckPermsApi;
+import me.lucko.luckperms.api.LuckPerms;
 import me.lucko.luckperms.api.event.user.UserDataRecalculateEvent;
 import me.lucko.luckperms.api.query.QueryOptions;
 import me.lucko.luckperms.bukkit.calculator.BukkitCalculatorFactory;
@@ -230,8 +230,8 @@ public class LPBukkitPlugin extends AbstractLuckPermsPlugin {
     }
 
     @Override
-    protected void registerApiOnPlatform(LuckPermsApi api) {
-        this.bootstrap.getServer().getServicesManager().register(LuckPermsApi.class, api, this.bootstrap, ServicePriority.Normal);
+    protected void registerApiOnPlatform(LuckPerms api) {
+        this.bootstrap.getServer().getServicesManager().register(LuckPerms.class, api, this.bootstrap, ServicePriority.Normal);
     }
 
     @Override

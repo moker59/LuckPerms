@@ -25,8 +25,9 @@
 
 package me.lucko.luckperms.common.metastacking;
 
-import me.lucko.luckperms.api.ChatMetaType;
 import me.lucko.luckperms.api.metastacking.MetaStackElement;
+import me.lucko.luckperms.api.node.ChatMetaType;
+import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.types.ChatMetaNode;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -55,7 +56,7 @@ final class SimpleMetaStackEntry implements MetaStackEntry {
     @Override
     public boolean accumulateNode(ChatMetaNode<?, ?> node) {
         if (this.element.shouldAccumulate(node, this.type, this.current)) {
-            this.current = this.type.getEntry(node);
+            this.current = this.type.nodeType().cast((Node) node).getAsEntry();
             return true;
         }
         return false;

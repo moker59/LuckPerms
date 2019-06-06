@@ -27,7 +27,7 @@ package me.lucko.luckperms.common.commands.generic.meta;
 
 import com.google.common.collect.Maps;
 
-import me.lucko.luckperms.api.ChatMetaType;
+import me.lucko.luckperms.api.node.ChatMetaType;
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.NodeType;
 import me.lucko.luckperms.api.node.metadata.types.InheritedFromMetadata;
@@ -150,11 +150,11 @@ public class MetaInfo extends SharedSubCommand {
             String location = processLocation(e.getValue(), holder);
             if (!e.getValue().getContexts().isEmpty()) {
                 String context = MessageUtils.getAppendableNodeContextString(sender.getPlugin().getLocaleManager(), e.getValue());
-                TextComponent.Builder builder = Message.CHAT_META_ENTRY_WITH_CONTEXT.asComponent(sender.getPlugin().getLocaleManager(), e.getKey(), type.getEntry(e.getValue()).getValue(), location, context).toBuilder();
+                TextComponent.Builder builder = Message.CHAT_META_ENTRY_WITH_CONTEXT.asComponent(sender.getPlugin().getLocaleManager(), e.getKey(), type.nodeType().cast(e.getValue()).getAsEntry().getValue(), location, context).toBuilder();
                 builder.applyDeep(makeFancy(type, holder, label, e.getValue()));
                 sender.sendMessage(builder.build());
             } else {
-                TextComponent.Builder builder = Message.CHAT_META_ENTRY.asComponent(sender.getPlugin().getLocaleManager(), e.getKey(), type.getEntry(e.getValue()).getValue(), location).toBuilder();
+                TextComponent.Builder builder = Message.CHAT_META_ENTRY.asComponent(sender.getPlugin().getLocaleManager(), e.getKey(), type.nodeType().cast(e.getValue()).getAsEntry().getValue(), location).toBuilder();
                 builder.applyDeep(makeFancy(type, holder, label, e.getValue()));
                 sender.sendMessage(builder.build());
             }
@@ -172,7 +172,7 @@ public class MetaInfo extends SharedSubCommand {
         }
 
         HoverEvent hoverEvent = HoverEvent.showText(TextUtils.fromLegacy(TextUtils.joinNewline(
-                "¥3> ¥a" + type.getEntry(node).getKey() + " ¥7- ¥r" + type.getEntry(node).getValue(),
+                "¥3> ¥a" + type.nodeType().cast(node).getAsEntry().getKey() + " ¥7- ¥r" + type.nodeType().cast(node).getAsEntry().getValue(),
                 " ",
                 "¥7Click to remove this " + type.name().toLowerCase() + " from " + holder.getFormattedDisplayName()
         ), '¥'));

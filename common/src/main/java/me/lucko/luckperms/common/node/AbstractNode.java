@@ -27,11 +27,11 @@ package me.lucko.luckperms.common.node;
 
 import com.google.common.collect.ImmutableList;
 
-import me.lucko.luckperms.api.NodeEqualityPredicate;
 import me.lucko.luckperms.api.context.ContextSet;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.NodeBuilder;
+import me.lucko.luckperms.api.node.NodeEqualityPredicate;
 import me.lucko.luckperms.api.node.ScopedNode;
 import me.lucko.luckperms.api.node.metadata.NodeMetadata;
 import me.lucko.luckperms.api.node.metadata.NodeMetadataKey;

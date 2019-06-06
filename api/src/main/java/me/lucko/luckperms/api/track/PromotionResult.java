@@ -1,5 +1,5 @@
 /*
- * This file is part of LuckPerms, licensed under the MIT License.
+ * This file is part of luckperms, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
  *  Copyright (c) contributors
@@ -23,10 +23,10 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api;
+package me.lucko.luckperms.api.track;
 
-import me.lucko.luckperms.api.model.Track;
-import me.lucko.luckperms.api.model.User;
+import me.lucko.luckperms.api.model.user.User;
+import me.lucko.luckperms.api.util.Result;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -37,7 +37,7 @@ import java.util.Optional;
  *
  * @since 4.2
  */
-public interface PromotionResult extends MutateResult {
+public interface PromotionResult extends Result {
 
     /**
      * Gets the status of the result.
@@ -77,7 +77,7 @@ public interface PromotionResult extends MutateResult {
     /**
      * The result status
      */
-    enum Status implements MutateResult {
+    enum Status implements Result {
 
         /**
          * Indicates that the user was promoted normally.

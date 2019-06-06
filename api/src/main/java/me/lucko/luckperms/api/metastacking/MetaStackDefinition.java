@@ -25,6 +25,8 @@
 
 package me.lucko.luckperms.api.metastacking;
 
+import me.lucko.luckperms.api.query.OptionKey;
+
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.List;
@@ -41,6 +43,16 @@ import java.util.List;
  * @since 2.3
  */
 public interface MetaStackDefinition {
+
+    /**
+     * TODO
+     */
+    OptionKey<MetaStackDefinition> PREFIX_STACK_KEY = new OptionKey<MetaStackDefinition>(){};
+
+    /**
+     * TODO
+     */
+    OptionKey<MetaStackDefinition> SUFFIX_STACK_KEY = new OptionKey<MetaStackDefinition>(){};
 
     /**
      * Gets an immutable list of the elements in this stack definition

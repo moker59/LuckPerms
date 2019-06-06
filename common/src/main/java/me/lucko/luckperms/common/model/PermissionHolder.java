@@ -29,16 +29,16 @@ import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Multimap;
 
-import me.lucko.luckperms.api.DataMutateResult;
-import me.lucko.luckperms.api.NodeEqualityPredicate;
-import me.lucko.luckperms.api.TemporaryDataMutateResult;
-import me.lucko.luckperms.api.TemporaryMergeBehaviour;
-import me.lucko.luckperms.api.Tristate;
 import me.lucko.luckperms.api.context.ContextSet;
 import me.lucko.luckperms.api.context.DefaultContextKeys;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
+import me.lucko.luckperms.api.model.DataMutateResult;
+import me.lucko.luckperms.api.model.TemporaryDataMutateResult;
+import me.lucko.luckperms.api.model.TemporaryMergeBehaviour;
 import me.lucko.luckperms.api.node.Node;
+import me.lucko.luckperms.api.node.NodeEqualityPredicate;
 import me.lucko.luckperms.api.node.NodeType;
+import me.lucko.luckperms.api.node.Tristate;
 import me.lucko.luckperms.api.node.types.InheritanceNode;
 import me.lucko.luckperms.api.node.types.MetaNode;
 import me.lucko.luckperms.api.query.Flag;
@@ -463,7 +463,7 @@ public abstract class PermissionHolder {
             return Tristate.TRUE;
         }
 
-        return searchForMatch(type, node, equalityPredicate).map(n -> Tristate.fromBoolean(n.getValue())).orElse(Tristate.UNDEFINED);
+        return searchForMatch(type, node, equalityPredicate).map(n -> Tristate.of(n.getValue())).orElse(Tristate.UNDEFINED);
     }
 
     /**

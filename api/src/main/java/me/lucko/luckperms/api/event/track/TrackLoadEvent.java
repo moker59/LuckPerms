@@ -27,7 +27,7 @@ package me.lucko.luckperms.api.event.track;
 
 import me.lucko.luckperms.api.event.LuckPermsEvent;
 import me.lucko.luckperms.api.event.Param;
-import me.lucko.luckperms.api.model.Track;
+import me.lucko.luckperms.api.track.Track;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 

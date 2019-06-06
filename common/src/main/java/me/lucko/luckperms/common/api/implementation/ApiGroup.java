@@ -37,8 +37,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Objects;
 import java.util.OptionalInt;
 
-public class ApiGroup extends ApiPermissionHolder implements me.lucko.luckperms.api.model.Group {
-    public static Group cast(me.lucko.luckperms.api.model.Group group) {
+public class ApiGroup extends ApiPermissionHolder implements me.lucko.luckperms.api.model.group.Group {
+    public static Group cast(me.lucko.luckperms.api.model.group.Group group) {
         Objects.requireNonNull(group, "group");
         Preconditions.checkState(group instanceof ApiGroup, "Illegal instance " + group.getClass() + " cannot be handled by this implementation.");
         return ((ApiGroup) group).getHandle();

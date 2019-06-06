@@ -25,10 +25,10 @@
 
 package me.lucko.luckperms.common.commands.generic.meta;
 
-import me.lucko.luckperms.api.NodeEqualityPredicate;
-import me.lucko.luckperms.api.TemporaryMergeBehaviour;
 import me.lucko.luckperms.api.context.MutableContextSet;
+import me.lucko.luckperms.api.model.TemporaryMergeBehaviour;
 import me.lucko.luckperms.api.node.Node;
+import me.lucko.luckperms.api.node.NodeEqualityPredicate;
 import me.lucko.luckperms.common.actionlog.ExtendedLogEntry;
 import me.lucko.luckperms.common.command.CommandResult;
 import me.lucko.luckperms.common.command.abstraction.CommandException;

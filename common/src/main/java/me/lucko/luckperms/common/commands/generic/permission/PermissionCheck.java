@@ -25,9 +25,9 @@
 
 package me.lucko.luckperms.common.commands.generic.permission;
 
-import me.lucko.luckperms.api.NodeEqualityPredicate;
-import me.lucko.luckperms.api.Tristate;
 import me.lucko.luckperms.api.context.MutableContextSet;
+import me.lucko.luckperms.api.node.NodeEqualityPredicate;
+import me.lucko.luckperms.api.node.Tristate;
 import me.lucko.luckperms.common.command.CommandResult;
 import me.lucko.luckperms.common.command.abstraction.CommandException;
 import me.lucko.luckperms.common.command.abstraction.SharedSubCommand;

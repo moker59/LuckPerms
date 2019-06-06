@@ -25,11 +25,11 @@
 
 package me.lucko.luckperms.api.event.log;
 
-import me.lucko.luckperms.api.Entity;
 import me.lucko.luckperms.api.actionlog.Action;
 import me.lucko.luckperms.api.event.Cancellable;
 import me.lucko.luckperms.api.event.LuckPermsEvent;
 import me.lucko.luckperms.api.event.Param;
+import me.lucko.luckperms.api.platform.PlatformEntity;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -65,7 +65,8 @@ public interface LogNotifyEvent extends LuckPermsEvent, Cancellable {
      *
      * @return the object to notify
      */
-    @NonNull @Param(2) Entity getNotifiable();
+    @NonNull @Param(2)
+    PlatformEntity getNotifiable();
 
     /**
      * Represents where a log entry is from

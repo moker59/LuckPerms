@@ -28,12 +28,12 @@ package me.lucko.luckperms.sponge.service.model.permissionholder;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
-import me.lucko.luckperms.api.ChatMetaType;
-import me.lucko.luckperms.api.DataMutateResult;
-import me.lucko.luckperms.api.Tristate;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
+import me.lucko.luckperms.api.model.DataMutateResult;
+import me.lucko.luckperms.api.node.ChatMetaType;
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.NodeType;
+import me.lucko.luckperms.api.node.Tristate;
 import me.lucko.luckperms.api.node.types.InheritanceNode;
 import me.lucko.luckperms.api.node.types.MetaNode;
 import me.lucko.luckperms.api.node.types.PrefixNode;
@@ -240,7 +240,7 @@ public class PermissionHolderSubjectData implements LPSubjectData {
                 () -> this.holder.setTransientPermission(node)
         );
 
-        if (!result.asBoolean()) {
+        if (!result.wasSuccess()) {
             return CompletableFuture.completedFuture(false);
         }
 
@@ -265,7 +265,7 @@ public class PermissionHolderSubjectData implements LPSubjectData {
                 () -> this.holder.unsetTransientPermission(node)
         );
 
-        if (!result.asBoolean()) {
+        if (!result.wasSuccess()) {
             return CompletableFuture.completedFuture(false);
         }
 
@@ -381,7 +381,7 @@ public class PermissionHolderSubjectData implements LPSubjectData {
 
             // remove all prefixes/suffixes from the user
             streamNodes()
-                    .filter(type::matches)
+                    .filter(node1 -> type.nodeType().matches(node1))
                     .filter(n -> ((Node) n).getContexts().equals(contexts))
                     .forEach(n -> this.type.run(
                             () -> this.holder.unsetPermission(n),

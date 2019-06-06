@@ -27,7 +27,7 @@ package me.lucko.luckperms.velocity;
 
 import com.velocitypowered.api.proxy.Player;
 
-import me.lucko.luckperms.api.LuckPermsApi;
+import me.lucko.luckperms.api.LuckPerms;
 import me.lucko.luckperms.api.query.QueryOptions;
 import me.lucko.luckperms.common.api.LuckPermsApiProvider;
 import me.lucko.luckperms.common.calculator.CalculatorFactory;
@@ -158,7 +158,7 @@ public class LPVelocityPlugin extends AbstractLuckPermsPlugin {
     }
 
     @Override
-    protected void registerApiOnPlatform(LuckPermsApi api) {
+    protected void registerApiOnPlatform(LuckPerms api) {
         // Velocity doesn't have a services manager
     }
 

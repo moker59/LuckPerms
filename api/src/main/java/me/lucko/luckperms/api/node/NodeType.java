@@ -46,7 +46,7 @@ import java.util.function.Predicate;
 public interface NodeType<T extends Node> {
 
     /**
-     * 
+     * TODO etc
      */
     NodeType<PermissionNode> PERMISSION = new SimpleNodeType<>("PERMISSION", n ->  n instanceof PermissionNode, n -> ((PermissionNode) n));
 
@@ -95,6 +95,11 @@ public interface NodeType<T extends Node> {
      */
     NodeType<Node> META_OR_CHAT_META = new SimpleNodeType<>("META_OR_CHAT_META", n ->  META.matches(n) || CHAT_META.matches(n), Function.identity());
 
+    /**
+     * TODO
+     *
+     * @return
+     */
     String name();
 
     /**
@@ -106,12 +111,19 @@ public interface NodeType<T extends Node> {
     boolean matches(Node node);
 
     /**
-     * 
+     * TODO
+     *
      * @param node
      * @return
      */
     T cast(Node node);
 
+    /**
+     * TODO
+     *
+     * @param node
+     * @return
+     */
     default Optional<T> tryCast(Node node) {
         Objects.requireNonNull(node, "node");
         if (!matches(node)) {
@@ -121,10 +133,21 @@ public interface NodeType<T extends Node> {
         }
     }
 
+    /**
+     * TODO
+     *
+     * @return
+     */
     default Predicate<Node> predicate() {
         return this::matches;
     }
 
+    /**
+     * TODO
+     *
+     * @param and
+     * @return
+     */
     default Predicate<Node> predicate(Predicate<? super T> and) {
         return node -> matches(node) && and.test(cast(node));
     }

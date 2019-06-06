@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.common.storage.implementation.file;
 
-import me.lucko.luckperms.api.HeldNode;
+import me.lucko.luckperms.api.node.HeldNode;
 import me.lucko.luckperms.common.bulkupdate.BulkUpdate;
 import me.lucko.luckperms.common.bulkupdate.comparison.Constraint;
 import me.lucko.luckperms.common.model.manager.group.GroupManager;

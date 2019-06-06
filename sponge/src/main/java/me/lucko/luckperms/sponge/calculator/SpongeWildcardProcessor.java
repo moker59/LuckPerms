@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.sponge.calculator;
 
-import me.lucko.luckperms.api.Tristate;
+import me.lucko.luckperms.api.node.Tristate;
 import me.lucko.luckperms.common.calculator.processor.AbstractPermissionProcessor;
 import me.lucko.luckperms.common.calculator.processor.PermissionProcessor;
 import me.lucko.luckperms.common.calculator.result.TristateResult;
@@ -46,7 +46,7 @@ public class SpongeWildcardProcessor extends AbstractPermissionProcessor impleme
 
             node = node.substring(0, endIndex);
             if (!node.isEmpty()) {
-                Tristate t = Tristate.fromNullableBoolean(this.sourceMap.get(node));
+                Tristate t = Tristate.of(this.sourceMap.get(node));
                 if (t != Tristate.UNDEFINED) {
                     return RESULT_FACTORY.result(t, "match: " + node);
                 }

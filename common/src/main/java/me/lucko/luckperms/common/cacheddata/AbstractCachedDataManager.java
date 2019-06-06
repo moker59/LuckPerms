@@ -28,12 +28,11 @@ package me.lucko.luckperms.common.cacheddata;
 import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
 import com.github.benmanes.caffeine.cache.CacheLoader;
 
-import me.lucko.luckperms.api.ChatMetaType;
 import me.lucko.luckperms.api.cacheddata.CachedDataManager;
 import me.lucko.luckperms.api.cacheddata.CachedMetaData;
 import me.lucko.luckperms.api.cacheddata.CachedPermissionData;
 import me.lucko.luckperms.api.metastacking.MetaStackDefinition;
-import me.lucko.luckperms.api.query.DefaultQueryOptions;
+import me.lucko.luckperms.api.node.ChatMetaType;
 import me.lucko.luckperms.api.query.QueryOptions;
 import me.lucko.luckperms.common.cacheddata.type.MetaAccumulator;
 import me.lucko.luckperms.common.cacheddata.type.MetaCache;
@@ -383,8 +382,8 @@ public abstract class AbstractCachedDataManager implements CachedDataManager {
 
     private MetaStackDefinition getMetaStackDefinition(QueryOptions queryOptions, ChatMetaType type) {
         MetaStackDefinition stack = queryOptions.option(type == ChatMetaType.PREFIX ?
-                DefaultQueryOptions.prefixStackDefinitionKey() :
-                DefaultQueryOptions.suffixStackDefinitionKey()
+                MetaStackDefinition.PREFIX_STACK_KEY :
+                MetaStackDefinition.SUFFIX_STACK_KEY
         ).orElse(null);
         if (stack == null) {
             stack = getDefaultMetaStackDefinition(type);

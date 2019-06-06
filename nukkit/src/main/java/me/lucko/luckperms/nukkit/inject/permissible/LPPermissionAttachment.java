@@ -30,6 +30,7 @@ import com.google.common.base.Preconditions;
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.metadata.NodeMetadata;
 import me.lucko.luckperms.api.node.metadata.NodeMetadataKey;
+import me.lucko.luckperms.api.util.Result;
 import me.lucko.luckperms.common.config.ConfigKeys;
 import me.lucko.luckperms.common.model.User;
 import me.lucko.luckperms.common.node.factory.NodeFactory;
@@ -190,7 +191,7 @@ public class LPPermissionAttachment extends PermissionAttachment implements Node
 
         // set the transient node
         User user = this.permissible.getUser();
-        user.setTransientPermission(node).asBoolean();
+        ((Result) user.setTransientPermission(node)).wasSuccess();
     }
 
     private void unsetPermissionInternal(String name) {

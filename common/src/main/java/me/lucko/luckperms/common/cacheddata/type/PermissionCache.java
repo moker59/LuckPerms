@@ -25,8 +25,8 @@
 
 package me.lucko.luckperms.common.cacheddata.type;
 
-import me.lucko.luckperms.api.Tristate;
 import me.lucko.luckperms.api.cacheddata.CachedPermissionData;
+import me.lucko.luckperms.api.node.Tristate;
 import me.lucko.luckperms.api.query.QueryOptions;
 import me.lucko.luckperms.common.cacheddata.CacheMetadata;
 import me.lucko.luckperms.common.calculator.CalculatorFactory;

@@ -25,9 +25,9 @@
 
 package me.lucko.luckperms.common.command.utils;
 
-import me.lucko.luckperms.api.Tristate;
 import me.lucko.luckperms.api.context.ContextSet;
 import me.lucko.luckperms.api.node.Node;
+import me.lucko.luckperms.api.node.Tristate;
 import me.lucko.luckperms.common.locale.LocaleManager;
 import me.lucko.luckperms.common.locale.message.Message;
 

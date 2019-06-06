@@ -29,7 +29,6 @@ import me.lucko.luckperms.api.context.ContextCalculator;
 import me.lucko.luckperms.api.context.StaticContextCalculator;
 import me.lucko.luckperms.api.metastacking.MetaStackDefinition;
 import me.lucko.luckperms.api.metastacking.MetaStackElement;
-import me.lucko.luckperms.api.query.DefaultQueryOptions;
 import me.lucko.luckperms.api.query.Flag;
 import me.lucko.luckperms.api.query.QueryOptions;
 import me.lucko.luckperms.common.cacheddata.type.MetaCache;
@@ -223,11 +222,11 @@ public class DebugCommand extends SingleCommand {
     private static JObject serializeMetaContextsSettings(QueryOptions queryOptions) {
         return new JObject()
                 .consume(obj -> {
-                    Optional<MetaStackDefinition> prefixStack = queryOptions.option(DefaultQueryOptions.prefixStackDefinitionKey());
+                    Optional<MetaStackDefinition> prefixStack = queryOptions.option(MetaStackDefinition.PREFIX_STACK_KEY);
                     prefixStack.ifPresent(metaStackDefinition -> obj.add("prefixStack", serializeMetaStackData(metaStackDefinition)));
                 })
                 .consume(obj -> {
-                    Optional<MetaStackDefinition> suffixStack = queryOptions.option(DefaultQueryOptions.suffixStackDefinitionKey());
+                    Optional<MetaStackDefinition> suffixStack = queryOptions.option(MetaStackDefinition.SUFFIX_STACK_KEY);
                     suffixStack.ifPresent(metaStackDefinition -> obj.add("suffixStack", serializeMetaStackData(metaStackDefinition)));
                 });
     }

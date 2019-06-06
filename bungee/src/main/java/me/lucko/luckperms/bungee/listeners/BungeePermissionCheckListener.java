@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.bungee.listeners;
 
-import me.lucko.luckperms.api.Tristate;
+import me.lucko.luckperms.api.node.Tristate;
 import me.lucko.luckperms.api.query.QueryOptions;
 import me.lucko.luckperms.bungee.LPBungeePlugin;
 import me.lucko.luckperms.bungee.event.TristateCheckEvent;
@@ -110,7 +110,7 @@ public class BungeePermissionCheckListener implements Listener {
         Objects.requireNonNull(e.getSender(), "sender");
 
         String permission = e.getPermission();
-        Tristate result = Tristate.fromBoolean(e.hasPermission());
+        Tristate result = Tristate.of(e.hasPermission());
         String name = "internal/" + e.getSender().getName();
 
         this.plugin.getVerboseHandler().offerPermissionCheckEvent(me.lucko.luckperms.common.verbose.event.PermissionCheckEvent.Origin.PLATFORM_PERMISSION_CHECK, name, QueryOptions.defaultContextualOptions(), permission, TristateResult.of(result));

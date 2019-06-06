@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.api.node.types;
 
-import me.lucko.luckperms.api.ChatMetaType;
+import me.lucko.luckperms.api.node.ChatMetaType;
 import me.lucko.luckperms.api.node.NodeBuilder;
 import me.lucko.luckperms.api.node.ScopedNode;
 

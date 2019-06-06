@@ -1,5 +1,5 @@
 /*
- * This file is part of LuckPerms, licensed under the MIT License.
+ * This file is part of luckperms, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
  *  Copyright (c) contributors
@@ -23,52 +23,62 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api;
+package me.lucko.luckperms.api.platform;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
+
+import java.util.UUID;
 
 /**
- * Represents the result to a "mutation" on an object.
+ * Represents an entity on the server.
  *
- * @since 4.2
+ * <p>This does not relate directly to a "Minecraft Entity". The closest
+ * comparison is to a "CommandSender" or "CommandSource" in Bukkit/Sponge.</p>
+ *
+ * <p>The various types of {@link PlatformEntity} are detailed in {@link Type}.</p>
+ *
+ * @since 4.1
  */
-public interface MutateResult {
+public interface PlatformEntity {
 
     /**
-     * Instance of {@link MutateResult} which always reports success.
-     */
-    MutateResult GENERIC_SUCCESS = () -> true;
-
-    /**
-     * Instance of {@link MutateResult} which always reports failure.
-     */
-    MutateResult GENERIC_FAILURE = () -> false;
-
-    /**
-     * Gets if the operation which produced this result completed successfully.
+     * Gets the unique id of the entity, if it has one.
      *
-     * @return if the result indicates a success
+     * <p>For players, this returns their uuid assigned by the server.</p>
+     *
+     * @return the uuid of the object, if available
      */
-    boolean wasSuccess();
+    @Nullable UUID getUniqueId();
 
     /**
-     * Gets if the operation which produced this result failed.
+     * Gets the name of the object
      *
-     * @return if the result indicates a failure
+     * @return the object name
      */
-    default boolean wasFailure() {
-        return !wasSuccess();
-    }
+    @NonNull String getName();
 
     /**
-     * Gets a boolean representation of the result.
+     * Gets the entities type.
      *
-     * <p>A value of <code>true</code> marks that the operation {@link #wasSuccess() was a success}
-     * and a value of <code>false</code> marks that the operation
-     * {@link #wasFailure() was a failure}.</p>
-     *
-     * @return a boolean representation
+     * @return the type
      */
-    default boolean asBoolean() {
-        return wasSuccess();
+    @NonNull Type getType();
+
+    /**
+     * The different types of {@link PlatformEntity}
+     */
+    enum Type {
+
+        /**
+         * Represents a player connected to the server
+         */
+        PLAYER,
+
+        /**
+         * Represents the server console
+         */
+        CONSOLE
     }
 
 }

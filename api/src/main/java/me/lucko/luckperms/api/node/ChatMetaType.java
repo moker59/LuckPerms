@@ -1,5 +1,5 @@
 /*
- * This file is part of LuckPerms, licensed under the MIT License.
+ * This file is part of luckperms, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
  *  Copyright (c) contributors
@@ -23,62 +23,47 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api;
+package me.lucko.luckperms.api.node;
+
+import me.lucko.luckperms.api.node.types.ChatMetaNode;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
-
-import java.util.UUID;
 
 /**
- * Represents an entity on the server.
- *
- * <p>This does not relate directly to a "Minecraft Entity". The closest
- * comparison is to a "CommandSender" or "CommandSource" in Bukkit/Sponge.</p>
- *
- * <p>The various types of {@link Entity} are detailed in {@link Type}.</p>
- *
- * @since 4.1
+ * Represents a type of chat meta
  */
-public interface Entity {
+public enum ChatMetaType {
 
     /**
-     * Gets the unique id of the entity, if it has one.
-     *
-     * <p>For players, this returns their uuid assigned by the server.</p>
-     *
-     * @return the uuid of the object, if available
+     * Represents a prefix
      */
-    @Nullable UUID getUniqueId();
+    PREFIX(NodeType.PREFIX),
 
     /**
-     * Gets the name of the object
-     *
-     * @return the object name
+     * Represents a suffix
      */
-    @NonNull String getName();
+    SUFFIX(NodeType.SUFFIX);
+
+    private final String name;
+    private final NodeType<? extends ChatMetaNode<?, ?>> nodeType;
+
+    ChatMetaType(NodeType<? extends ChatMetaNode<?, ?>> nodeType) {
+        this.name = nodeType.name().toLowerCase();
+        this.nodeType = nodeType;
+    }
 
     /**
-     * Gets the entities type.
+     * Gets the {@link NodeType} for the {@link ChatMetaType}.
      *
-     * @return the type
+     * @return the node type
      */
-    @NonNull Type getType();
+    public @NonNull NodeType<? extends ChatMetaNode<?, ?>> nodeType() {
+        return this.nodeType;
+    }
 
-    /**
-     * The different types of {@link Entity}
-     */
-    enum Type {
-
-        /**
-         * Represents a player connected to the server
-         */
-        PLAYER,
-
-        /**
-         * Represents the server console
-         */
-        CONSOLE
+    @Override
+    public String toString() {
+        return this.name;
     }
 
 }

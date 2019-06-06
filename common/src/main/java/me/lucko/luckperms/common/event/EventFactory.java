@@ -28,7 +28,6 @@ package me.lucko.luckperms.common.event;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
-import me.lucko.luckperms.api.PlayerSaveResult;
 import me.lucko.luckperms.api.actionlog.Action;
 import me.lucko.luckperms.api.event.Cancellable;
 import me.lucko.luckperms.api.event.LuckPermsEvent;
@@ -68,6 +67,7 @@ import me.lucko.luckperms.api.event.user.UserFirstLoginEvent;
 import me.lucko.luckperms.api.event.user.UserLoadEvent;
 import me.lucko.luckperms.api.event.user.track.UserDemoteEvent;
 import me.lucko.luckperms.api.event.user.track.UserPromoteEvent;
+import me.lucko.luckperms.api.model.PlayerSaveResult;
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.common.api.implementation.ApiPermissionHolder;
 import me.lucko.luckperms.common.api.implementation.ApiUser;
@@ -75,7 +75,7 @@ import me.lucko.luckperms.common.cacheddata.GroupCachedDataManager;
 import me.lucko.luckperms.common.cacheddata.UserCachedDataManager;
 import me.lucko.luckperms.common.event.gen.GeneratedEventSpec;
 import me.lucko.luckperms.common.event.model.EntitySourceImpl;
-import me.lucko.luckperms.common.event.model.SenderEntity;
+import me.lucko.luckperms.common.event.model.SenderPlatformEntity;
 import me.lucko.luckperms.common.event.model.UnknownSource;
 import me.lucko.luckperms.common.model.Group;
 import me.lucko.luckperms.common.model.HolderType;
@@ -187,7 +187,7 @@ public final class EventFactory {
         }
 
         AtomicBoolean cancel = new AtomicBoolean(initialState);
-        post(generate(LogNotifyEvent.class, cancel, entry, origin, new SenderEntity(sender)));
+        post(generate(LogNotifyEvent.class, cancel, entry, origin, new SenderPlatformEntity(sender)));
         return cancel.get();
     }
 
@@ -299,14 +299,14 @@ public final class EventFactory {
 
     public void handleUserDemote(User user, Track track, String from, String to, @Nullable Sender source) {
         post(UserDemoteEvent.class, () -> {
-            Source s = source == null ? UnknownSource.INSTANCE : new EntitySourceImpl(new SenderEntity(source));
+            Source s = source == null ? UnknownSource.INSTANCE : new EntitySourceImpl(new SenderPlatformEntity(source));
             return generate(UserDemoteEvent.class, s, track.getApiDelegate(), new ApiUser(user), Optional.ofNullable(from), Optional.ofNullable(to));
         });
     }
 
     public void handleUserPromote(User user, Track track, String from, String to, @Nullable Sender source) {
         post(UserPromoteEvent.class, () -> {
-            Source s = source == null ? UnknownSource.INSTANCE : new EntitySourceImpl(new SenderEntity(source));
+            Source s = source == null ? UnknownSource.INSTANCE : new EntitySourceImpl(new SenderPlatformEntity(source));
             return generate(UserPromoteEvent.class, s, track.getApiDelegate(), new ApiUser(user), Optional.ofNullable(from), Optional.ofNullable(to));
         });
     }

@@ -27,7 +27,7 @@ package me.lucko.luckperms.nukkit.inject.permissible;
 
 import com.google.common.collect.ImmutableList;
 
-import me.lucko.luckperms.api.Tristate;
+import me.lucko.luckperms.api.node.Tristate;
 import me.lucko.luckperms.common.calculator.result.TristateResult;
 import me.lucko.luckperms.common.config.ConfigKeys;
 import me.lucko.luckperms.common.context.QueryOptionsSupplier;

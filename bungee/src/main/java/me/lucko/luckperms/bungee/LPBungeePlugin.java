@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.bungee;
 
-import me.lucko.luckperms.api.LuckPermsApi;
+import me.lucko.luckperms.api.LuckPerms;
 import me.lucko.luckperms.api.query.QueryOptions;
 import me.lucko.luckperms.bungee.calculator.BungeeCalculatorFactory;
 import me.lucko.luckperms.bungee.context.BackendServerCalculator;
@@ -157,7 +157,7 @@ public class LPBungeePlugin extends AbstractLuckPermsPlugin {
     }
 
     @Override
-    protected void registerApiOnPlatform(LuckPermsApi api) {
+    protected void registerApiOnPlatform(LuckPerms api) {
         // BungeeCord doesn't have a services manager
     }
 

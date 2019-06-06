@@ -27,7 +27,7 @@ package me.lucko.luckperms.common.commands.group;
 
 import com.google.common.collect.Maps;
 
-import me.lucko.luckperms.api.HeldNode;
+import me.lucko.luckperms.api.node.HeldNode;
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.types.InheritanceNode;
 import me.lucko.luckperms.common.bulkupdate.comparison.Constraint;

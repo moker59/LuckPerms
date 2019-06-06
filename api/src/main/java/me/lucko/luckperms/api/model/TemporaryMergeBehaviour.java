@@ -1,5 +1,5 @@
 /*
- * This file is part of LuckPerms, licensed under the MIT License.
+ * This file is part of luckperms, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
  *  Copyright (c) contributors
@@ -23,47 +23,38 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.common.event.model;
+package me.lucko.luckperms.api.model;
 
-import me.lucko.luckperms.api.Entity;
-import me.lucko.luckperms.common.sender.Sender;
+import me.lucko.luckperms.api.node.Node;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
+/**
+ * Controls how the implementation should behave when new temporary nodes are set
+ * that would otherwise conflict with existing entries.
+ *
+ * <p>The default behaviour of {@link PermissionHolder.Data#addNode(Node)} is
+ * to return a result of {@link DataMutateResult#ALREADY_HAS} when an equivalent
+ * node is found. This can be replicated using {@link #FAIL_WITH_ALREADY_HAS}.</p>
+ *
+ * <p>However, the {@link PermissionHolder.Data#addNode(Node, TemporaryMergeBehaviour)}
+ * method allows this behaviour to be customized for temporary permissions.</p>
+ *
+ * @since 4.3
+ */
+public enum TemporaryMergeBehaviour {
 
-import java.util.UUID;
+    /**
+     * Expiry durations will be added to the existing expiry time of a permission.
+     */
+    ADD_NEW_DURATION_TO_EXISTING,
 
-public class SenderEntity implements Entity {
-    private final Sender sender;
+    /**
+     * Expiry durations will be replaced if the new duration is longer than the current one.
+     */
+    REPLACE_EXISTING_IF_DURATION_LONGER,
 
-    public SenderEntity(Sender sender) {
-        this.sender = sender;
-    }
+    /**
+     * The operation will fail if an existing temporary node is present.
+     */
+    FAIL_WITH_ALREADY_HAS
 
-    @Override
-    public @Nullable UUID getUniqueId() {
-        if (this.sender.isConsole()) {
-            return null;
-        }
-        return this.sender.getUuid();
-    }
-
-    @Override
-    public @NonNull String getName() {
-        return this.sender.getName();
-    }
-
-    @Override
-    public @NonNull Type getType() {
-        if (this.sender.isConsole()) {
-            return Type.CONSOLE;
-        } else {
-            return Type.PLAYER;
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "SenderEntity(type=" + getType() + ", sender=" + this.sender + ")";
-    }
 }

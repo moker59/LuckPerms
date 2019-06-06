@@ -27,7 +27,7 @@ package me.lucko.luckperms.common.verbose;
 
 import com.google.gson.JsonObject;
 
-import me.lucko.luckperms.api.Tristate;
+import me.lucko.luckperms.api.node.Tristate;
 import me.lucko.luckperms.api.query.QueryMode;
 import me.lucko.luckperms.common.calculator.result.TristateResult;
 import me.lucko.luckperms.common.command.CommandManager;

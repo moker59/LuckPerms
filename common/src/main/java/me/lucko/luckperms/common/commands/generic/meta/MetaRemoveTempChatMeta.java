@@ -25,9 +25,9 @@
 
 package me.lucko.luckperms.common.commands.generic.meta;
 
-import me.lucko.luckperms.api.ChatMetaType;
-import me.lucko.luckperms.api.DataMutateResult;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
+import me.lucko.luckperms.api.model.DataMutateResult;
+import me.lucko.luckperms.api.node.ChatMetaType;
 import me.lucko.luckperms.common.actionlog.ExtendedLogEntry;
 import me.lucko.luckperms.common.command.CommandResult;
 import me.lucko.luckperms.common.command.abstraction.CommandException;
@@ -85,11 +85,10 @@ public class MetaRemoveTempChatMeta extends SharedSubCommand {
 
         // Handle bulk removal
         if (meta.equalsIgnoreCase("null") || meta.equals("*")) {
-            holder.removeIfEnduring(n ->
-                    this.type.matches(n) &&
-                            this.type.getEntry(n).getKey() == priority &&
-                    n.hasExpiry() &&
-                    n.getContexts().equals(context)
+            holder.removeIfEnduring(n -> this.type.nodeType().matches(n) &&
+                    this.type.nodeType().cast(n).getAsEntry().getKey() == priority &&
+            n.hasExpiry() &&
+            n.getContexts().equals(context)
             );
             Message.BULK_REMOVE_TEMP_CHATMETA_SUCCESS.send(sender, holder.getFormattedDisplayName(), this.type.name().toLowerCase(), priority, MessageUtils.contextSetToString(plugin.getLocaleManager(), context));
 
@@ -103,7 +102,7 @@ public class MetaRemoveTempChatMeta extends SharedSubCommand {
 
         DataMutateResult result = holder.unsetPermission(NodeFactory.buildChatMetaNode(this.type, priority, meta).expiry(10L).withContext(context).build());
 
-        if (result.asBoolean()) {
+        if (result.wasSuccess()) {
             TextComponent.Builder builder = Message.REMOVE_TEMP_CHATMETA_SUCCESS.asComponent(plugin.getLocaleManager(), holder.getFormattedDisplayName(), this.type.name().toLowerCase(), meta, priority, MessageUtils.contextSetToString(plugin.getLocaleManager(), context)).toBuilder();
             HoverEvent event = HoverEvent.showText(TextUtils.fromLegacy(
                     "¥3Raw " + this.type.name().toLowerCase() + ": ¥r" + meta,

@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.bukkit.calculator;
 
-import me.lucko.luckperms.api.Tristate;
+import me.lucko.luckperms.api.node.Tristate;
 import me.lucko.luckperms.bukkit.LPBukkitPlugin;
 import me.lucko.luckperms.common.calculator.processor.AbstractPermissionProcessor;
 import me.lucko.luckperms.common.calculator.processor.PermissionProcessor;
@@ -50,7 +50,7 @@ public class ChildProcessor extends AbstractPermissionProcessor implements Permi
 
     @Override
     public TristateResult hasPermission(String permission) {
-        return RESULT_FACTORY.result(Tristate.fromNullableBoolean(this.childPermissions.get(permission)));
+        return RESULT_FACTORY.result(Tristate.of(this.childPermissions.get(permission)));
     }
 
     @Override

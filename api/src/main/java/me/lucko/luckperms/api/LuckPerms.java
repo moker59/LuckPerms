@@ -25,23 +25,24 @@
 
 package me.lucko.luckperms.api;
 
-import me.lucko.luckperms.LuckPerms;
+import me.lucko.luckperms.LuckPermsProvider;
 import me.lucko.luckperms.api.actionlog.ActionLogger;
 import me.lucko.luckperms.api.context.ContextCalculator;
 import me.lucko.luckperms.api.context.ContextManager;
 import me.lucko.luckperms.api.event.EventBus;
+import me.lucko.luckperms.api.messaging.MessagingService;
 import me.lucko.luckperms.api.messenger.MessengerProvider;
 import me.lucko.luckperms.api.metastacking.MetaStackDefinition;
 import me.lucko.luckperms.api.metastacking.MetaStackElement;
 import me.lucko.luckperms.api.metastacking.MetaStackFactory;
-import me.lucko.luckperms.api.model.Group;
-import me.lucko.luckperms.api.model.GroupManager;
-import me.lucko.luckperms.api.model.Track;
-import me.lucko.luckperms.api.model.TrackManager;
-import me.lucko.luckperms.api.model.User;
-import me.lucko.luckperms.api.model.UserManager;
+import me.lucko.luckperms.api.model.group.Group;
+import me.lucko.luckperms.api.model.group.GroupManager;
+import me.lucko.luckperms.api.model.user.User;
+import me.lucko.luckperms.api.model.user.UserManager;
 import me.lucko.luckperms.api.node.NodeBuilderRegistry;
 import me.lucko.luckperms.api.platform.PlatformInfo;
+import me.lucko.luckperms.api.track.Track;
+import me.lucko.luckperms.api.track.TrackManager;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -55,10 +56,17 @@ import java.util.concurrent.CompletableFuture;
  * <p>This interface is the base of the entire API package. All API functions
  * are accessed via this interface.</p>
  *
- * <p>An instance can be obtained via {@link LuckPerms#getApi()}, or the platforms
+ * <p>An instance can be obtained via {@link LuckPermsProvider#getApi()}, or the platforms
  * Services Manager.</p>
  */
-public interface LuckPermsApi {
+public interface LuckPerms {
+
+    /**
+     * TODO
+     *
+     * @return
+     */
+    String getServerName();
 
     /**
      * Gets information about the platform LuckPerms is running on.
@@ -126,13 +134,6 @@ public interface LuckPermsApi {
      * @since 3.0
      */
     @NonNull EventBus getEventBus();
-
-    /**
-     * Gets a representation of the plugins configuration
-     *
-     * @return the configuration
-     */
-    @NonNull LPConfiguration getConfiguration();
 
     /**
      * Gets the {@link MessagingService}, if present.

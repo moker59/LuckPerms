@@ -27,13 +27,14 @@ package me.lucko.luckperms.bukkit.vault;
 
 import com.google.common.base.Preconditions;
 
-import me.lucko.luckperms.api.Tristate;
 import me.lucko.luckperms.api.context.ContextSet;
 import me.lucko.luckperms.api.context.DefaultContextKeys;
 import me.lucko.luckperms.api.context.MutableContextSet;
 import me.lucko.luckperms.api.node.NodeType;
+import me.lucko.luckperms.api.node.Tristate;
 import me.lucko.luckperms.api.query.Flag;
 import me.lucko.luckperms.api.query.QueryOptions;
+import me.lucko.luckperms.api.util.Result;
 import me.lucko.luckperms.bukkit.LPBukkitPlugin;
 import me.lucko.luckperms.bukkit.context.BukkitContextManager;
 import me.lucko.luckperms.common.cacheddata.type.PermissionCache;
@@ -437,7 +438,7 @@ public class LuckPermsVaultPermission extends AbstractVaultPermission {
             logMsg("#holderAddPermission: %s - %s - %s", holder.getPlainDisplayName(), permission, world);
         }
 
-        if (holder.setPermission(NodeFactory.make(permission, true, getVaultServer(), world)).asBoolean()) {
+        if (((Result) holder.setPermission(NodeFactory.make(permission, true, getVaultServer(), world))).wasSuccess()) {
             return holderSave(holder);
         }
         return false;
@@ -451,7 +452,7 @@ public class LuckPermsVaultPermission extends AbstractVaultPermission {
             logMsg("#holderRemovePermission: %s - %s - %s", holder.getPlainDisplayName(), permission, world);
         }
 
-        if (holder.unsetPermission(NodeFactory.make(permission, getVaultServer(), world)).asBoolean()) {
+        if (((Result) holder.unsetPermission(NodeFactory.make(permission, getVaultServer(), world))).wasSuccess()) {
             return holderSave(holder);
         }
         return false;

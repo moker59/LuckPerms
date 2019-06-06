@@ -27,8 +27,8 @@ package me.lucko.luckperms.common.node.types;
 
 import com.google.common.collect.Maps;
 
-import me.lucko.luckperms.api.ChatMetaType;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
+import me.lucko.luckperms.api.node.ChatMetaType;
 import me.lucko.luckperms.api.node.metadata.NodeMetadata;
 import me.lucko.luckperms.api.node.metadata.NodeMetadataKey;
 import me.lucko.luckperms.api.node.types.PrefixNode;

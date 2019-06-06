@@ -25,19 +25,18 @@
 
 package me.lucko.luckperms.common.api;
 
-import me.lucko.luckperms.api.LPConfiguration;
-import me.lucko.luckperms.api.LuckPermsApi;
-import me.lucko.luckperms.api.MessagingService;
+import me.lucko.luckperms.api.LuckPerms;
 import me.lucko.luckperms.api.actionlog.ActionLogger;
 import me.lucko.luckperms.api.context.ContextManager;
 import me.lucko.luckperms.api.event.EventBus;
+import me.lucko.luckperms.api.messaging.MessagingService;
 import me.lucko.luckperms.api.messenger.MessengerProvider;
 import me.lucko.luckperms.api.metastacking.MetaStackFactory;
-import me.lucko.luckperms.api.model.GroupManager;
-import me.lucko.luckperms.api.model.TrackManager;
-import me.lucko.luckperms.api.model.UserManager;
+import me.lucko.luckperms.api.model.group.GroupManager;
+import me.lucko.luckperms.api.model.user.UserManager;
 import me.lucko.luckperms.api.node.NodeBuilderRegistry;
 import me.lucko.luckperms.api.platform.PlatformInfo;
+import me.lucko.luckperms.api.track.TrackManager;
 import me.lucko.luckperms.common.api.implementation.ApiActionLogger;
 import me.lucko.luckperms.common.api.implementation.ApiContextManager;
 import me.lucko.luckperms.common.api.implementation.ApiGroupManager;
@@ -60,7 +59,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Implements the LuckPerms API using the plugin instance
  */
-public class LuckPermsApiProvider implements LuckPermsApi {
+public class LuckPermsApiProvider implements LuckPerms {
 
     private final LuckPermsPlugin plugin;
 
@@ -82,6 +81,11 @@ public class LuckPermsApiProvider implements LuckPermsApi {
         this.actionLogger = new ApiActionLogger(plugin);
         this.contextManager = new ApiContextManager(plugin, plugin.getContextManager());
         this.metaStackFactory = new ApiMetaStackFactory(plugin);
+    }
+
+    @Override
+    public String getServerName() {
+        return this.plugin.getConfiguration().get(ConfigKeys.SERVER);
     }
 
     @Override
@@ -112,11 +116,6 @@ public class LuckPermsApiProvider implements LuckPermsApi {
     @Override
     public @NonNull EventBus getEventBus() {
         return this.plugin.getEventFactory().getEventBus();
-    }
-
-    @Override
-    public @NonNull LPConfiguration getConfiguration() {
-        return this.plugin.getConfiguration().getDelegate();
     }
 
     @Override

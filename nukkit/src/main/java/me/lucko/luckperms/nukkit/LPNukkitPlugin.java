@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.nukkit;
 
-import me.lucko.luckperms.api.LuckPermsApi;
+import me.lucko.luckperms.api.LuckPerms;
 import me.lucko.luckperms.api.event.user.UserDataRecalculateEvent;
 import me.lucko.luckperms.api.query.QueryOptions;
 import me.lucko.luckperms.common.api.LuckPermsApiProvider;
@@ -172,8 +172,8 @@ public class LPNukkitPlugin extends AbstractLuckPermsPlugin {
     }
 
     @Override
-    protected void registerApiOnPlatform(LuckPermsApi api) {
-        this.bootstrap.getServer().getServiceManager().register(LuckPermsApi.class, api, this.bootstrap, ServicePriority.NORMAL);
+    protected void registerApiOnPlatform(LuckPerms api) {
+        this.bootstrap.getServer().getServiceManager().register(LuckPerms.class, api, this.bootstrap, ServicePriority.NORMAL);
     }
 
     @Override

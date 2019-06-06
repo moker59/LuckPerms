@@ -25,8 +25,8 @@
 
 package me.lucko.luckperms.common.api;
 
-import me.lucko.luckperms.LuckPerms;
-import me.lucko.luckperms.api.LuckPermsApi;
+import me.lucko.luckperms.LuckPermsProvider;
+import me.lucko.luckperms.api.LuckPerms;
 
 import java.lang.reflect.Method;
 
@@ -35,17 +35,17 @@ public class ApiRegistrationUtil {
     private static final Method UNREGISTER;
     static {
         try {
-            REGISTER = LuckPerms.class.getDeclaredMethod("registerProvider", LuckPermsApi.class);
+            REGISTER = LuckPermsProvider.class.getDeclaredMethod("registerProvider", LuckPerms.class);
             REGISTER.setAccessible(true);
 
-            UNREGISTER = LuckPerms.class.getDeclaredMethod("unregisterProvider");
+            UNREGISTER = LuckPermsProvider.class.getDeclaredMethod("unregisterProvider");
             UNREGISTER.setAccessible(true);
         } catch (NoSuchMethodException e) {
             throw new ExceptionInInitializerError(e);
         }
     }
 
-    public static void registerProvider(LuckPermsApi luckPermsApi) {
+    public static void registerProvider(LuckPerms luckPermsApi) {
         try {
             REGISTER.invoke(null, luckPermsApi);
         } catch (Exception e) {

@@ -29,12 +29,13 @@ import com.google.common.base.Throwables;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 
-import me.lucko.luckperms.api.ChatMetaType;
-import me.lucko.luckperms.api.PlayerSaveResult;
 import me.lucko.luckperms.api.actionlog.Action;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
+import me.lucko.luckperms.api.model.PlayerSaveResult;
+import me.lucko.luckperms.api.node.ChatMetaType;
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.NodeType;
+import me.lucko.luckperms.api.node.types.ChatMetaNode;
 import me.lucko.luckperms.api.node.types.InheritanceNode;
 import me.lucko.luckperms.api.node.types.MetaNode;
 import me.lucko.luckperms.common.actionlog.Log;
@@ -656,16 +657,16 @@ public abstract class AbstractConfigurateStorage implements StorageImplementatio
                 }
             }
 
-            ChatMetaType chatMetaType = ChatMetaType.ofNode(n).orElse(null);
-            if (chatMetaType != null && n.getValue()) {
+            ChatMetaNode<?, ?> chatMetaNode = NodeType.CHAT_META.tryCast(n).orElse(null);
+            if (chatMetaNode != null && n.getValue()) {
                 // handle prefixes / suffixes
-                Map.Entry<Integer, String> entry = chatMetaType.getEntry(n);
+                Map.Entry<Integer, String> entry = chatMetaNode.getAsEntry();
 
                 ConfigurationNode attributes = SimpleConfigurationNode.root();
                 attributes.getNode("priority").setValue(entry.getKey());
                 writeAttributesTo(attributes, node, false);
 
-                switch (chatMetaType) {
+                switch (chatMetaNode.getType()) {
                     case PREFIX:
                         appendNode(prefixesSection, entry.getValue(), attributes, "prefix");
                         break;

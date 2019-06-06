@@ -25,8 +25,8 @@
 
 package me.lucko.luckperms.common.node.utils;
 
-import me.lucko.luckperms.api.Tristate;
 import me.lucko.luckperms.api.node.Node;
+import me.lucko.luckperms.api.node.Tristate;
 import me.lucko.luckperms.api.node.metadata.types.InheritedFromMetadata;
 
 import java.util.Objects;
@@ -38,7 +38,7 @@ import java.util.Optional;
 public final class InheritanceInfo {
     public static InheritanceInfo of(Node node) {
         Objects.requireNonNull(node, "node");
-        return new InheritanceInfo(Tristate.fromBoolean(node.getValue()), node.metadata(InheritedFromMetadata.KEY).getLocation());
+        return new InheritanceInfo(Tristate.of(node.getValue()), node.metadata(InheritedFromMetadata.KEY).getLocation());
     }
 
     public static InheritanceInfo empty() {

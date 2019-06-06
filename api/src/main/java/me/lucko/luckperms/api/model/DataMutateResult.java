@@ -1,5 +1,5 @@
 /*
- * This file is part of LuckPerms, licensed under the MIT License.
+ * This file is part of luckperms, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
  *  Copyright (c) contributors
@@ -23,32 +23,46 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api;
+package me.lucko.luckperms.api.model;
 
-import me.lucko.luckperms.api.model.PermissionHolder;
-import me.lucko.luckperms.api.node.Node;
-
-import org.checkerframework.checker.nullness.qual.NonNull;
+import me.lucko.luckperms.api.track.Track;
+import me.lucko.luckperms.api.util.Result;
 
 /**
- * A relationship between a {@link PermissionHolder} and a {@link Node}.
+ * Represents the result of a data mutation call on a LuckPerms object.
  *
- * @param <T> the identifier type of the holder
+ * <p>Usually as the result to a call on a {@link PermissionHolder} or {@link Track}.</p>
  */
-public interface HeldNode<T> {
+public enum DataMutateResult implements Result {
 
     /**
-     * Gets the holder of the node
-     *
-     * @return the holder
+     * Indicates the mutation was a success
      */
-    @NonNull T getHolder();
+    SUCCESS(true),
 
     /**
-     * Gets the node
-     *
-     * @return the node
+     * Indicates the mutation failed because the subject of the action already has something
      */
-    @NonNull Node getNode();
+    ALREADY_HAS(false),
 
+    /**
+     * Indicates the mutation failed because the subject of the action lacks something
+     */
+    LACKS(false),
+
+    /**
+     * Indicates the mutation failed
+     */
+    FAIL(false);
+
+    private final boolean success;
+
+    DataMutateResult(boolean success) {
+        this.success = success;
+    }
+
+    @Override
+    public boolean wasSuccess() {
+        return this.success;
+    }
 }

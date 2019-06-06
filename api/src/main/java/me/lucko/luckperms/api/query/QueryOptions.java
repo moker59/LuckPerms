@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.api.query;
 
-import me.lucko.luckperms.LuckPerms;
+import me.lucko.luckperms.LuckPermsProvider;
 import me.lucko.luckperms.api.context.ContextSet;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
 
@@ -48,7 +48,7 @@ public interface QueryOptions {
      * @return
      */
     static @NonNull Builder builder(@NonNull QueryMode mode) {
-        return LuckPerms.getApi().getContextManager().queryOptionsBuilder(mode);
+        return LuckPermsProvider.getApi().getContextManager().queryOptionsBuilder(mode);
     }
 
     /**

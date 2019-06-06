@@ -28,7 +28,7 @@ package me.lucko.luckperms.common.cacheddata.type;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 
-import me.lucko.luckperms.api.ChatMetaType;
+import me.lucko.luckperms.api.node.ChatMetaType;
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.types.MetaNode;
 import me.lucko.luckperms.api.node.types.PrefixNode;

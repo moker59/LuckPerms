@@ -1,5 +1,5 @@
 /*
- * This file is part of LuckPerms, licensed under the MIT License.
+ * This file is part of luckperms, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
  *  Copyright (c) contributors
@@ -23,7 +23,7 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api;
+package me.lucko.luckperms.api.node;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -61,22 +61,21 @@ public enum Tristate {
      * @param val the boolean value
      * @return {@link #TRUE} or {@link #FALSE}, if the value is <code>true</code> or <code>false</code>, respectively.
      */
-    public static @NonNull Tristate fromBoolean(boolean val) {
+    public static @NonNull Tristate of(boolean val) {
         return val ? TRUE : FALSE;
     }
 
     /**
      * Returns a {@link Tristate} from a nullable boolean.
      *
-     * <p>Unlike {@link #fromBoolean(boolean)}, this method returns {@link #UNDEFINED}
+     * <p>Unlike {@link #of(boolean)}, this method returns {@link #UNDEFINED}
      * if the value is null.</p>
      *
      * @param val the boolean value
      * @return {@link #UNDEFINED}, {@link #TRUE} or {@link #FALSE}, if the value
      *         is <code>null</code>, <code>true</code> or <code>false</code>, respectively.
-     * @since 4.1
      */
-    public static @NonNull Tristate fromNullableBoolean(Boolean val) {
+    public static @NonNull Tristate of(Boolean val) {
         return val == null ? UNDEFINED : val ? TRUE : FALSE;
     }
 

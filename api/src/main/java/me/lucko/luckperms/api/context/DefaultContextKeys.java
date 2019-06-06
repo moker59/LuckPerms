@@ -25,13 +25,14 @@
 
 package me.lucko.luckperms.api.context;
 
-public final class DefaultContextKeys {
-    private DefaultContextKeys() {}
+public enum DefaultContextKeys {
+    ;
 
     /**
      * The context key used to denote the subjects server
      */
     public static final String SERVER_KEY = "server";
+
     /**
      * The context key used to denote the subjects world
      */

@@ -23,58 +23,55 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api.model;
+package me.lucko.luckperms;
 
-import me.lucko.luckperms.api.context.ContextSet;
+import me.lucko.luckperms.api.LuckPerms;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
-import org.checkerframework.checker.nullness.qual.Nullable;
-
-import java.util.OptionalInt;
 
 /**
- * An inheritable holder of permission data.
+ * Provides static access to the {@link LuckPerms} instance.
+ *
+ * <p>Ideally, the ServiceManager for the platform should be used to obtain an instance,
+ * however, this provider can be used if you need static access.</p>
  */
-public interface Group extends PermissionHolder {
+public final class LuckPermsProvider {
+    private static LuckPerms instance = null;
 
     /**
-     * Get the name of the group
+     * Gets an instance of the {@link LuckPerms},
+     * throwing {@link IllegalStateException} if an instance is not yet loaded.
      *
-     * @return the name of the group
+     * <p>Will never return null.</p>
+     *
+     * @return an api instance
+     * @throws IllegalStateException if the api is not loaded
      */
-    @NonNull String getName();
+    public static @NonNull LuckPerms getApi() {
+        if (instance == null) {
+            throw new IllegalStateException("API is not loaded.");
+        }
+        return instance;
+    }
 
     /**
-     * Gets the groups "display name", if it has one that differs from it's actual name.
+     * Registers an instance of the {@link LuckPerms} with this provider.
      *
-     * <p>The lookup is made using the current servers active context.</p>
-     *
-     * <p>Will return <code>null</code> if the groups display name is equal to it's
-     * {@link #getName() actual name}.</p>
-     *
-     * @return the display name
-     * @since 4.3
+     * @param instance the instance
      */
-    @Nullable String getDisplayName();
+    static void registerProvider(LuckPerms instance) {
+        LuckPermsProvider.instance = instance;
+    }
 
     /**
-     * Gets the groups "display name", if it has one that differs from it's actual name.
-     *
-     * <p>Will return <code>null</code> if the groups display name is equal to it's
-     * {@link #getName() actual name}.</p>
-     *
-     * @param contextSet the contexts to lookup in
-     * @return the display name
-     * @since 4.3
+     * Removes the current instance from this provider.
      */
-    @Nullable String getDisplayName(@NonNull ContextSet contextSet);
+    static void unregisterProvider() {
+        LuckPermsProvider.instance = null;
+    }
 
-    /**
-     * Gets the weight of this group, if present.
-     *
-     * @return the group weight
-     * @since 2.17
-     */
-    @NonNull OptionalInt getWeight();
+    private LuckPermsProvider() {
+        throw new UnsupportedOperationException("This class cannot be instantiated.");
+    }
 
 }

@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.api.actionlog;
 
-import me.lucko.luckperms.api.MessagingService;
+import me.lucko.luckperms.api.messaging.MessagingService;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 

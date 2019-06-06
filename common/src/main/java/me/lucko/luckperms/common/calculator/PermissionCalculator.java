@@ -27,7 +27,7 @@ package me.lucko.luckperms.common.calculator;
 
 import com.google.common.collect.ImmutableList;
 
-import me.lucko.luckperms.api.Tristate;
+import me.lucko.luckperms.api.node.Tristate;
 import me.lucko.luckperms.common.cache.LoadingMap;
 import me.lucko.luckperms.common.cacheddata.CacheMetadata;
 import me.lucko.luckperms.common.calculator.processor.PermissionProcessor;

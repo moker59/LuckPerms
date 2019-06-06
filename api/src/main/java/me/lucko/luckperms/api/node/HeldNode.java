@@ -1,5 +1,5 @@
 /*
- * This file is part of LuckPerms, licensed under the MIT License.
+ * This file is part of luckperms, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
  *  Copyright (c) contributors
@@ -23,39 +23,31 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api;
+package me.lucko.luckperms.api.node;
 
 import me.lucko.luckperms.api.model.PermissionHolder;
-import me.lucko.luckperms.api.node.Node;
+
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
- * Controls how the implementation should behave when new temporary nodes are set
- * that would otherwise conflict with existing entries.
+ * A relationship between a {@link PermissionHolder} and a {@link Node}.
  *
- * <p>The default behaviour of {@link PermissionHolder#addNode(Node)} is
- * to return a result of {@link DataMutateResult#ALREADY_HAS} when an equivalent
- * node is found. This can be replicated using {@link #FAIL_WITH_ALREADY_HAS}.</p>
- *
- * <p>However, the {@link PermissionHolder#addNode(Node, TemporaryMergeBehaviour)}
- * method allows this behaviour to be customized for temporary permissions.</p>
- *
- * @since 4.3
+ * @param <T> the identifier type of the holder
  */
-public enum TemporaryMergeBehaviour {
+public interface HeldNode<T> {
 
     /**
-     * Expiry durations will be added to the existing expiry time of a permission.
+     * Gets the holder of the node
+     *
+     * @return the holder
      */
-    ADD_NEW_DURATION_TO_EXISTING,
+    @NonNull T getHolder();
 
     /**
-     * Expiry durations will be replaced if the new duration is longer than the current one.
+     * Gets the node
+     *
+     * @return the node
      */
-    REPLACE_EXISTING_IF_DURATION_LONGER,
-
-    /**
-     * The operation will fail if an existing temporary node is present.
-     */
-    FAIL_WITH_ALREADY_HAS
+    @NonNull Node getNode();
 
 }

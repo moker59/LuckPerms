@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.api.metastacking;
 
-import me.lucko.luckperms.api.ChatMetaType;
+import me.lucko.luckperms.api.node.ChatMetaType;
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.types.ChatMetaNode;
 

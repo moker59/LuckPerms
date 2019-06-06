@@ -27,7 +27,7 @@ package me.lucko.luckperms.common.event.gen;
 
 import com.google.common.collect.ImmutableList;
 
-import me.lucko.luckperms.api.LuckPermsApi;
+import me.lucko.luckperms.api.LuckPerms;
 import me.lucko.luckperms.api.event.LuckPermsEvent;
 import me.lucko.luckperms.api.event.Param;
 import me.lucko.luckperms.common.cache.LoadingMap;
@@ -97,7 +97,7 @@ public class GeneratedEventSpec {
                 .collect(ImmutableCollectors.toList());
     }
 
-    public LuckPermsEvent newInstance(LuckPermsApi api, Object... params) {
+    public LuckPermsEvent newInstance(LuckPerms api, Object... params) {
         if (params.length != this.methods.size()) {
             throw new IllegalStateException("param length differs from number of methods. expected " + this.methods.size() + " - " + this.methods);
         }
@@ -118,10 +118,10 @@ public class GeneratedEventSpec {
      * An invocation handler bound to a set of parameters, used to implement the event as a proxy.
      */
     private final class EventInvocationHandler implements InvocationHandler {
-        private final LuckPermsApi api;
+        private final LuckPerms api;
         private final Object[] fields;
 
-        EventInvocationHandler(LuckPermsApi api, Object[] fields) {
+        EventInvocationHandler(LuckPerms api, Object[] fields) {
             this.api = api;
             this.fields = fields;
         }

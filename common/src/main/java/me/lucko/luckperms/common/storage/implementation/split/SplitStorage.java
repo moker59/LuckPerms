@@ -27,9 +27,9 @@ package me.lucko.luckperms.common.storage.implementation.split;
 
 import com.google.common.collect.ImmutableMap;
 
-import me.lucko.luckperms.api.HeldNode;
-import me.lucko.luckperms.api.PlayerSaveResult;
 import me.lucko.luckperms.api.actionlog.Action;
+import me.lucko.luckperms.api.model.PlayerSaveResult;
+import me.lucko.luckperms.api.node.HeldNode;
 import me.lucko.luckperms.common.actionlog.Log;
 import me.lucko.luckperms.common.bulkupdate.BulkUpdate;
 import me.lucko.luckperms.common.bulkupdate.comparison.Constraint;

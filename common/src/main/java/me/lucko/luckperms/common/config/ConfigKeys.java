@@ -27,10 +27,10 @@ package me.lucko.luckperms.common.config;
 
 import com.google.common.collect.ImmutableMap;
 
-import me.lucko.luckperms.api.TemporaryMergeBehaviour;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
 import me.lucko.luckperms.api.metastacking.DuplicateRemovalFunction;
 import me.lucko.luckperms.api.metastacking.MetaStackDefinition;
+import me.lucko.luckperms.api.model.TemporaryMergeBehaviour;
 import me.lucko.luckperms.api.query.Flag;
 import me.lucko.luckperms.api.query.QueryOptions;
 import me.lucko.luckperms.common.command.utils.ArgumentParser;

@@ -27,7 +27,7 @@ package me.lucko.luckperms.common.api.implementation;
 
 import me.lucko.luckperms.api.context.ContextCalculator;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
-import me.lucko.luckperms.api.model.User;
+import me.lucko.luckperms.api.model.user.User;
 import me.lucko.luckperms.api.query.QueryMode;
 import me.lucko.luckperms.api.query.QueryOptions;
 import me.lucko.luckperms.common.context.ContextManager;

@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.common.plugin.util;
 
-import me.lucko.luckperms.api.PlayerSaveResult;
+import me.lucko.luckperms.api.model.PlayerSaveResult;
 import me.lucko.luckperms.api.platform.PlatformType;
 import me.lucko.luckperms.common.model.User;
 import me.lucko.luckperms.common.plugin.LuckPermsPlugin;
