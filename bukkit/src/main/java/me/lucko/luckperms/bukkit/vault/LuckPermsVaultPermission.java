@@ -195,7 +195,7 @@ public class LuckPermsVaultPermission extends AbstractVaultPermission {
 
         Tristate result = permissionData.checkPermission(permission, PermissionCheckEvent.Origin.THIRD_PARTY_API).result();
         if (log()) {
-            logMsg("#userHasPermission: %s - %s - %s - %s", user.getPlainDisplayName(), queryOptions.context().toMultimap(), permission, result);
+            logMsg("#userHasPermission: %s - %s - %s - %s", user.getPlainDisplayName(), queryOptions.context(), permission, result);
         }
         return result != Tristate.UNDEFINED ? result.asBoolean() : org.bukkit.permissions.Permission.DEFAULT_PERMISSION.getValue(queryOptions.option(BukkitContextManager.OP_OPTION).orElse(false));
     }
@@ -235,7 +235,7 @@ public class LuckPermsVaultPermission extends AbstractVaultPermission {
 
         TristateResult result = permissionData.checkPermission(NodeFactory.groupNode(rewriteGroupName(group)), PermissionCheckEvent.Origin.THIRD_PARTY_API);
         if (log()) {
-            logMsg("#userInGroup: %s - %s - %s - %s", user.getPlainDisplayName(), queryOptions.context().toMultimap(), group, result);
+            logMsg("#userInGroup: %s - %s - %s - %s", user.getPlainDisplayName(), queryOptions.context(), group, result);
         }
         return result.processorClass() == MapProcessor.class && result.result().asBoolean();
     }
@@ -319,7 +319,7 @@ public class LuckPermsVaultPermission extends AbstractVaultPermission {
 
         Tristate result = permissionData.checkPermission(permission, PermissionCheckEvent.Origin.THIRD_PARTY_API).result();
         if (log()) {
-            logMsg("#groupHasPermission: %s - %s - %s - %s", group.getName(), queryOptions.context().toMultimap(), permission, result);
+            logMsg("#groupHasPermission: %s - %s - %s - %s", group.getName(), queryOptions.context(), permission, result);
         }
         return result.asBoolean();
     }

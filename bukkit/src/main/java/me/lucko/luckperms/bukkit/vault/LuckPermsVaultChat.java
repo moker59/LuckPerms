@@ -92,7 +92,7 @@ public class LuckPermsVaultChat extends AbstractVaultChat {
         MetaCache metaData = user.getCachedData().getMetaData(queryOptions);
         String ret = metaData.getPrefix(MetaCheckEvent.Origin.THIRD_PARTY_API);
         if (log()) {
-            logMsg("#getUserChatPrefix: %s - %s - %s", user.getPlainDisplayName(), queryOptions.context().toMultimap(), ret);
+            logMsg("#getUserChatPrefix: %s - %s - %s", user.getPlainDisplayName(), queryOptions.context(), ret);
         }
         return Strings.nullToEmpty(ret);
     }
@@ -106,7 +106,7 @@ public class LuckPermsVaultChat extends AbstractVaultChat {
         MetaCache metaData = user.getCachedData().getMetaData(queryOptions);
         String ret = metaData.getSuffix(MetaCheckEvent.Origin.THIRD_PARTY_API);
         if (log()) {
-            logMsg("#getUserChatSuffix: %s - %s - %s", user.getPlainDisplayName(), queryOptions.context().toMultimap(), ret);
+            logMsg("#getUserChatSuffix: %s - %s - %s", user.getPlainDisplayName(), queryOptions.context(), ret);
         }
         return Strings.nullToEmpty(ret);
     }
@@ -141,9 +141,9 @@ public class LuckPermsVaultChat extends AbstractVaultChat {
         PermissionHolder user = this.vaultPermission.lookupUser(uuid);
         QueryOptions queryOptions = this.vaultPermission.getQueryOptions(uuid, world);
         MetaCache metaData = user.getCachedData().getMetaData(queryOptions);
-        String ret = metaData.getMeta(MetaCheckEvent.Origin.THIRD_PARTY_API).get(key);
+        String ret = metaData.getMetaValue(key, MetaCheckEvent.Origin.THIRD_PARTY_API);
         if (log()) {
-            logMsg("#getUserMeta: %s - %s - %s - %s", user.getPlainDisplayName(), queryOptions.context().toMultimap(), key, ret);
+            logMsg("#getUserMeta: %s - %s - %s - %s", user.getPlainDisplayName(), queryOptions.context(), key, ret);
         }
         return ret;
     }
@@ -171,7 +171,7 @@ public class LuckPermsVaultChat extends AbstractVaultChat {
         MetaCache metaData = group.getCachedData().getMetaData(queryOptions);
         String ret = metaData.getPrefix(MetaCheckEvent.Origin.THIRD_PARTY_API);
         if (log()) {
-            logMsg("#getGroupPrefix: %s - %s - %s", group.getName(), queryOptions.context().toMultimap(), ret);
+            logMsg("#getGroupPrefix: %s - %s - %s", group.getName(), queryOptions.context(), ret);
         }
         return Strings.nullToEmpty(ret);
     }
@@ -187,7 +187,7 @@ public class LuckPermsVaultChat extends AbstractVaultChat {
         MetaCache metaData = group.getCachedData().getMetaData(queryOptions);
         String ret = metaData.getSuffix(MetaCheckEvent.Origin.THIRD_PARTY_API);
         if (log()) {
-            logMsg("#getGroupSuffix: %s - %s - %s", group.getName(), queryOptions.context().toMultimap(), ret);
+            logMsg("#getGroupSuffix: %s - %s - %s", group.getName(), queryOptions.context(), ret);
         }
         return Strings.nullToEmpty(ret);
     }
@@ -222,9 +222,9 @@ public class LuckPermsVaultChat extends AbstractVaultChat {
         }
         QueryOptions queryOptions = this.vaultPermission.getQueryOptions(null, world);
         MetaCache metaData = group.getCachedData().getMetaData(queryOptions);
-        String ret = metaData.getMeta(MetaCheckEvent.Origin.THIRD_PARTY_API).get(key);
+        String ret = metaData.getMetaValue(key, MetaCheckEvent.Origin.THIRD_PARTY_API);
         if (log()) {
-            logMsg("#getGroupMeta: %s - %s - %s - %s", group.getName(), queryOptions.context().toMultimap(), key, ret);
+            logMsg("#getGroupMeta: %s - %s - %s - %s", group.getName(), queryOptions.context(), key, ret);
         }
         return ret;
     }

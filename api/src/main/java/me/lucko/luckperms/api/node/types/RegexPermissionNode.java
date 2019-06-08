@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.api.node.types;
 
-import me.lucko.luckperms.LuckPermsProvider;
+import me.lucko.luckperms.api.LuckPermsProvider;
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.NodeBuilder;
 import me.lucko.luckperms.api.node.ScopedNode;
@@ -64,7 +64,7 @@ public interface RegexPermissionNode extends ScopedNode<RegexPermissionNode, Reg
      * @return
      */
     static @NonNull Builder builder() {
-        return LuckPermsProvider.getApi().getNodeBuilderRegistry().forRegexPermission();
+        return LuckPermsProvider.get().getNodeBuilderRegistry().forRegexPermission();
     }
 
     /**

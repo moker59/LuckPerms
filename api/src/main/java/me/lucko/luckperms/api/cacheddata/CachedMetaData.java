@@ -25,13 +25,12 @@
 
 package me.lucko.luckperms.api.cacheddata;
 
-import com.google.common.collect.ListMultimap;
-
 import me.lucko.luckperms.api.metastacking.MetaStackDefinition;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
+import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 
@@ -43,28 +42,33 @@ import java.util.SortedMap;
 public interface CachedMetaData extends CachedData {
 
     /**
-     * Gets an immutable copy of the meta this user has.
+     * TODO
      *
-     * <p>A list multimap is used because when inherited values are included, each key can be
-     * mapped to multiple values.</p>
-     *
-     * <p>The first value to be accumulated (and used to represent the key in {@link #getMeta()} is at index 0
-     * in the list. Any additional values are stored in order of accumulation.</p>
-     *
-     * @return an immutable multimap of meta
-     * @since 3.3
+     * @param key
+     * @return
      */
-    @NonNull ListMultimap<String, String> getMetaMultimap();
+    @Nullable String getMetaValue(String key);
+
+    /**
+     * Gets the user's highest priority prefix, or null if the user has no prefixes
+     *
+     * @return a prefix string, or null
+     */
+    @Nullable String getPrefix();
+
+    /**
+     * Gets the user's highest priority suffix, or null if the user has no suffixes
+     *
+     * @return a suffix string, or null
+     */
+    @Nullable String getSuffix();
 
     /**
      * Gets an immutable copy of the meta this user has.
      *
-     * <p>This map is formed by taking the entries in {@link #getMetaMultimap()}, and mapping each key
-     * to the value at index 0 in the corresponding list.</p>
-     *
      * @return an immutable map of meta
      */
-    @NonNull Map<String, String> getMeta();
+    @NonNull Map<String, List<String>> getMeta();
 
     /**
      * Gets an immutable sorted map of all of the prefixes the user has, whereby the first value is the highest priority
@@ -81,20 +85,6 @@ public interface CachedMetaData extends CachedData {
      * @return a sorted map of suffixes
      */
     @NonNull SortedMap<Integer, String> getSuffixes();
-
-    /**
-     * Gets the user's highest priority prefix, or null if the user has no prefixes
-     *
-     * @return a prefix string, or null
-     */
-    @Nullable String getPrefix();
-
-    /**
-     * Gets the user's highest priority suffix, or null if the user has no suffixes
-     *
-     * @return a suffix string, or null
-     */
-    @Nullable String getSuffix();
 
     /**
      * Gets the definition used for the prefix stack

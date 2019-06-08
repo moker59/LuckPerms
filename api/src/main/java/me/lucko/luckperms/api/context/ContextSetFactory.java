@@ -23,31 +23,20 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api.node;
-
-import me.lucko.luckperms.api.model.PermissionHolder;
+package me.lucko.luckperms.api.context;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-/**
- * A relationship between a {@link PermissionHolder} and a {@link Node}.
- *
- * @param <T> the identifier type of the holder
- */
-public interface HeldNode<T> {
+public interface ContextSetFactory {
 
-    /**
-     * Gets the holder of the node
-     *
-     * @return the holder
-     */
-    @NonNull T getHolder();
+    ImmutableContextSet.@NonNull Builder immutableBuilder();
 
-    /**
-     * Gets the node
-     *
-     * @return the node
-     */
-    @NonNull Node getNode();
+    @NonNull ImmutableContextSet immutableOf(@NonNull String key, @NonNull String value);
+
+    @NonNull ImmutableContextSet immutableOf(@NonNull String key1, @NonNull String value1, @NonNull String key2, @NonNull String value2);
+
+    @NonNull ImmutableContextSet immutableEmpty();
+
+    @NonNull MutableContextSet mutable();
 
 }

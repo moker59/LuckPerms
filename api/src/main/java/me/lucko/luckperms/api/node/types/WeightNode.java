@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.api.node.types;
 
-import me.lucko.luckperms.LuckPermsProvider;
+import me.lucko.luckperms.api.LuckPermsProvider;
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.NodeBuilder;
 import me.lucko.luckperms.api.node.ScopedNode;
@@ -52,7 +52,7 @@ public interface WeightNode extends ScopedNode<WeightNode, WeightNode.Builder> {
      * @return
      */
     static @NonNull Builder builder() {
-        return LuckPermsProvider.getApi().getNodeBuilderRegistry().forWeight();
+        return LuckPermsProvider.get().getNodeBuilderRegistry().forWeight();
     }
 
     /**

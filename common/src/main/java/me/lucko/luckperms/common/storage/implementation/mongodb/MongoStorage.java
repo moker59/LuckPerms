@@ -718,7 +718,7 @@ public class MongoStorage implements StorageImplementation {
         if (document.containsKey("context") && document.get("context") instanceof List) {
             //noinspection unchecked
             List<Document> contexts = (List<Document>) document.get("context");
-            context = docsToContextSet(contexts).makeImmutable();
+            context = docsToContextSet(contexts).immutableCopy();
         }
 
         return NodeDataContainer.of(permission, value, server, world, expiry, context);
@@ -726,7 +726,7 @@ public class MongoStorage implements StorageImplementation {
 
     private static List<Document> contextSetToDocs(ContextSet contextSet) {
         List<Document> contexts = new ArrayList<>();
-        for (Map.Entry<String, String> e : contextSet.toSet()) {
+        for (Map.Entry<String, String> e : contextSet.asSet()) {
             contexts.add(new Document().append("key", e.getKey()).append("value", e.getValue()));
         }
         return contexts;

@@ -265,7 +265,7 @@ public class ArgumentParser {
             }
         }
 
-        return contextSet.makeImmutable();
+        return contextSet.immutableCopy();
     }
 
     public static UUID parseUserTarget(int index, List<String> args, LuckPermsPlugin plugin, Sender sender) {

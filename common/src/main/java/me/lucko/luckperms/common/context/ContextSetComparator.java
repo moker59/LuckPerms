@@ -73,8 +73,8 @@ public class ContextSetComparator implements Comparator<ImmutableContextSet> {
 
         // in order to have consistent ordering, we have to compare the content of the context sets by ordering the
         // elements and then comparing which set is greater.
-        List<Map.Entry<String, String>> o1Entries = new ArrayList<>(o1.toSet());
-        List<Map.Entry<String, String>> o2Entries = new ArrayList<>(o2.toSet());
+        List<Map.Entry<String, String>> o1Entries = new ArrayList<>(o1.asSet());
+        List<Map.Entry<String, String>> o2Entries = new ArrayList<>(o2.asSet());
         o1Entries.sort(STRING_ENTRY_COMPARATOR);
         o2Entries.sort(STRING_ENTRY_COMPARATOR);
 

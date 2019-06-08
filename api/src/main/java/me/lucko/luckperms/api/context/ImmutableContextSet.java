@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.api.context;
 
-import com.google.common.collect.Multimap;
+import me.lucko.luckperms.api.LuckPermsProvider;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -46,7 +46,7 @@ public interface ImmutableContextSet extends ContextSet {
      * @return a new ImmutableContextSet builder
      */
     static @NonNull Builder builder() {
-        return new ImmutableContextSetImpl.BuilderImpl();
+        return LuckPermsProvider.get().getContextSetFactory().immutableBuilder();
     }
 
     /**
@@ -57,8 +57,8 @@ public interface ImmutableContextSet extends ContextSet {
      * @return a new ImmutableContextSet containing one context pair
      * @throws NullPointerException if key or value is null
      */
-    static @NonNull ImmutableContextSet singleton(@NonNull String key, @NonNull String value) {
-        return ImmutableContextSetImpl.of(key, value);
+    static @NonNull ImmutableContextSet of(@NonNull String key, @NonNull String value) {
+        return LuckPermsProvider.get().getContextSetFactory().immutableOf(key, value);
     }
 
     /**
@@ -72,7 +72,7 @@ public interface ImmutableContextSet extends ContextSet {
      * @throws NullPointerException if any of the keys or values are null
      */
     static @NonNull ImmutableContextSet of(@NonNull String key1, @NonNull String value1, @NonNull String key2, @NonNull String value2) {
-        return ImmutableContextSetImpl.of(key1, value1, key2, value2);
+        return LuckPermsProvider.get().getContextSetFactory().immutableOf(key1, value1, key2, value2);
     }
 
     /**
@@ -92,41 +92,6 @@ public interface ImmutableContextSet extends ContextSet {
     }
 
     /**
-     * Creates an {@link ImmutableContextSet} from an existing {@link Map}.
-     *
-     * @param map the map to copy from
-     * @return a new ImmutableContextSet representing the pairs from the map
-     * @throws NullPointerException if the map is null
-     */
-    static @NonNull ImmutableContextSet fromMap(@NonNull Map<String, String> map) {
-        Iterable<? extends Map.Entry<String, String>> iterable = Objects.requireNonNull(map, "map").entrySet();
-        Objects.requireNonNull(iterable, "iterable");
-        Builder builder = builder();
-        for (Map.Entry<String, String> entry : iterable) {
-            builder.add(entry);
-        }
-        return builder.build();
-    }
-
-    /**
-     * Creates an {@link ImmutableContextSet} from an existing {@link Multimap}.
-     *
-     * @param multimap the multimap to copy from
-     * @return a new ImmutableContextSet representing the pairs in the multimap
-     * @throws NullPointerException if the multimap is null
-     * @since 2.16
-     */
-    static @NonNull ImmutableContextSet fromMultimap(@NonNull Multimap<String, String> multimap) {
-        Iterable<? extends Map.Entry<String, String>> iterable = Objects.requireNonNull(multimap, "multimap").entries();
-        Objects.requireNonNull(iterable, "iterable");
-        Builder builder = builder();
-        for (Map.Entry<String, String> entry : iterable) {
-            builder.add(entry);
-        }
-        return builder.build();
-    }
-
-    /**
      * Creates an new {@link ImmutableContextSet} from an existing {@link Set}.
      *
      * <p>Only really useful for converting between mutable and immutable types.</p>
@@ -136,7 +101,7 @@ public interface ImmutableContextSet extends ContextSet {
      * @throws NullPointerException if contextSet is null
      */
     static @NonNull ImmutableContextSet fromSet(@NonNull ContextSet contextSet) {
-        return Objects.requireNonNull(contextSet, "contextSet").makeImmutable();
+        return Objects.requireNonNull(contextSet, "contextSet").immutableCopy();
     }
 
     /**
@@ -145,7 +110,7 @@ public interface ImmutableContextSet extends ContextSet {
      * @return an empty ImmutableContextSet
      */
     static @NonNull ImmutableContextSet empty() {
-        return ImmutableContextSetImpl.EMPTY;
+        return LuckPermsProvider.get().getContextSetFactory().immutableEmpty();
     }
 
     /**
@@ -153,12 +118,12 @@ public interface ImmutableContextSet extends ContextSet {
      */
     @Override
     @Deprecated
-    @NonNull ImmutableContextSet makeImmutable();
+    @NonNull ImmutableContextSet immutableCopy();
 
     /**
      * A builder for {@link ImmutableContextSet}.
      */
-    interface Builder extends ContextConsumer {
+    interface Builder {
 
         /**
          * Adds a context to the set.
@@ -170,11 +135,6 @@ public interface ImmutableContextSet extends ContextSet {
          * @see MutableContextSet#add(String, String)
          */
         @NonNull Builder add(@NonNull String key, @NonNull String value);
-
-        @Override
-        default void accept(@NonNull String key, @NonNull String value) {
-            add(key, value);
-        }
 
         /**
          * Adds a context to the set.
@@ -202,33 +162,6 @@ public interface ImmutableContextSet extends ContextSet {
             for (Map.Entry<String, String> e : Objects.requireNonNull(iterable, "iterable")) {
                 add(e);
             }
-            return this;
-        }
-
-        /**
-         * Adds the contexts contained in the given {@link Map} to the set.
-         *
-         * @param map the map to add from
-         * @return the builder
-         * @throws NullPointerException if the map is null
-         * @see MutableContextSet#addAll(Map)
-         */
-        default @NonNull Builder addAll(@NonNull Map<String, String> map) {
-            addAll(Objects.requireNonNull(map, "map").entrySet());
-            return this;
-        }
-
-        /**
-         * Adds the contexts contained in the given {@link Multimap} to the set.
-         *
-         * @param multimap the multimap to add from
-         * @return the builder
-         * @throws NullPointerException if the map is null
-         * @since 3.4
-         * @see MutableContextSet#addAll(Multimap)
-         */
-        default @NonNull Builder addAll(@NonNull Multimap<String, String> multimap) {
-            addAll(Objects.requireNonNull(multimap, "multimap").entries());
             return this;
         }
 

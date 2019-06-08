@@ -25,12 +25,11 @@
 
 package me.lucko.luckperms.common.cacheddata.type;
 
-import com.google.common.collect.ForwardingListMultimap;
-import com.google.common.collect.ForwardingMap;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.ListMultimap;
+import com.google.common.collect.Multimaps;
 
 import me.lucko.luckperms.api.cacheddata.CachedMetaData;
 import me.lucko.luckperms.api.metastacking.MetaStackDefinition;
@@ -63,8 +62,8 @@ public class MetaCache implements CachedMetaData {
      */
     private final CacheMetadata metadata;
 
-    private ListMultimap<String, String> metaMultimap = ImmutableListMultimap.of();
-    private Map<String, String> meta = ImmutableMap.of();
+    private ListMultimap<String, String> meta = ImmutableListMultimap.of();
+    private Map<String, String> flattenedMeta = ImmutableMap.of();
     private SortedMap<Integer, String> prefixes = ImmutableSortedMap.of();
     private SortedMap<Integer, String> suffixes = ImmutableSortedMap.of();
     private MetaStack prefixStack = null;
@@ -78,10 +77,10 @@ public class MetaCache implements CachedMetaData {
     public void loadMeta(MetaAccumulator meta) {
         meta.complete();
 
-        this.metaMultimap = ImmutableListMultimap.copyOf(meta.getMeta());
+        this.meta = ImmutableListMultimap.copyOf(meta.getMeta());
 
         //noinspection unchecked
-        Map<String, List<String>> metaMap = (Map) this.metaMultimap.asMap();
+        Map<String, List<String>> metaMap = (Map) this.meta.asMap();
         ImmutableMap.Builder<String, String> metaMapBuilder = ImmutableMap.builder();
 
         for (Map.Entry<String, List<String>> e : metaMap.entrySet()) {
@@ -92,7 +91,7 @@ public class MetaCache implements CachedMetaData {
             // take the value which was accumulated first
             metaMapBuilder.put(e.getKey(), e.getValue().get(0));
         }
-        this.meta = metaMapBuilder.build();
+        this.flattenedMeta = metaMapBuilder.build();
 
         this.prefixes = ImmutableSortedMap.copyOfSorted(meta.getPrefixes());
         this.suffixes = ImmutableSortedMap.copyOfSorted(meta.getSuffixes());
@@ -100,9 +99,20 @@ public class MetaCache implements CachedMetaData {
         this.suffixStack = meta.getSuffixStack();
     }
 
+    public String getMetaValue(String key, MetaCheckEvent.Origin origin) {
+        Objects.requireNonNull(key, "key");
+        String value = this.flattenedMeta.get(key);
+
+        // log this meta lookup to the verbose handler
+        VerboseHandler verboseHandler = MetaCache.this.metadata.getParentContainer().getPlugin().getVerboseHandler();
+        verboseHandler.offerMetaCheckEvent(origin, MetaCache.this.metadata.getObjectName(), MetaCache.this.metadata.getQueryOptions(), key, String.valueOf(value));
+
+        return value;
+    }
+
     @Override
-    public String getPrefix() {
-        return getPrefix(MetaCheckEvent.Origin.LUCKPERMS_API);
+    public String getMetaValue(String key) {
+        return getMetaValue(key, MetaCheckEvent.Origin.LUCKPERMS_API);
     }
 
     public String getPrefix(MetaCheckEvent.Origin origin) {
@@ -117,8 +127,8 @@ public class MetaCache implements CachedMetaData {
     }
 
     @Override
-    public String getSuffix() {
-        return getSuffix(MetaCheckEvent.Origin.LUCKPERMS_API);
+    public String getPrefix() {
+        return getPrefix(MetaCheckEvent.Origin.LUCKPERMS_API);
     }
 
     public String getSuffix(MetaCheckEvent.Origin origin) {
@@ -130,6 +140,26 @@ public class MetaCache implements CachedMetaData {
         verboseHandler.offerMetaCheckEvent(origin, this.metadata.getObjectName(), this.metadata.getQueryOptions(), NodeTypes.SUFFIX_KEY, String.valueOf(value));
 
         return value;
+    }
+
+    @Override
+    public String getSuffix() {
+        return getSuffix(MetaCheckEvent.Origin.LUCKPERMS_API);
+    }
+
+    @Override
+    public @NonNull Map<String, List<String>> getMeta() {
+        return Multimaps.asMap(this.meta);
+    }
+
+    @Override
+    public @NonNull SortedMap<Integer, String> getPrefixes() {
+        return this.prefixes;
+    }
+
+    @Override
+    public @NonNull SortedMap<Integer, String> getSuffixes() {
+        return this.suffixes;
     }
 
     @Override
@@ -145,90 +175,6 @@ public class MetaCache implements CachedMetaData {
     @Override
     public @NonNull QueryOptions getQueryOptions() {
         return this.queryOptions;
-    }
-
-    @Override
-    public @NonNull ListMultimap<String, String> getMetaMultimap() {
-        return getMetaMultimap(MetaCheckEvent.Origin.LUCKPERMS_API);
-    }
-
-    public ListMultimap<String, String> getMetaMultimap(MetaCheckEvent.Origin origin) {
-        return new VerboseLoggedMetaMultimap(origin);
-    }
-
-    @Override
-    public @NonNull Map<String, String> getMeta() {
-        return getMeta(MetaCheckEvent.Origin.LUCKPERMS_API);
-    }
-
-    public Map<String, String> getMeta(MetaCheckEvent.Origin origin) {
-        return new VerboseLoggedMetaMap(origin);
-    }
-
-    @Override
-    public @NonNull SortedMap<Integer, String> getPrefixes() {
-        return this.prefixes;
-    }
-
-    @Override
-    public @NonNull SortedMap<Integer, String> getSuffixes() {
-        return this.suffixes;
-    }
-
-    private final class VerboseLoggedMetaMap extends ForwardingMap<String, String> {
-        private final MetaCheckEvent.Origin origin;
-
-        private VerboseLoggedMetaMap(MetaCheckEvent.Origin origin) {
-            this.origin = origin;
-        }
-
-        @Override
-        protected Map<String, String> delegate() {
-            return MetaCache.this.meta;
-        }
-
-        @Override
-        public String get(Object key) {
-            Objects.requireNonNull(key, "key");
-            String value = super.get(key);
-
-            // log this meta lookup to the verbose handler
-            VerboseHandler verboseHandler = MetaCache.this.metadata.getParentContainer().getPlugin().getVerboseHandler();
-            verboseHandler.offerMetaCheckEvent(this.origin, MetaCache.this.metadata.getObjectName(), MetaCache.this.metadata.getQueryOptions(), (String) key, String.valueOf(value));
-
-            return value;
-        }
-    }
-
-    private final class VerboseLoggedMetaMultimap extends ForwardingListMultimap<String, String> {
-        private final MetaCheckEvent.Origin origin;
-
-        private VerboseLoggedMetaMultimap(MetaCheckEvent.Origin origin) {
-            this.origin = origin;
-        }
-
-        @Override
-        protected ListMultimap<String, String> delegate() {
-            return MetaCache.this.metaMultimap;
-        }
-
-        @Override
-        public List<String> get(String key) {
-            Objects.requireNonNull(key, "key");
-            List<String> values = super.get(key);
-
-            // log this meta lookup to the verbose handler
-            VerboseHandler verboseHandler = MetaCache.this.metadata.getParentContainer().getPlugin().getVerboseHandler();
-            if (!values.isEmpty()) {
-                for (String value : values) {
-                    verboseHandler.offerMetaCheckEvent(this.origin, MetaCache.this.metadata.getObjectName(), MetaCache.this.metadata.getQueryOptions(), key, String.valueOf(value));
-                }
-            } else {
-                verboseHandler.offerMetaCheckEvent(this.origin, MetaCache.this.metadata.getObjectName(), MetaCache.this.metadata.getQueryOptions(), key, "null");
-            }
-
-            return values;
-        }
     }
 
 }

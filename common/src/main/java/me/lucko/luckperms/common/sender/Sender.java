@@ -93,7 +93,7 @@ public interface Sender {
             if (servers.size() == 1) {
                 location = servers.iterator().next();
             } else {
-                location = staticContext.toSet().stream().map(pair -> pair.getKey() + "=" + pair.getValue()).collect(Collectors.joining(";"));
+                location = staticContext.asSet().stream().map(pair -> pair.getKey() + "=" + pair.getValue()).collect(Collectors.joining(";"));
             }
         }
 

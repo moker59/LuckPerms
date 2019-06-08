@@ -124,7 +124,7 @@ public final class MessageUtils {
      */
     public static String getAppendableNodeContextString(LocaleManager localeManager, Node node) {
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry<String, String> c : node.getContexts().toSet()) {
+        for (Map.Entry<String, String> c : node.getContexts().asSet()) {
             sb.append(" ").append(contextToString(localeManager, c.getKey(), c.getValue()));
         }
         return sb.toString();
@@ -150,7 +150,7 @@ public final class MessageUtils {
 
         StringBuilder sb = new StringBuilder();
 
-        for (Map.Entry<String, String> e : set.toSet()) {
+        for (Map.Entry<String, String> e : set.asSet()) {
             sb.append(Message.CONTEXT_PAIR_INLINE.asString(localeManager, e.getKey(), e.getValue()));
             sb.append(Message.CONTEXT_PAIR_SEP.asString(localeManager));
         }

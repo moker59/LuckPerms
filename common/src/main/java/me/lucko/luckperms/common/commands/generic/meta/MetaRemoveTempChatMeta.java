@@ -75,7 +75,7 @@ public class MetaRemoveTempChatMeta extends SharedSubCommand {
 
         int priority = ArgumentParser.parsePriority(0, args);
         String meta = ArgumentParser.parseStringOrElse(1, args, "null");
-        ImmutableContextSet context = ArgumentParser.parseContext(2, args, plugin).makeImmutable();
+        ImmutableContextSet context = ArgumentParser.parseContext(2, args, plugin).immutableCopy();
 
         if (ArgumentPermissions.checkContext(plugin, sender, permission, context) ||
                 ArgumentPermissions.checkGroup(plugin, sender, holder, context)) {

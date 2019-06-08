@@ -1,5 +1,5 @@
 /*
- * This file is part of luckperms, licensed under the MIT License.
+ * This file is part of LuckPerms, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
  *  Copyright (c) contributors
@@ -32,7 +32,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -163,33 +162,11 @@ public interface UserManager {
     /**
      * Gets a loaded user.
      *
-     * @param uuid the uuid of the user to get
-     * @return an optional {@link User} object
-     * @throws NullPointerException if the uuid is null
-     */
-    default @NonNull Optional<User> getUserOpt(@NonNull UUID uuid) {
-        return Optional.ofNullable(getUser(uuid));
-    }
-
-    /**
-     * Gets a loaded user.
-     *
      * @param name the username of the user to get
      * @return a {@link User} object, if one matching the uuid is loaded, or null if not
      * @throws NullPointerException if the name is null
      */
     @Nullable User getUser(@NonNull String name);
-
-    /**
-     * Gets a loaded user.
-     *
-     * @param name the username of the user to get
-     * @return an optional {@link User} object
-     * @throws NullPointerException if the name is null
-     */
-    default @NonNull Optional<User> getUserOpt(@NonNull String name) {
-        return Optional.ofNullable(getUser(name));
-    }
 
     /**
      * Gets a set of all loaded users.

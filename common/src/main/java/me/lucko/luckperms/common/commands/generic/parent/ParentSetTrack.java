@@ -97,7 +97,7 @@ public class ParentSetTrack extends SharedSubCommand {
             }
         }
 
-        ImmutableContextSet context = ArgumentParser.parseContext(2, args, plugin).makeImmutable();
+        ImmutableContextSet context = ArgumentParser.parseContext(2, args, plugin).immutableCopy();
 
         Group group = StorageAssistant.loadGroup(groupName, sender, plugin, false);
         if (group == null) {

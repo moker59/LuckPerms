@@ -115,7 +115,7 @@ public class Group extends PermissionHolder implements Identifiable<String> {
      * @return the display name
      */
     public Optional<String> getDisplayName(ContextSet contextSet) {
-        for (Node n : getData(NodeMapType.ENDURING).immutable().get(contextSet.makeImmutable())) {
+        for (Node n : getData(NodeMapType.ENDURING).immutable().get(contextSet.immutableCopy())) {
             if (n instanceof DisplayNameNode) {
                 return Optional.of(((DisplayNameNode) n).getDisplayName());
             }

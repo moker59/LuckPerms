@@ -23,60 +23,45 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.sponge.service.context;
+package me.lucko.luckperms.common.api.implementation;
 
-import org.spongepowered.api.service.context.Context;
+import me.lucko.luckperms.api.context.ContextSetFactory;
+import me.lucko.luckperms.api.context.ImmutableContextSet;
+import me.lucko.luckperms.api.context.MutableContextSet;
+import me.lucko.luckperms.common.api.context.ImmutableContextSetImpl;
+import me.lucko.luckperms.common.api.context.MutableContextSetImpl;
 
-import java.util.AbstractSet;
-import java.util.Set;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
-abstract class AbstractDelegatingContextSet extends AbstractSet<Context> implements DelegatingContextSet {
+public class ApiContextSetFactory implements ContextSetFactory {
+    public static final ApiContextSetFactory INSTANCE = new ApiContextSetFactory();
 
-    @Override
-    public int size() {
-        return getDelegate().size();
+    private ApiContextSetFactory() {
+
     }
 
     @Override
-    public boolean isEmpty() {
-        return getDelegate().isEmpty();
+    public ImmutableContextSet.@NonNull Builder immutableBuilder() {
+        return new ImmutableContextSetImpl.BuilderImpl();
     }
 
     @Override
-    public boolean contains(Object o) {
-        if (o instanceof Context) {
-            Context context = (Context) o;
-            return !context.getKey().isEmpty() && !context.getValue().isEmpty() && getDelegate().contains(context);
-        }
-        return false;
+    public @NonNull ImmutableContextSet immutableOf(@NonNull String key, @NonNull String value) {
+        return ImmutableContextSetImpl.of(key, value);
     }
 
     @Override
-    public int hashCode() {
-        return getDelegate().hashCode();
+    public @NonNull ImmutableContextSet immutableOf(@NonNull String key1, @NonNull String value1, @NonNull String key2, @NonNull String value2) {
+        return ImmutableContextSetImpl.of(key1, value1, key2, value2);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        }
-
-        if (o instanceof DelegatingContextSet) {
-            return getDelegate().equals(((DelegatingContextSet) o).getDelegate());
-        }
-
-        if (o instanceof Set) {
-            Set<?> set = (Set<?>) o;
-
-            try {
-                return size() == set.size() && containsAll(set);
-            } catch (NullPointerException | ClassCastException ignored) {
-                return false;
-            }
-        }
-
-        return false;
+    public @NonNull ImmutableContextSet immutableEmpty() {
+        return ImmutableContextSetImpl.EMPTY;
     }
 
+    @Override
+    public @NonNull MutableContextSet mutable() {
+        return new MutableContextSetImpl();
+    }
 }

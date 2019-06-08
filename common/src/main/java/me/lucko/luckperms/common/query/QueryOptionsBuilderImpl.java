@@ -74,7 +74,7 @@ public class QueryOptionsBuilderImpl implements QueryOptions.Builder {
             throw new IllegalStateException("Mode is not CONTEXTUAL");
         }
 
-        this.context = Objects.requireNonNull(context, "context").makeImmutable();
+        this.context = Objects.requireNonNull(context, "context").immutableCopy();
         return this;
     }
 

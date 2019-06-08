@@ -28,6 +28,7 @@ package me.lucko.luckperms.common.api;
 import me.lucko.luckperms.api.LuckPerms;
 import me.lucko.luckperms.api.actionlog.ActionLogger;
 import me.lucko.luckperms.api.context.ContextManager;
+import me.lucko.luckperms.api.context.ContextSetFactory;
 import me.lucko.luckperms.api.event.EventBus;
 import me.lucko.luckperms.api.messaging.MessagingService;
 import me.lucko.luckperms.api.messenger.MessengerProvider;
@@ -39,6 +40,7 @@ import me.lucko.luckperms.api.platform.PlatformInfo;
 import me.lucko.luckperms.api.track.TrackManager;
 import me.lucko.luckperms.common.api.implementation.ApiActionLogger;
 import me.lucko.luckperms.common.api.implementation.ApiContextManager;
+import me.lucko.luckperms.common.api.implementation.ApiContextSetFactory;
 import me.lucko.luckperms.common.api.implementation.ApiGroupManager;
 import me.lucko.luckperms.common.api.implementation.ApiMessagingService;
 import me.lucko.luckperms.common.api.implementation.ApiMetaStackFactory;
@@ -86,6 +88,11 @@ public class LuckPermsApiProvider implements LuckPerms {
     @Override
     public String getServerName() {
         return this.plugin.getConfiguration().get(ConfigKeys.SERVER);
+    }
+
+    @Override
+    public ContextSetFactory getContextSetFactory() {
+        return ApiContextSetFactory.INSTANCE;
     }
 
     @Override

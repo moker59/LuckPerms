@@ -1,5 +1,5 @@
 /*
- * This file is part of luckperms, licensed under the MIT License.
+ * This file is part of LuckPerms, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
  *  Copyright (c) contributors
@@ -130,19 +130,6 @@ public interface GroupManager {
      * @throws NullPointerException if the name is null
      */
     @Nullable Group getGroup(@NonNull String name);
-
-    /**
-     * Gets a loaded group.
-     *
-     * <p>This method does not return null, unlike {@link #getGroup}</p>
-     *
-     * @param name the name of the group to get
-     * @return an optional {@link Group} object
-     * @throws NullPointerException if the name is null
-     */
-    default @NonNull Optional<Group> getGroupOpt(@NonNull String name) {
-        return Optional.ofNullable(getGroup(name));
-    }
 
     /**
      * Gets a set of all loaded groups.

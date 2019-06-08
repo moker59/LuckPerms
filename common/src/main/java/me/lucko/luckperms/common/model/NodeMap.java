@@ -228,7 +228,7 @@ public final class NodeMap {
     }
 
     void clear(ContextSet contextSet) {
-        ImmutableContextSet context = contextSet.makeImmutable();
+        ImmutableContextSet context = contextSet.immutableCopy();
         this.map.remove(context);
         this.inheritanceMap.remove(context);
     }
@@ -259,7 +259,7 @@ public final class NodeMap {
     }
 
     boolean removeIf(ContextSet contextSet, Predicate<? super Node> predicate) {
-        ImmutableContextSet context = contextSet.makeImmutable();
+        ImmutableContextSet context = contextSet.immutableCopy();
 
         boolean ret = false;
 

@@ -23,12 +23,17 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api.context;
+package me.lucko.luckperms.common.api.context;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSetMultimap;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 import com.google.common.collect.SetMultimap;
+
+import me.lucko.luckperms.api.context.ContextSet;
+import me.lucko.luckperms.api.context.ImmutableContextSet;
+import me.lucko.luckperms.api.context.MutableContextSet;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -38,14 +43,14 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.Spliterator;
 
-final class ImmutableContextSetImpl extends AbstractContextSet implements ImmutableContextSet {
-    static final ImmutableContextSetImpl EMPTY = new ImmutableContextSetImpl(ImmutableSetMultimap.of());
+public final class ImmutableContextSetImpl extends AbstractContextSet implements ImmutableContextSet {
+    public static final ImmutableContextSetImpl EMPTY = new ImmutableContextSetImpl(ImmutableSetMultimap.of());
 
-    static ImmutableContextSet of(String key, String value) {
+    public static ImmutableContextSet of(String key, String value) {
         return new ImmutableContextSetImpl(ImmutableSetMultimap.of(sanitizeKey(key), sanitizeValue(value)));
     }
 
-    static ImmutableContextSet of(String key1, String value1, String key2, String value2) {
+    public static ImmutableContextSet of(String key1, String value1, String key2, String value2) {
         return new ImmutableContextSetImpl(ImmutableSetMultimap.of(
                 sanitizeKey(key1),
                 sanitizeValue(value1),
@@ -79,33 +84,33 @@ final class ImmutableContextSetImpl extends AbstractContextSet implements Immuta
 
     @Deprecated
     @Override // This set is already immutable!
-    public @NonNull ImmutableContextSetImpl makeImmutable() {
+    public @NonNull ImmutableContextSetImpl immutableCopy() {
         return this;
     }
 
     @Override
     public @NonNull MutableContextSet mutableCopy() {
-        return MutableContextSet.fromSet(this);
+        return new MutableContextSetImpl(this.map);
     }
 
     @Override
-    public @NonNull Set<Map.Entry<String, String>> toSet() {
+    public @NonNull Set<Map.Entry<String, String>> asSet() {
         return this.map.entries();
+    }
+
+    @Override
+    public @NonNull Map<String, Set<String>> asMap() {
+        return Multimaps.asMap(this.map);
     }
 
     @Deprecated
     @Override
-    public @NonNull Map<String, String> toMap() {
+    public @NonNull Map<String, String> asFlattenedMap() {
         ImmutableMap.Builder<String, String> m = ImmutableMap.builder();
         for (Map.Entry<String, String> e : this.map.entries()) {
             m.put(e.getKey(), e.getValue());
         }
         return m.build();
-    }
-
-    @Override
-    public @NonNull Multimap<String, String> toMultimap() {
-        return this.map;
     }
 
     @Override
@@ -134,7 +139,7 @@ final class ImmutableContextSetImpl extends AbstractContextSet implements Immuta
         if (that instanceof AbstractContextSet) {
             thatBacking = ((AbstractContextSet) that).backing();
         } else {
-            thatBacking = that.toMultimap();
+            thatBacking = ImmutableSetMultimap.copyOf(that.asSet());
         }
 
         return backing().equals(thatBacking);
@@ -150,10 +155,10 @@ final class ImmutableContextSetImpl extends AbstractContextSet implements Immuta
         return "ImmutableContextSet(contexts=" + this.map + ")";
     }
 
-    static final class BuilderImpl implements ImmutableContextSet.Builder {
+    public static final class BuilderImpl implements ImmutableContextSet.Builder {
         private ImmutableSetMultimap.Builder<String, String> builder;
 
-        BuilderImpl() {
+        public BuilderImpl() {
 
         }
 
@@ -183,7 +188,7 @@ final class ImmutableContextSetImpl extends AbstractContextSet implements Immuta
                     builder().putAll(other.backing());
                 }
             } else {
-                addAll(contextSet.toMultimap());
+                addAll(contextSet.asSet());
             }
             return this;
         }

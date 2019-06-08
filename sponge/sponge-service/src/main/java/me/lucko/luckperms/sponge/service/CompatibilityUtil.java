@@ -50,7 +50,7 @@ public final class CompatibilityUtil {
         Objects.requireNonNull(contexts, "contexts");
 
         if (contexts instanceof DelegatingContextSet) {
-            return ((DelegatingContextSet) contexts).getDelegate().makeImmutable();
+            return ((DelegatingContextSet) contexts).getDelegate().immutableCopy();
         }
 
         if (contexts.isEmpty()) {
@@ -67,7 +67,7 @@ public final class CompatibilityUtil {
             return EMPTY;
         }
 
-        return new DelegatingImmutableContextSet(contexts.makeImmutable());
+        return new DelegatingImmutableContextSet(contexts.immutableCopy());
     }
 
     public static org.spongepowered.api.util.Tristate convertTristate(Tristate tristate) {

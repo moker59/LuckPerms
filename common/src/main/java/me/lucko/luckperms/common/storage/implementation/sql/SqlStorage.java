@@ -1053,6 +1053,6 @@ public class SqlStorage implements StorageImplementation {
     }
 
     private NodeDataContainer deserializeNode(String permission, boolean value, String server, String world, long expiry, String contexts) {
-        return NodeDataContainer.of(permission, value, server, world, expiry, ContextSetJsonSerializer.deserializeContextSet(GsonProvider.normal(), contexts).makeImmutable());
+        return NodeDataContainer.of(permission, value, server, world, expiry, ContextSetJsonSerializer.deserializeContextSet(GsonProvider.normal(), contexts).immutableCopy());
     }
 }

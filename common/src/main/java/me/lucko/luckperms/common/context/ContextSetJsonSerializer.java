@@ -41,15 +41,16 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public final class ContextSetJsonSerializer {
     private ContextSetJsonSerializer() {}
 
     public static JsonObject serializeContextSet(ContextSet contextSet) {
         JsonObject data = new JsonObject();
-        Map<String, Collection<String>> map = contextSet.toMultimap().asMap();
+        Map<String, Set<String>> map = contextSet.asMap();
 
-        for (Map.Entry<String, Collection<String>> entry : map.entrySet()) {
+        for (Map.Entry<String, Set<String>> entry : map.entrySet()) {
             List<String> values = new ArrayList<>(entry.getValue());
             int size = values.size();
 

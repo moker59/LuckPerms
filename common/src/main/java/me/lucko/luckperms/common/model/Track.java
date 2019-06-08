@@ -276,7 +276,7 @@ public final class Track implements Identifiable<String> {
         }
 
         // find all groups that are inherited by the user in the exact contexts given and applicable to this track
-        List<InheritanceNode> nodes = user.enduringData().immutable().get(context.makeImmutable()).stream()
+        List<InheritanceNode> nodes = user.enduringData().immutable().get(context.immutableCopy()).stream()
                 .filter(NodeType.INHERITANCE::matches)
                 .map(NodeType.INHERITANCE::cast)
                 .filter(Node::getValue)
@@ -343,7 +343,7 @@ public final class Track implements Identifiable<String> {
         }
 
         // find all groups that are inherited by the user in the exact contexts given and applicable to this track
-        List<InheritanceNode> nodes = user.enduringData().immutable().get(context.makeImmutable()).stream()
+        List<InheritanceNode> nodes = user.enduringData().immutable().get(context.immutableCopy()).stream()
                 .filter(NodeType.INHERITANCE::matches)
                 .map(NodeType.INHERITANCE::cast)
                 .filter(Node::getValue)

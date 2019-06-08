@@ -46,7 +46,9 @@ import me.lucko.luckperms.common.node.utils.NodeTools;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.SortedSet;
@@ -150,8 +152,8 @@ public class ApiPermissionHolder implements me.lucko.luckperms.api.model.Permiss
 
     private final class Enduring implements Data {
         @Override
-        public @NonNull ImmutableSetMultimap<ImmutableContextSet, Node> getNodes() {
-            return ApiPermissionHolder.this.handle.enduringData().immutable();
+        public @NonNull Map<ImmutableContextSet, Collection<Node>> getNodes() {
+            return ApiPermissionHolder.this.handle.enduringData().immutable().asMap();
         }
 
         @Override
@@ -217,8 +219,8 @@ public class ApiPermissionHolder implements me.lucko.luckperms.api.model.Permiss
 
     private final class Transient implements Data {
         @Override
-        public @NonNull ImmutableSetMultimap<ImmutableContextSet, Node> getNodes() {
-            return ApiPermissionHolder.this.handle.transientData().immutable();
+        public @NonNull Map<ImmutableContextSet, Collection<Node>> getNodes() {
+            return ApiPermissionHolder.this.handle.transientData().immutable().asMap();
         }
 
         @Override

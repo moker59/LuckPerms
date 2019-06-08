@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.api.context;
 
-import com.google.common.collect.Multimap;
+import me.lucko.luckperms.api.LuckPermsProvider;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -36,7 +36,7 @@ import java.util.Set;
 /**
  * A mutable implementation of {@link ContextSet}.
  */
-public interface MutableContextSet extends ContextSet, ContextConsumer {
+public interface MutableContextSet extends ContextSet {
 
     /**
      * Creates a {@link MutableContextSet} from a context pair.
@@ -91,35 +91,6 @@ public interface MutableContextSet extends ContextSet, ContextConsumer {
     }
 
     /**
-     * Creates a {@link MutableContextSet} from an existing {@link Map}.
-     *
-     * @param map the map to copy from
-     * @return a new MutableContextSet representing the pairs from the map
-     * @throws NullPointerException if the map is null
-     */
-    static @NonNull MutableContextSet fromMap(@NonNull Map<String, String> map) {
-        Objects.requireNonNull(map, "map");
-        MutableContextSet set = create();
-        set.addAll(map);
-        return set;
-    }
-
-    /**
-     * Creates a {@link MutableContextSet} from an existing {@link Multimap}.
-     *
-     * @param multimap the multimap to copy from
-     * @return a new MutableContextSet representing the pairs in the multimap
-     * @throws NullPointerException if the multimap is null
-     * @since 2.16
-     */
-    static @NonNull MutableContextSet fromMultimap(@NonNull Multimap<String, String> multimap) {
-        Objects.requireNonNull(multimap, "multimap");
-        MutableContextSet set = create();
-        set.addAll(multimap);
-        return set;
-    }
-
-    /**
      * Creates a new {@link MutableContextSet} from an existing {@link Set}.
      *
      * <p>Only really useful for converting between mutable and immutable types.</p>
@@ -129,7 +100,7 @@ public interface MutableContextSet extends ContextSet, ContextConsumer {
      * @throws NullPointerException if contextSet is null
      */
     static @NonNull MutableContextSet fromSet(@NonNull ContextSet contextSet) {
-        return MutableContextSetImpl.fromSet(contextSet);
+        return contextSet.mutableCopy();
     }
 
     /**
@@ -138,7 +109,7 @@ public interface MutableContextSet extends ContextSet, ContextConsumer {
      * @return a new MutableContextSet
      */
     static @NonNull MutableContextSet create() {
-        return new MutableContextSetImpl();
+        return LuckPermsProvider.get().getContextSetFactory().mutable();
     }
 
     /**
@@ -149,11 +120,6 @@ public interface MutableContextSet extends ContextSet, ContextConsumer {
      * @throws NullPointerException if the key or value is null
      */
     void add(@NonNull String key, @NonNull String value);
-
-    @Override
-    default void accept(@NonNull String key, @NonNull String value) {
-        add(key, value);
-    }
 
     /**
      * Adds a context to this set.
@@ -176,27 +142,6 @@ public interface MutableContextSet extends ContextSet, ContextConsumer {
         for (Map.Entry<String, String> e : Objects.requireNonNull(iterable, "iterable")) {
             add(e);
         }
-    }
-
-    /**
-     * Adds the contexts contained in the given {@link Map} to this set.
-     *
-     * @param map the map to add from
-     * @throws NullPointerException if the map is null
-     */
-    default void addAll(@NonNull Map<String, String> map) {
-        addAll(Objects.requireNonNull(map, "map").entrySet());
-    }
-
-    /**
-     * Adds the contexts contained in the given {@link Multimap} to this set.
-     *
-     * @param multimap the multimap to add from
-     * @throws NullPointerException if the map is null
-     * @since 3.4
-     */
-    default void addAll(@NonNull Multimap<String, String> multimap) {
-        addAll(Objects.requireNonNull(multimap, "multimap").entries());
     }
 
     /**

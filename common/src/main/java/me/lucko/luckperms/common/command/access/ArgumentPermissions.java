@@ -246,7 +246,7 @@ public final class ArgumentPermissions {
             }
         }
 
-        for (Map.Entry<String, String> context : contextSet.toSet()) {
+        for (Map.Entry<String, String> context : contextSet.asSet()) {
             Tristate ret = sender.getPermissionValue(base.getPermission() + ".usecontext." + context.getKey() + "." + context.getValue());
             if (ret != Tristate.UNDEFINED) {
                 if (ret == Tristate.FALSE) {

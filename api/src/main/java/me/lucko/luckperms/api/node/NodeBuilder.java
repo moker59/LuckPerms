@@ -25,8 +25,6 @@
 
 package me.lucko.luckperms.api.node;
 
-import com.google.common.base.Preconditions;
-
 import me.lucko.luckperms.api.context.ContextSet;
 import me.lucko.luckperms.api.node.metadata.NodeMetadata;
 import me.lucko.luckperms.api.node.metadata.NodeMetadataKey;
@@ -86,7 +84,9 @@ public interface NodeBuilder<N extends ScopedNode<N, B>, B extends NodeBuilder<N
      * @return the builder
      */
     default @NonNull B expiry(long duration, TimeUnit unit) {
-        Preconditions.checkArgument(duration > 0, "duration must be positive");
+        if (duration <= 0) {
+            throw new IllegalArgumentException("duration must be positive");
+        }
         long seconds = Objects.requireNonNull(unit, "unit").toSeconds(duration);
         long timeNow = System.currentTimeMillis() / 1000L;
         return expiry(timeNow + seconds);

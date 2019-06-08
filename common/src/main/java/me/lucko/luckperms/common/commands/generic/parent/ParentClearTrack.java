@@ -82,7 +82,7 @@ public class ParentClearTrack extends SharedSubCommand {
 
         int before = holder.enduringData().immutable().size();
 
-        ImmutableContextSet context = ArgumentParser.parseContext(1, args, plugin).makeImmutable();
+        ImmutableContextSet context = ArgumentParser.parseContext(1, args, plugin).immutableCopy();
 
         if (ArgumentPermissions.checkContext(plugin, sender, permission, context) ||
                 ArgumentPermissions.checkGroup(plugin, sender, holder, context) ||

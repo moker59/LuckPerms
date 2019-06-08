@@ -158,7 +158,7 @@ public abstract class PermissionHolderSubject<T extends PermissionHolder> implem
             }
         }
 
-        String val = data.getMeta(MetaCheckEvent.Origin.PLATFORM_API).get(s);
+        String val = data.getMetaValue(s, MetaCheckEvent.Origin.PLATFORM_API);
         if (val != null) {
             return Optional.of(val);
         }

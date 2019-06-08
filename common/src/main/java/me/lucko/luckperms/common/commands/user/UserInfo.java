@@ -26,6 +26,7 @@
 package me.lucko.luckperms.common.commands.user;
 
 import com.google.common.collect.ListMultimap;
+import com.google.common.collect.Maps;
 
 import me.lucko.luckperms.api.context.ContextSet;
 import me.lucko.luckperms.api.node.Node;
@@ -48,6 +49,7 @@ import me.lucko.luckperms.common.util.Predicates;
 import me.lucko.luckperms.common.verbose.event.MetaCheckEvent;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class UserInfo extends SubCommand<User> {
@@ -105,7 +107,7 @@ public class UserInfo extends SubCommand<User> {
         if (queryOptions != null) {
             ContextSet contextSet = queryOptions.context();
             if (contextSet != null && !contextSet.isEmpty()) {
-                context = contextSet.toSet().stream()
+                context = contextSet.asSet().stream()
                         .map(e -> MessageUtils.contextToString(plugin.getLocaleManager(), e.getKey(), e.getValue()))
                         .collect(Collectors.joining(" "));
             }
@@ -120,9 +122,10 @@ public class UserInfo extends SubCommand<User> {
                 suffix = "&f\"" + sussexValue + "&f\"";
             }
 
-            ListMultimap<String, String> metaMap = data.getMetaMultimap(MetaCheckEvent.Origin.INTERNAL);
+            Map<String, List<String>> metaMap = data.getMeta();
             if (!metaMap.isEmpty()) {
-                meta = metaMap.entries().stream()
+                meta = metaMap.entrySet().stream()
+                        .flatMap(entry -> entry.getValue().stream().map(value -> Maps.immutableEntry(entry.getKey(), value)))
                         .map(e -> MessageUtils.contextToString(plugin.getLocaleManager(), e.getKey(), e.getValue()))
                         .collect(Collectors.joining(" "));
             }

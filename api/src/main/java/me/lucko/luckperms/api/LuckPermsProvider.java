@@ -23,9 +23,7 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms;
-
-import me.lucko.luckperms.api.LuckPerms;
+package me.lucko.luckperms.api;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -47,26 +45,18 @@ public final class LuckPermsProvider {
      * @return an api instance
      * @throws IllegalStateException if the api is not loaded
      */
-    public static @NonNull LuckPerms getApi() {
+    public static @NonNull LuckPerms get() {
         if (instance == null) {
             throw new IllegalStateException("API is not loaded.");
         }
         return instance;
     }
 
-    /**
-     * Registers an instance of the {@link LuckPerms} with this provider.
-     *
-     * @param instance the instance
-     */
-    static void registerProvider(LuckPerms instance) {
+    static void register(LuckPerms instance) {
         LuckPermsProvider.instance = instance;
     }
 
-    /**
-     * Removes the current instance from this provider.
-     */
-    static void unregisterProvider() {
+    static void unregister() {
         LuckPermsProvider.instance = null;
     }
 

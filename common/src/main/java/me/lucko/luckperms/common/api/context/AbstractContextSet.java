@@ -23,10 +23,12 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api.context;
+package me.lucko.luckperms.common.api.context;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.SetMultimap;
+
+import me.lucko.luckperms.api.context.ContextSet;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -52,7 +54,7 @@ abstract class AbstractContextSet implements ContextSet {
     }
 
     @Override
-    public boolean has(@NonNull String key, @NonNull String value) {
+    public boolean contains(@NonNull String key, @NonNull String value) {
         return backing().containsEntry(sanitizeKey(key), sanitizeValue(value));
     }
 

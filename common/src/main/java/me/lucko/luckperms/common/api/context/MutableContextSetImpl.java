@@ -23,7 +23,7 @@
  *  SOFTWARE.
  */
 
-package me.lucko.luckperms.api.context;
+package me.lucko.luckperms.common.api.context;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableMap;
@@ -33,38 +33,27 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
 import com.google.common.collect.SetMultimap;
 
+import me.lucko.luckperms.api.context.ContextSet;
+import me.lucko.luckperms.api.context.ImmutableContextSet;
+import me.lucko.luckperms.api.context.MutableContextSet;
+
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.Spliterator;
 
-final class MutableContextSetImpl extends AbstractContextSet implements MutableContextSet {
-
-    static MutableContextSet fromSet(ContextSet contextSet) {
-        Objects.requireNonNull(contextSet, "contextSet");
-
-        if (contextSet instanceof ImmutableContextSet) {
-            SetMultimap<String, String> map = ((ImmutableContextSetImpl) contextSet).backing();
-            return new MutableContextSetImpl(map);
-        } else if (contextSet instanceof MutableContextSetImpl) {
-            return contextSet.mutableCopy();
-        } else {
-            MutableContextSet set = new MutableContextSetImpl();
-            set.addAll(contextSet);
-            return set;
-        }
-    }
-
+public final class MutableContextSetImpl extends AbstractContextSet implements MutableContextSet {
     private final SetMultimap<String, String> map;
 
-    MutableContextSetImpl() {
+    public MutableContextSetImpl() {
         this.map = Multimaps.synchronizedSetMultimap(HashMultimap.create());
     }
 
-    private MutableContextSetImpl(SetMultimap<String, String> other) {
+    MutableContextSetImpl(SetMultimap<String, String> other) {
         this.map = Multimaps.synchronizedSetMultimap(HashMultimap.create(other));
     }
 
@@ -86,7 +75,7 @@ final class MutableContextSetImpl extends AbstractContextSet implements MutableC
     }
 
     @Override
-    public @NonNull ImmutableContextSet makeImmutable() {
+    public @NonNull ImmutableContextSet immutableCopy() {
         // if the map is empty, don't create a new instance
         if (this.map.isEmpty()) {
             return ImmutableContextSet.empty();
@@ -104,40 +93,44 @@ final class MutableContextSetImpl extends AbstractContextSet implements MutableC
     }
 
     @Override
-    public @NonNull Set<Map.Entry<String, String>> toSet() {
+    public @NonNull Set<Map.Entry<String, String>> asSet() {
+        // map.entries() returns immutable Map.Entry instances, so we can just call copyOf
+        return ImmutableSet.copyOf(this.map.entries());
+    }
+
+    @Override
+    public @NonNull Map<String, Set<String>> asMap() {
+        ImmutableMap.Builder<String, Set<String>> builder = ImmutableMap.builder();
+        Map<String, Collection<String>> map = this.map.asMap();
         synchronized (this.map) {
-            // map.entries() returns immutable Map.Entry instances, so we can just call copyOf
-            return ImmutableSet.copyOf(this.map.entries());
+            for (Map.Entry<String, Collection<String>> e : map.entrySet()) {
+                builder.put(e.getKey(), ImmutableSet.copyOf(e.getValue()));
+            }
         }
+        return builder.build();
     }
 
     @Deprecated
     @Override
-    public @NonNull Map<String, String> toMap() {
-        ImmutableMap.Builder<String, String> m = ImmutableMap.builder();
+    public @NonNull Map<String, String> asFlattenedMap() {
+        ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
+        Set<Map.Entry<String, String>> entries = this.map.entries();
         synchronized (this.map) {
-            for (Map.Entry<String, String> e : this.map.entries()) {
-                m.put(e.getKey(), e.getValue());
+            for (Map.Entry<String, String> e : entries) {
+                builder.put(e.getKey(), e.getValue());
             }
         }
-        return m.build();
-    }
-
-    @Override
-    public @NonNull Multimap<String, String> toMultimap() {
-        synchronized (this.map) {
-            return ImmutableSetMultimap.copyOf(this.map);
-        }
+        return builder.build();
     }
 
     @Override
     public @NonNull Iterator<Map.Entry<String, String>> iterator() {
-        return toSet().iterator();
+        return asSet().iterator();
     }
 
     @Override
     public Spliterator<Map.Entry<String, String>> spliterator() {
-        return toSet().spliterator();
+        return asSet().spliterator();
     }
 
     @Override
@@ -150,11 +143,9 @@ final class MutableContextSetImpl extends AbstractContextSet implements MutableC
         Objects.requireNonNull(contextSet, "contextSet");
         if (contextSet instanceof AbstractContextSet) {
             AbstractContextSet other = ((AbstractContextSet) contextSet);
-            synchronized (this.map) {
-                other.copyTo(this.map);
-            }
+            other.copyTo(this.map);
         } else {
-            addAll(contextSet.toMultimap());
+            addAll(contextSet.asSet());
         }
     }
 
@@ -183,7 +174,7 @@ final class MutableContextSetImpl extends AbstractContextSet implements MutableC
         if (that instanceof AbstractContextSet) {
             thatBacking = ((AbstractContextSet) that).backing();
         } else {
-            thatBacking = that.toMultimap();
+            thatBacking = ImmutableSetMultimap.copyOf(that.asSet());
         }
 
         return backing().equals(thatBacking);

@@ -1,5 +1,5 @@
 /*
- * This file is part of luckperms, licensed under the MIT License.
+ * This file is part of LuckPerms, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
  *  Copyright (c) contributors
@@ -117,19 +117,6 @@ public interface TrackManager {
      * @throws NullPointerException if the name is null
      */
     @Nullable Track getTrack(@NonNull String name);
-
-    /**
-     * Gets a loaded track.
-     *
-     * <p>This method does not return null, unlike {@link #getTrack}</p>
-     *
-     * @param name the name of the track to get
-     * @return an optional {@link Track} object
-     * @throws NullPointerException if the name is null
-     */
-    default @NonNull Optional<Track> getTrackOpt(@NonNull String name) {
-        return Optional.ofNullable(getTrack(name));
-    }
 
     /**
      * Gets a set of all loaded tracks.

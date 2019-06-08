@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.api.node.types;
 
-import me.lucko.luckperms.LuckPermsProvider;
+import me.lucko.luckperms.api.LuckPermsProvider;
 import me.lucko.luckperms.api.node.NodeBuilder;
 import me.lucko.luckperms.api.node.ScopedNode;
 
@@ -71,7 +71,7 @@ public interface PermissionNode extends ScopedNode<PermissionNode, PermissionNod
      * @return
      */
     static @NonNull Builder builder() {
-        return LuckPermsProvider.getApi().getNodeBuilderRegistry().forPermission();
+        return LuckPermsProvider.get().getNodeBuilderRegistry().forPermission();
     }
 
     /**

@@ -344,7 +344,7 @@ public final class NodeFactory {
         }
 
         ContextSet contexts = node.getContexts();
-        for (Map.Entry<String, String> context : contexts.toSet()) {
+        for (Map.Entry<String, String> context : contexts.asSet()) {
             sb.append(" ").append(context.getKey()).append("=").append(context.getValue());
         }
 

@@ -464,7 +464,7 @@ public abstract class AbstractConfigurateStorage implements StorageImplementatio
         ImmutableContextSet context = ImmutableContextSet.empty();
         ConfigurationNode contextMap = attributes.getNode("context");
         if (!contextMap.isVirtual() && contextMap.hasMapChildren()) {
-            context = ContextSetConfigurateSerializer.deserializeContextSet(contextMap).makeImmutable();
+            context = ContextSetConfigurateSerializer.deserializeContextSet(contextMap).immutableCopy();
         }
 
         return NodeDataContainer.of(permissionFunction.apply(attributes), true, server, world, expiry, context);
@@ -479,7 +479,7 @@ public abstract class AbstractConfigurateStorage implements StorageImplementatio
         ImmutableContextSet context = ImmutableContextSet.empty();
         ConfigurationNode contextMap = attributes.getNode("context");
         if (!contextMap.isVirtual() && contextMap.hasMapChildren()) {
-            context = ContextSetConfigurateSerializer.deserializeContextSet(contextMap).makeImmutable();
+            context = ContextSetConfigurateSerializer.deserializeContextSet(contextMap).immutableCopy();
         }
 
         ConfigurationNode batchAttribute = attributes.getNode("permissions");

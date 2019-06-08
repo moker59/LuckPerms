@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.api.actionlog;
 
-import me.lucko.luckperms.LuckPermsProvider;
+import me.lucko.luckperms.api.LuckPermsProvider;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -46,7 +46,7 @@ public interface Action extends Comparable<Action> {
      * @return a new builder
      */
     static @NonNull Builder builder() {
-        return LuckPermsProvider.getApi().getActionLogger().actionBuilder();
+        return LuckPermsProvider.get().getActionLogger().actionBuilder();
     }
 
     /**

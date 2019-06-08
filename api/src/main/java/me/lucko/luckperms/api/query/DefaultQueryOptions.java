@@ -32,8 +32,8 @@ import java.util.EnumSet;
 /**
  * TODO
  */
-final class DefaultQueryOptions {
-    private DefaultQueryOptions() {}
+enum DefaultQueryOptions {
+    ;
 
     private static final EnumSet<Flag> DEFAULT_FLAGS = EnumSet.allOf(Flag.class);
 

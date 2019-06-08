@@ -88,7 +88,7 @@ public class MetaRemoveChatMeta extends SharedSubCommand {
             holder.removeIfEnduring(n -> this.type.nodeType().matches(n) &&
                     this.type.nodeType().cast(n).getAsEntry().getKey() == priority &&
             !n.hasExpiry() &&
-            n.getContexts().makeImmutable().equals(context.makeImmutable())
+            n.getContexts().immutableCopy().equals(context.immutableCopy())
             );
             Message.BULK_REMOVE_CHATMETA_SUCCESS.send(sender, holder.getFormattedDisplayName(), this.type.name().toLowerCase(), priority, MessageUtils.contextSetToString(plugin.getLocaleManager(), context));
 

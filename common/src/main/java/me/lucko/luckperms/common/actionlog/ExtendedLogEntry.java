@@ -285,7 +285,7 @@ public class ExtendedLogEntry implements Action {
                         parts.add("world=" + value);
                     }
 
-                    for (Map.Entry<String, String> context : set.toSet()) {
+                    for (Map.Entry<String, String> context : set.asSet()) {
                         if (context.getKey().equals(DefaultContextKeys.SERVER_KEY) || context.getKey().equals(DefaultContextKeys.WORLD_KEY)) {
                             continue;
                         }

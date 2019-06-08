@@ -25,10 +25,10 @@
 
 package me.lucko.luckperms.api;
 
-import me.lucko.luckperms.LuckPermsProvider;
 import me.lucko.luckperms.api.actionlog.ActionLogger;
 import me.lucko.luckperms.api.context.ContextCalculator;
 import me.lucko.luckperms.api.context.ContextManager;
+import me.lucko.luckperms.api.context.ContextSetFactory;
 import me.lucko.luckperms.api.event.EventBus;
 import me.lucko.luckperms.api.messaging.MessagingService;
 import me.lucko.luckperms.api.messenger.MessengerProvider;
@@ -56,7 +56,7 @@ import java.util.concurrent.CompletableFuture;
  * <p>This interface is the base of the entire API package. All API functions
  * are accessed via this interface.</p>
  *
- * <p>An instance can be obtained via {@link LuckPermsProvider#getApi()}, or the platforms
+ * <p>An instance can be obtained via {@link LuckPermsProvider#get()}, or the platforms
  * Services Manager.</p>
  */
 public interface LuckPerms {
@@ -67,6 +67,13 @@ public interface LuckPerms {
      * @return
      */
     String getServerName();
+
+    /**
+     * TODO
+     *
+     * @return
+     */
+    ContextSetFactory getContextSetFactory();
 
     /**
      * Gets information about the platform LuckPerms is running on.

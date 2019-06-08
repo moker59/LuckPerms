@@ -25,9 +25,6 @@
 
 package me.lucko.luckperms.api.model;
 
-import com.google.common.collect.ImmutableSetMultimap;
-import com.google.common.collect.Multimap;
-
 import me.lucko.luckperms.api.cacheddata.CachedDataManager;
 import me.lucko.luckperms.api.context.ContextSet;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
@@ -45,7 +42,9 @@ import me.lucko.luckperms.api.query.QueryOptions;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.UUID;
@@ -151,14 +150,14 @@ public interface PermissionHolder {
     interface Data {
 
         /**
-         * Gets the backing multimap containing every permission this holder has.
+         * Gets the backing map containing every permission this holder has.
          *
          * <p>This method <b>does not</b> resolve inheritance rules, and returns a
          * view of what's 'in the file'.</p>
          *
          * @return the holders own permissions
          */
-        @NonNull ImmutableSetMultimap<ImmutableContextSet, Node> getNodes();
+        @NonNull Map<ImmutableContextSet, Collection<Node>> getNodes();
 
         /**
          * TODO
@@ -391,7 +390,7 @@ public interface PermissionHolder {
     /**
      * Gets a flattened/squashed view of the holders permissions.
      *
-     * <p>This list is constructed using the {@link Multimap#values()} method
+     * <p>This list is constructed using the values
      * of both the transient and enduring backing multimaps.</p>
      *
      * <p>This means that it <b>may contain</b> duplicate entries.</p>

@@ -38,15 +38,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public final class ContextSetConfigurateSerializer {
     private ContextSetConfigurateSerializer() {}
 
     public static ConfigurationNode serializeContextSet(ContextSet contextSet) {
         ConfigurationNode data = SimpleConfigurationNode.root();
-        Map<String, Collection<String>> map = contextSet.toMultimap().asMap();
+        Map<String, Set<String>> map = contextSet.asMap();
 
-        for (Map.Entry<String, Collection<String>> entry : map.entrySet()) {
+        for (Map.Entry<String, Set<String>> entry : map.entrySet()) {
             List<String> values = new ArrayList<>(entry.getValue());
             int size = values.size();
 
