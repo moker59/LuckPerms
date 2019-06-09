@@ -54,9 +54,9 @@ public final class FluentMetaStackElement implements MetaStackElement {
     }
 
     @Override
-    public boolean shouldAccumulate(@NonNull ChatMetaNode<?, ?> node, @NonNull ChatMetaType type, Map.@Nullable Entry<Integer, String> current) {
+    public boolean shouldAccumulate(@NonNull ChatMetaType type, @NonNull ChatMetaNode<?, ?> node, @Nullable ChatMetaNode<?, ?> current) {
         for (MetaStackElement element : this.subElements) {
-            if (!element.shouldAccumulate(node, type, current)) {
+            if (!element.shouldAccumulate(type, node, current)) {
                 return false;
             }
         }

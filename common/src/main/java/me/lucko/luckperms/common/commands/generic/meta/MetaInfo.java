@@ -27,10 +27,10 @@ package me.lucko.luckperms.common.commands.generic.meta;
 
 import com.google.common.collect.Maps;
 
-import me.lucko.luckperms.api.node.ChatMetaType;
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.NodeType;
 import me.lucko.luckperms.api.node.metadata.types.InheritedFromMetadata;
+import me.lucko.luckperms.api.node.types.ChatMetaNode;
 import me.lucko.luckperms.api.node.types.MetaNode;
 import me.lucko.luckperms.api.node.types.PrefixNode;
 import me.lucko.luckperms.api.node.types.SuffixNode;
@@ -84,8 +84,8 @@ public class MetaInfo extends SharedSubCommand {
             return CommandResult.NO_PERMISSION;
         }
 
-        SortedSet<Map.Entry<Integer, Node>> prefixes = new TreeSet<>(MetaComparator.INSTANCE.reversed());
-        SortedSet<Map.Entry<Integer, Node>> suffixes = new TreeSet<>(MetaComparator.INSTANCE.reversed());
+        SortedSet<Map.Entry<Integer, PrefixNode>> prefixes = new TreeSet<>(MetaComparator.INSTANCE.reversed());
+        SortedSet<Map.Entry<Integer, SuffixNode>> suffixes = new TreeSet<>(MetaComparator.INSTANCE.reversed());
         Set<MetaNode> meta = new LinkedHashSet<>();
 
         // Collect data
@@ -109,14 +109,14 @@ public class MetaInfo extends SharedSubCommand {
             Message.CHAT_META_PREFIX_NONE.send(sender, holder.getFormattedDisplayName());
         } else {
             Message.CHAT_META_PREFIX_HEADER.send(sender, holder.getFormattedDisplayName());
-            sendChatMetaMessage(ChatMetaType.PREFIX, prefixes, sender, holder, label);
+            sendChatMetaMessage(prefixes, sender, holder, label);
         }
 
         if (suffixes.isEmpty()) {
             Message.CHAT_META_SUFFIX_NONE.send(sender, holder.getFormattedDisplayName());
         } else {
             Message.CHAT_META_SUFFIX_HEADER.send(sender, holder.getFormattedDisplayName());
-            sendChatMetaMessage(ChatMetaType.SUFFIX, suffixes, sender, holder, label);
+            sendChatMetaMessage(suffixes, sender, holder, label);
         }
 
         if (meta.isEmpty()) {
@@ -145,23 +145,23 @@ public class MetaInfo extends SharedSubCommand {
         }
     }
 
-    private static void sendChatMetaMessage(ChatMetaType type, SortedSet<Map.Entry<Integer, Node>> meta, Sender sender, PermissionHolder holder, String label) {
-        for (Map.Entry<Integer, Node> e : meta) {
+    private static void sendChatMetaMessage(SortedSet<? extends Map.Entry<Integer, ? extends ChatMetaNode<?, ?>>> meta, Sender sender, PermissionHolder holder, String label) {
+        for (Map.Entry<Integer, ? extends ChatMetaNode<?, ?>> e : meta) {
             String location = processLocation(e.getValue(), holder);
             if (!e.getValue().getContexts().isEmpty()) {
                 String context = MessageUtils.getAppendableNodeContextString(sender.getPlugin().getLocaleManager(), e.getValue());
-                TextComponent.Builder builder = Message.CHAT_META_ENTRY_WITH_CONTEXT.asComponent(sender.getPlugin().getLocaleManager(), e.getKey(), type.nodeType().cast(e.getValue()).getAsEntry().getValue(), location, context).toBuilder();
-                builder.applyDeep(makeFancy(type, holder, label, e.getValue()));
+                TextComponent.Builder builder = Message.CHAT_META_ENTRY_WITH_CONTEXT.asComponent(sender.getPlugin().getLocaleManager(), e.getKey(), e.getValue().getMetaValue(), location, context).toBuilder();
+                builder.applyDeep(makeFancy(holder, label, e.getValue()));
                 sender.sendMessage(builder.build());
             } else {
-                TextComponent.Builder builder = Message.CHAT_META_ENTRY.asComponent(sender.getPlugin().getLocaleManager(), e.getKey(), type.nodeType().cast(e.getValue()).getAsEntry().getValue(), location).toBuilder();
-                builder.applyDeep(makeFancy(type, holder, label, e.getValue()));
+                TextComponent.Builder builder = Message.CHAT_META_ENTRY.asComponent(sender.getPlugin().getLocaleManager(), e.getKey(), e.getValue().getMetaValue(), location).toBuilder();
+                builder.applyDeep(makeFancy(holder, label, e.getValue()));
                 sender.sendMessage(builder.build());
             }
         }
     }
 
-    private static Consumer<ComponentBuilder<?, ?>> makeFancy(ChatMetaType type, PermissionHolder holder, String label, Node node) {
+    private static Consumer<ComponentBuilder<?, ?>> makeFancy(PermissionHolder holder, String label, ChatMetaNode<?, ?> node) {
         String location = node.metadata(InheritedFromMetadata.KEY).getLocation();
         if (!location.equals(holder.getObjectName())) {
             // inherited.
@@ -172,9 +172,9 @@ public class MetaInfo extends SharedSubCommand {
         }
 
         HoverEvent hoverEvent = HoverEvent.showText(TextUtils.fromLegacy(TextUtils.joinNewline(
-                "¥3> ¥a" + type.nodeType().cast(node).getAsEntry().getKey() + " ¥7- ¥r" + type.nodeType().cast(node).getAsEntry().getValue(),
+                "¥3> ¥a" + node.getPriority() + " ¥7- ¥r" + node.getMetaValue(),
                 " ",
-                "¥7Click to remove this " + type.name().toLowerCase() + " from " + holder.getFormattedDisplayName()
+                "¥7Click to remove this " + node.getType().name().toLowerCase() + " from " + holder.getFormattedDisplayName()
         ), '¥'));
 
         String command = "/" + label + " " + NodeFactory.nodeAsCommand(node, holder.getType() == HolderType.GROUP ? holder.getObjectName() : holder.getFormattedDisplayName(), holder.getType(), false, !holder.getPlugin().getConfiguration().getContextsFile().getDefaultContexts().isEmpty());
@@ -211,11 +211,11 @@ public class MetaInfo extends SharedSubCommand {
         };
     }
 
-    private static final class MetaComparator implements Comparator<Map.Entry<Integer, Node>> {
+    private static final class MetaComparator implements Comparator<Map.Entry<Integer, ? extends ChatMetaNode<?, ?>>> {
         public static final MetaComparator INSTANCE = new MetaComparator();
 
         @Override
-        public int compare(Map.Entry<Integer, Node> o1, Map.Entry<Integer, Node> o2) {
+        public int compare(Map.Entry<Integer, ? extends ChatMetaNode<?, ?>> o1, Map.Entry<Integer, ? extends ChatMetaNode<?, ?>> o2) {
             int result = Integer.compare(o1.getKey(), o2.getKey());
             if (result != 0) {
                 return result;

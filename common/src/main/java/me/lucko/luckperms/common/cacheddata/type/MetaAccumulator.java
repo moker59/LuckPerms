@@ -128,13 +128,13 @@ public class MetaAccumulator {
 
         if (n instanceof PrefixNode) {
             PrefixNode pn = (PrefixNode) n;
-            this.prefixes.putIfAbsent(pn.getPriority(), pn.getPrefix());
+            this.prefixes.putIfAbsent(pn.getPriority(), pn.getMetaValue());
             this.prefixStack.accumulateToAll(pn);
         }
         
         if (n instanceof SuffixNode) {
             SuffixNode pn = (SuffixNode) n;
-            this.suffixes.putIfAbsent(pn.getPriority(), pn.getSuffix());
+            this.suffixes.putIfAbsent(pn.getPriority(), pn.getMetaValue());
             this.suffixStack.accumulateToAll(pn);
         }
     }

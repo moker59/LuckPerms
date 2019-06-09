@@ -38,13 +38,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 public interface SuffixNode extends ChatMetaNode<SuffixNode, SuffixNode.Builder> {
 
     /**
-     * Gets the actual suffix string.
-     *
-     * @return the suffix
-     */
-    @NonNull String getSuffix();
-
-    /**
      * TODO
      *
      * @return

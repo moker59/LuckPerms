@@ -38,13 +38,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 public interface PrefixNode extends ChatMetaNode<PrefixNode, PrefixNode.Builder> {
 
     /**
-     * Gets the actual prefix string.
-     *
-     * @return the prefix
-     */
-    @NonNull String getPrefix();
-
-    /**
      * TODO
      *
      * @return

@@ -31,8 +31,6 @@ import me.lucko.luckperms.api.node.ScopedNode;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import java.util.Map;
-
 /**
  * TODO
  *
@@ -49,11 +47,11 @@ public interface ChatMetaNode<N extends ChatMetaNode<N, B>, B extends ChatMetaNo
     int getPriority();
 
     /**
-     * Gets a representation of this instance as a {@link Map.Entry}.
+     * TODO
      *
-     * @return a map entry representation of the priority and suffix string
+     * @return
      */
-    Map.@NonNull Entry<Integer, String> getAsEntry();
+    String getMetaValue();
 
     /**
      * TODO

@@ -341,20 +341,18 @@ public class PermissionHolderSubjectData implements LPSubjectData {
 
             if (n instanceof PrefixNode) {
                 PrefixNode pn = (PrefixNode) n;
-                Map.Entry<Integer, String> value = pn.getAsEntry();
-                if (value.getKey() > maxPrefixPriority) {
-                    builder.put(NodeTypes.PREFIX_KEY, value.getValue());
-                    maxPrefixPriority = value.getKey();
+                if (pn.getPriority() > maxPrefixPriority) {
+                    builder.put(NodeTypes.PREFIX_KEY, pn.getMetaValue());
+                    maxPrefixPriority = pn.getPriority();
                 }
                 continue;
             }
 
             if (n instanceof SuffixNode) {
                 SuffixNode sn = (SuffixNode) n;
-                Map.Entry<Integer, String> value = sn.getAsEntry();
-                if (value.getKey() > maxSuffixPriority) {
-                    builder.put(NodeTypes.SUFFIX_KEY, value.getValue());
-                    maxSuffixPriority = value.getKey();
+                if (sn.getPriority() > maxSuffixPriority) {
+                    builder.put(NodeTypes.SUFFIX_KEY, sn.getMetaValue());
+                    maxSuffixPriority = sn.getPriority();
                 }
                 continue;
             }

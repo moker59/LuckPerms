@@ -32,7 +32,6 @@ import me.lucko.luckperms.common.util.ImmutableCollectors;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -57,7 +56,7 @@ public final class SimpleMetaStack implements MetaStack {
                 .map(MetaStackEntry::getCurrentValue)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
-                .map(Map.Entry::getValue)
+                .map(ChatMetaNode::getMetaValue)
                 .collect(Collectors.toCollection(LinkedList::new));
 
         if (elements.isEmpty()) {

@@ -31,8 +31,6 @@ import me.lucko.luckperms.api.node.types.ChatMetaNode;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
-import java.util.Map;
-
 /**
  * Represents an element within a {@link MetaStackDefinition}.
  *
@@ -45,13 +43,11 @@ public interface MetaStackElement {
     /**
      * Returns if the given node should be accumulated onto the stack.
      *
-     * <p>The element being considered can be retrieved using {@link ChatMetaNode#getAsEntry()}.</p>
-     *
-     * @param node    the node being considered
      * @param type    the type of entry being accumulated
+     * @param node    the node being considered
      * @param current the current value being used. If this returns true, the current value will be replaced by this entry
      * @return true if the node should be accumulated into this element, replacing the current value
      */
-    boolean shouldAccumulate(@NonNull ChatMetaNode<?, ?> node, @NonNull ChatMetaType type, Map.@Nullable Entry<Integer, String> current);
+    boolean shouldAccumulate(@NonNull ChatMetaType type, @NonNull ChatMetaNode<?, ?> node, @Nullable ChatMetaNode<?, ?> current);
 
 }

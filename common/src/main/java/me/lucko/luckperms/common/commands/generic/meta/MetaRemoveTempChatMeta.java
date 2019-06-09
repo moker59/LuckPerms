@@ -86,9 +86,9 @@ public class MetaRemoveTempChatMeta extends SharedSubCommand {
         // Handle bulk removal
         if (meta.equalsIgnoreCase("null") || meta.equals("*")) {
             holder.removeIfEnduring(n -> this.type.nodeType().matches(n) &&
-                    this.type.nodeType().cast(n).getAsEntry().getKey() == priority &&
-            n.hasExpiry() &&
-            n.getContexts().equals(context)
+                    this.type.nodeType().cast(n).getPriority() == priority &&
+                    n.hasExpiry() &&
+                    n.getContexts().equals(context)
             );
             Message.BULK_REMOVE_TEMP_CHATMETA_SUCCESS.send(sender, holder.getFormattedDisplayName(), this.type.name().toLowerCase(), priority, MessageUtils.contextSetToString(plugin.getLocaleManager(), context));
 

@@ -25,8 +25,6 @@
 
 package me.lucko.luckperms.common.node.types;
 
-import com.google.common.collect.Maps;
-
 import me.lucko.luckperms.api.context.ImmutableContextSet;
 import me.lucko.luckperms.api.node.ChatMetaType;
 import me.lucko.luckperms.api.node.metadata.NodeMetadata;
@@ -52,18 +50,13 @@ public class Prefix extends AbstractNode<PrefixNode, PrefixNode.Builder> impleme
     }
 
     @Override
-    public @NonNull String getPrefix() {
-        return this.prefix;
-    }
-
-    @Override
     public int getPriority() {
         return this.priority;
     }
 
     @Override
-    public Map.@NonNull Entry<Integer, String> getAsEntry() {
-        return Maps.immutableEntry(this.priority, this.prefix);
+    public @NonNull String getMetaValue() {
+        return this.prefix;
     }
 
     @Override

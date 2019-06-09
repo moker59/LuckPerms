@@ -229,7 +229,7 @@ public final class NodeFactory {
         }
 
         if (node.getValue() && (node instanceof ChatMetaNode<?, ?>)) {
-            ChatMetaType chatMetaType = ((ChatMetaNode) node).getType();
+            ChatMetaNode<?, ?> cmNode = (ChatMetaNode<?, ?>) node;
 
             sb.append("meta ");
 
@@ -243,12 +243,12 @@ public final class NodeFactory {
                 sb.append("temp");
             }
 
-            sb.append(chatMetaType)
+            sb.append(cmNode.getType().toString())
                     .append(" ")
-                    .append(chatMetaType.nodeType().cast(node).getAsEntry().getKey()) // weight
+                    .append(cmNode.getPriority()) // weight
                     .append(" ");
 
-            String value = chatMetaType.nodeType().cast(node).getAsEntry().getValue();
+            String value = cmNode.getMetaValue();
             if (value.contains(" ")) {
                 // wrap value in quotes
                 sb.append("\"").append(value).append("\"");
@@ -279,7 +279,8 @@ public final class NodeFactory {
             sb.append(" ");
 
 
-            String key = ((MetaNode) node).getMetaKey();
+            MetaNode metaNode = (MetaNode) node;
+            String key = metaNode.getMetaKey();
             if (key.contains(" ")) {
                 sb.append("\"").append(key).append("\"");
             } else {
@@ -289,7 +290,7 @@ public final class NodeFactory {
             if (set) {
                 sb.append(" ");
 
-                String value = ((MetaNode) node).getMetaValue();
+                String value = metaNode.getMetaValue();
                 if (value.contains(" ")) {
                     sb.append("\"").append(value).append("\"");
                 } else {
@@ -344,7 +345,7 @@ public final class NodeFactory {
         }
 
         ContextSet contexts = node.getContexts();
-        for (Map.Entry<String, String> context : contexts.asSet()) {
+        for (Map.Entry<String, String> context : contexts) {
             sb.append(" ").append(context.getKey()).append("=").append(context.getValue());
         }
 

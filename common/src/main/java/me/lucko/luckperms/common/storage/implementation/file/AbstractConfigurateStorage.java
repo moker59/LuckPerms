@@ -657,21 +657,20 @@ public abstract class AbstractConfigurateStorage implements StorageImplementatio
                 }
             }
 
-            ChatMetaNode<?, ?> chatMetaNode = NodeType.CHAT_META.tryCast(n).orElse(null);
-            if (chatMetaNode != null && n.getValue()) {
+            if (n instanceof ChatMetaNode<?, ?> && n.getValue()) {
                 // handle prefixes / suffixes
-                Map.Entry<Integer, String> entry = chatMetaNode.getAsEntry();
+                ChatMetaNode<?, ?> chatMeta = (ChatMetaNode<?, ?>) n;
 
                 ConfigurationNode attributes = SimpleConfigurationNode.root();
-                attributes.getNode("priority").setValue(entry.getKey());
+                attributes.getNode("priority").setValue(chatMeta.getPriority());
                 writeAttributesTo(attributes, node, false);
 
-                switch (chatMetaNode.getType()) {
+                switch (chatMeta.getType()) {
                     case PREFIX:
-                        appendNode(prefixesSection, entry.getValue(), attributes, "prefix");
+                        appendNode(prefixesSection, chatMeta.getMetaValue(), attributes, "prefix");
                         break;
                     case SUFFIX:
-                        appendNode(suffixesSection, entry.getValue(), attributes, "suffix");
+                        appendNode(suffixesSection, chatMeta.getMetaValue(), attributes, "suffix");
                         break;
                     default:
                         throw new AssertionError();
@@ -687,10 +686,12 @@ public abstract class AbstractConfigurateStorage implements StorageImplementatio
                 appendNode(metaSection, meta.getMetaKey(), attributes, "key");
             } else if (n instanceof InheritanceNode && n.getValue()) {
                 // handle group nodes
+                InheritanceNode inheritance = (InheritanceNode) n;
+
                 ConfigurationNode attributes = SimpleConfigurationNode.root();
                 writeAttributesTo(attributes, node, false);
 
-                appendNode(parentsSection, ((InheritanceNode) n).getGroupName(), attributes, "group");
+                appendNode(parentsSection, inheritance.getGroupName(), attributes, "group");
             } else {
                 // handle regular permissions and negated meta+prefixes+suffixes
                 ConfigurationNode attributes = SimpleConfigurationNode.root();
