@@ -72,7 +72,7 @@ public interface DuplicateRemovalFunction {
         @SuppressWarnings("Java8CollectionRemoveIf")
         @Override
         public <T> void processDuplicates(@NonNull List<T> list) {
-            Set<T> seen = new HashSet<>();
+            Set<T> seen = new HashSet<>(list.size());
             for (ListIterator<T> it = list.listIterator(); it.hasNext(); ) {
                 T next = it.next();
                 if (!seen.add(next)) {
@@ -93,7 +93,7 @@ public interface DuplicateRemovalFunction {
     DuplicateRemovalFunction LAST_ONLY = new DuplicateRemovalFunction() {
         @Override
         public <T> void processDuplicates(@NonNull List<T> list) {
-            Set<T> seen = new HashSet<>();
+            Set<T> seen = new HashSet<>(list.size());
             for (ListIterator<T> it = list.listIterator(list.size()); it.hasPrevious(); ) {
                 T next = it.previous();
                 if (!seen.add(next)) {

@@ -25,7 +25,7 @@
 
 package me.lucko.luckperms.common.event;
 
-import me.lucko.luckperms.api.event.EventHandler;
+import me.lucko.luckperms.api.event.EventSubscription;
 import me.lucko.luckperms.api.event.LuckPermsEvent;
 
 import net.kyori.event.EventSubscriber;
@@ -34,15 +34,14 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 /**
- * Simple implementation of {@link EventHandler}.
+ * Simple implementation of {@link EventSubscription}.
  *
  * @param <T> the event type
  */
-public class LuckPermsEventHandler<T extends LuckPermsEvent> implements EventHandler<T>, EventSubscriber<T> {
+public class LuckPermsEventSubscription<T extends LuckPermsEvent> implements EventSubscription<T>, EventSubscriber<T> {
 
     /**
      * The event bus which created this handler
@@ -69,12 +68,7 @@ public class LuckPermsEventHandler<T extends LuckPermsEvent> implements EventHan
      */
     private final AtomicBoolean active = new AtomicBoolean(true);
 
-    /**
-     * How many times this handler has been called
-     */
-    private final AtomicInteger callCount = new AtomicInteger(0);
-
-    public LuckPermsEventHandler(AbstractEventBus<?> eventBus, Class<T> eventClass, Consumer<? super T> consumer, @Nullable Object plugin) {
+    public LuckPermsEventSubscription(AbstractEventBus<?> eventBus, Class<T> eventClass, Consumer<? super T> consumer, @Nullable Object plugin) {
         this.eventBus = eventBus;
         this.eventClass = eventClass;
         this.consumer = consumer;
@@ -87,26 +81,19 @@ public class LuckPermsEventHandler<T extends LuckPermsEvent> implements EventHan
     }
 
     @Override
-    public boolean unregister() {
+    public void close() {
         // already unregistered
         if (!this.active.getAndSet(false)) {
-            return false;
+            return;
         }
 
         this.eventBus.unregisterHandler(this);
-        return true;
-    }
-
-    @Override
-    public int getCallCount() {
-        return this.callCount.get();
     }
 
     @Override
     public void invoke(@NonNull T event) throws Throwable {
         try {
             this.consumer.accept(event);
-            this.callCount.incrementAndGet();
         } catch (Throwable t) {
             this.eventBus.getPlugin().getLogger().warn("Unable to pass event " + event.getEventType().getSimpleName() + " to handler " + this.consumer.getClass().getName());
             t.printStackTrace();
@@ -119,7 +106,7 @@ public class LuckPermsEventHandler<T extends LuckPermsEvent> implements EventHan
     }
 
     @Override
-    public @NonNull Consumer<? super T> getConsumer() {
+    public @NonNull Consumer<? super T> getHandler() {
         return this.consumer;
     }
 

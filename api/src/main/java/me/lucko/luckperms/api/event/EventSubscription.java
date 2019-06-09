@@ -34,7 +34,7 @@ import java.util.function.Consumer;
  *
  * @param <T> the event class
  */
-public interface EventHandler<T extends LuckPermsEvent> extends AutoCloseable {
+public interface EventSubscription<T extends LuckPermsEvent> extends AutoCloseable {
 
     /**
      * Gets the class this handler is listening to
@@ -51,28 +51,15 @@ public interface EventHandler<T extends LuckPermsEvent> extends AutoCloseable {
     boolean isActive();
 
     /**
-     * Unregisters this handler from the event bus
-     *
-     * @return true if the handler wasn't already unregistered
+     * Unregisters this handler from the event bus.
      */
-    boolean unregister();
+    @Override
+    void close();
 
     /**
      * Gets the event consumer responsible for handling the event
      *
      * @return the event consumer
      */
-    @NonNull Consumer<? super T> getConsumer();
-
-    /**
-     * Gets the number of times this handler has been called
-     *
-     * @return the number of times this handler has been called
-     */
-    int getCallCount();
-
-    @Override
-    default void close() {
-        unregister();
-    }
+    @NonNull Consumer<? super T> getHandler();
 }

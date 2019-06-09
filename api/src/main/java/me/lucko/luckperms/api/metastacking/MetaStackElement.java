@@ -26,7 +26,6 @@
 package me.lucko.luckperms.api.metastacking;
 
 import me.lucko.luckperms.api.node.ChatMetaType;
-import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.api.node.types.ChatMetaNode;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -46,7 +45,7 @@ public interface MetaStackElement {
     /**
      * Returns if the given node should be accumulated onto the stack.
      *
-     * <p>The element being considered can be retrieved using {@link ChatMetaType#getEntry(Node)}.</p>
+     * <p>The element being considered can be retrieved using {@link ChatMetaNode#getAsEntry()}.</p>
      *
      * @param node    the node being considered
      * @param type    the type of entry being accumulated
