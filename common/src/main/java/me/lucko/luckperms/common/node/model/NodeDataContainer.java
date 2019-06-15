@@ -25,12 +25,16 @@
 
 package me.lucko.luckperms.common.node.model;
 
+import me.lucko.luckperms.api.context.ContextSet;
 import me.lucko.luckperms.api.context.DefaultContextKeys;
 import me.lucko.luckperms.api.context.ImmutableContextSet;
+import me.lucko.luckperms.api.context.MutableContextSet;
 import me.lucko.luckperms.api.node.Node;
 import me.lucko.luckperms.common.node.factory.NodeFactory;
 
 import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * An stripped down version of {@link Node}, without methods and cached values
@@ -41,14 +45,36 @@ import java.util.Objects;
 public final class NodeDataContainer {
 
     public static NodeDataContainer fromNode(Node node) {
-        NodeDataContainer model = of(
-                node.getKey(),
-                node.getValue(),
-                node.getContexts().getAnyValue(DefaultContextKeys.SERVER_KEY).orElse("global"),
-                node.getContexts().getAnyValue(DefaultContextKeys.WORLD_KEY).orElse("global"),
-                node.hasExpiry() ? node.getExpiry().getEpochSecond() : 0L,
-                node.getContexts()
-        );
+        ContextSet contexts = node.getContexts();
+
+        Set<String> servers = contexts.getValues(DefaultContextKeys.SERVER_KEY);
+        Optional<String> firstServer = servers.stream().sorted().findFirst();
+        
+        String server;
+        if (firstServer.isPresent()) {
+            server = firstServer.get();
+            MutableContextSet mutableContextSet = contexts.mutableCopy();
+            mutableContextSet.remove(DefaultContextKeys.SERVER_KEY, server);
+            contexts = mutableContextSet;
+        } else {
+            server = "global";
+        }
+
+        Set<String> worlds = contexts.getValues(DefaultContextKeys.WORLD_KEY);
+        Optional<String> firstWorld = worlds.stream().sorted().findFirst();
+
+        String world;
+        if (firstWorld.isPresent()) {
+            world = firstWorld.get();
+            MutableContextSet mutableContextSet = contexts instanceof MutableContextSet ? (MutableContextSet) contexts : contexts.mutableCopy();
+            mutableContextSet.remove(DefaultContextKeys.WORLD_KEY, world);
+            contexts = mutableContextSet;
+        } else {
+            world = "global";
+        }
+        
+
+        NodeDataContainer model = of(node.getKey(), node.getValue(), server, world, node.hasExpiry() ? node.getExpiry().getEpochSecond() : 0L, contexts.immutableCopy());
         model.node = node;
         return model;
     }

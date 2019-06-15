@@ -30,19 +30,16 @@ import me.lucko.luckperms.api.node.Node;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-public final class NodeHeldPermission<T extends Comparable<T>> implements HeldNode<T> {
-    public static <T extends Comparable<T>> NodeHeldPermission<T> of(T holder, NodeDataContainer node) {
-        return of(holder, node.toNode());
-    }
+public final class HeldNodeImpl<T extends Comparable<T>> implements HeldNode<T> {
 
-    public static <T extends Comparable<T>> NodeHeldPermission<T> of(T holder, Node node) {
-        return new NodeHeldPermission<>(holder, node);
+    public static <T extends Comparable<T>> HeldNodeImpl<T> of(T holder, Node node) {
+        return new HeldNodeImpl<>(holder, node);
     }
 
     private final T holder;
     private final Node node;
 
-    private NodeHeldPermission(T holder, Node node) {
+    private HeldNodeImpl(T holder, Node node) {
         this.holder = holder;
         this.node = node;
     }
@@ -60,8 +57,8 @@ public final class NodeHeldPermission<T extends Comparable<T>> implements HeldNo
     @Override
     public boolean equals(Object o) {
         if (o == this) return true;
-        if (!(o instanceof NodeHeldPermission)) return false;
-        final NodeHeldPermission other = (NodeHeldPermission) o;
+        if (!(o instanceof HeldNodeImpl)) return false;
+        final HeldNodeImpl other = (HeldNodeImpl) o;
         return this.getHolder().equals(other.getHolder()) && this.getNode().equals(other.getNode());
     }
 

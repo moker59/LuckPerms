@@ -37,7 +37,10 @@ import org.checkerframework.checker.nullness.qual.NonNull;
  */
 public interface InheritedFromMetadata extends NodeMetadata {
 
-    NodeMetadataKey<InheritedFromMetadata> KEY = new NodeMetadataKey<InheritedFromMetadata>(){};
+    /**
+     * TODO
+     */
+    NodeMetadataKey<InheritedFromMetadata> KEY = NodeMetadataKey.of("InheritedFromMetadata", InheritedFromMetadata.class);
 
     /**
      * Gets the location where the {@link Node} is inherited from.

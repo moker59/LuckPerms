@@ -266,7 +266,7 @@ public interface PermissionHolder {
          * @param test the predicate to test for nodes which should be removed
          * @since 3.2
          */
-        void clearMatching(@NonNull Predicate<Node> test);
+        void clearMatching(@NonNull Predicate<? super Node> test);
 
         /**
          * Clears all nodes held by the permission holder.

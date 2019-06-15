@@ -1,5 +1,5 @@
 /*
- * This file is part of LuckPerms, licensed under the MIT License.
+ * This file is part of luckperms, licensed under the MIT License.
  *
  *  Copyright (c) lucko (Luck) <luck@lucko.me>
  *  Copyright (c) contributors
@@ -27,43 +27,27 @@ package me.lucko.luckperms.api.node.metadata;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import java.util.Objects;
+final class SimpleNodeMetadataKey<T extends NodeMetadata> implements NodeMetadataKey<T> {
+    private final String name;
+    private final Class<T> type;
 
-/**
- * TODO
- *
- * @param <T>
- */
-public interface NodeMetadataKey<T extends NodeMetadata> {
-
-    /**
-     * Creates a new {@link NodeMetadataKey} for the given name and type.
-     *
-     * <p>Note that the returned key implements object reference equality.</p>
-     *
-     * @param name the name
-     * @param type the type
-     * @param <T> the type parameter
-     * @return the key
-     */
-    static <T extends NodeMetadata> @NonNull NodeMetadataKey<T> of(@NonNull String name, @NonNull Class<T> type) {
-        Objects.requireNonNull(name, "name");
-        Objects.requireNonNull(type, "type");
-        return new SimpleNodeMetadataKey<>(name, type);
+    SimpleNodeMetadataKey(String name, Class<T> type) {
+        this.name = name;
+        this.type = type;
     }
 
-    /**
-     * Gets a name describing the key type.
-     *
-     * @return the key name
-     */
-    @NonNull String name();
+    @Override
+    public @NonNull String name() {
+        return this.name;
+    }
 
-    /**
-     * Gets the type of the key
-     *
-     * @return the type
-     */
-    @NonNull Class<T> getType();
+    @Override
+    public @NonNull Class<T> getType() {
+        return this.type;
+    }
 
+    @Override
+    public String toString() {
+        return "NodeMetadataKey(name=" + this.name + ", type=" + this.type.getName() + ")";
+    }
 }

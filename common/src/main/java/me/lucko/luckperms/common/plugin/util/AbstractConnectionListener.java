@@ -68,13 +68,13 @@ public abstract class AbstractConnectionListener {
         PlayerSaveResult saveResult = this.plugin.getStorage().savePlayerData(uuid, username).join();
 
         // fire UserFirstLogin event
-        if (saveResult.includes(PlayerSaveResult.Status.CLEAN_INSERT)) {
+        if (saveResult.includes(PlayerSaveResult.Outcome.CLEAN_INSERT)) {
             this.plugin.getEventFactory().handleUserFirstLogin(uuid, username);
         }
 
         // most likely because ip forwarding is not setup correctly
         // print a warning to the console
-        if (saveResult.includes(PlayerSaveResult.Status.OTHER_UUIDS_PRESENT_FOR_USERNAME)) {
+        if (saveResult.includes(PlayerSaveResult.Outcome.OTHER_UUIDS_PRESENT_FOR_USERNAME)) {
             Set<UUID> otherUuids = saveResult.getOtherUuids();
 
             this.plugin.getLogger().warn("LuckPerms already has data for player '" + username + "' - but this data is stored under a different UUID.");

@@ -211,7 +211,7 @@ public interface Node {
      * @since 5.0
      */
     default <T extends NodeMetadata> T metadata(NodeMetadataKey<T> key) throws IllegalStateException {
-        return getMetadata(key).orElseThrow(() -> new IllegalStateException("Node '" + getKey() + "' does not have '" + key.getTypeName() + "' attached."));
+        return getMetadata(key).orElseThrow(() -> new IllegalStateException("Node '" + getKey() + "' does not have '" + key.name() + "' attached."));
     }
 
     /**

@@ -56,8 +56,8 @@ import me.lucko.luckperms.common.model.UserIdentifier;
 import me.lucko.luckperms.common.model.manager.group.GroupManager;
 import me.lucko.luckperms.common.model.manager.track.TrackManager;
 import me.lucko.luckperms.common.node.factory.NodeFactory;
+import me.lucko.luckperms.common.node.model.HeldNodeImpl;
 import me.lucko.luckperms.common.node.model.NodeDataContainer;
-import me.lucko.luckperms.common.node.model.NodeHeldPermission;
 import me.lucko.luckperms.common.plugin.LuckPermsPlugin;
 import me.lucko.luckperms.common.storage.implementation.StorageImplementation;
 import me.lucko.luckperms.common.storage.misc.PlayerSaveResultImpl;
@@ -343,7 +343,7 @@ public class MongoStorage implements StorageImplementation {
                     if (!constraint.eval(e.getPermission())) {
                         continue;
                     }
-                    held.add(NodeHeldPermission.of(holder, e));
+                    held.add(HeldNodeImpl.of(holder, e.toNode()));
                 }
             }
         }
@@ -468,7 +468,7 @@ public class MongoStorage implements StorageImplementation {
                     if (!constraint.eval(e.getPermission())) {
                         continue;
                     }
-                    held.add(NodeHeldPermission.of(holder, e));
+                    held.add(HeldNodeImpl.of(holder, e.toNode()));
                 }
             }
         }

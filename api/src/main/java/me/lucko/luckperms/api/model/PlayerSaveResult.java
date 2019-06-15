@@ -49,45 +49,45 @@ public interface PlayerSaveResult {
      *
      * @return the status
      */
-    @NonNull Set<Status> getStatus();
+    @NonNull Set<Outcome> getOutcomes();
 
     /**
-     * Gets if the result includes a certain status code.
+     * Gets if the result includes a certain outcome.
      *
-     * @param status the status to check for
-     * @return if the result includes the status
+     * @param outcome the outcome to check for
+     * @return if the result includes the outcome
      */
-    default boolean includes(@NonNull Status status) {
-        Objects.requireNonNull(status, "status");
-        return getStatus().contains(status);
+    default boolean includes(@NonNull Outcome outcome) {
+        Objects.requireNonNull(outcome, "outcome");
+        return getOutcomes().contains(outcome);
     }
 
     /**
      * Gets the old username involved in the result.
      *
-     * <p>Returns null when the result doesn't {@link #includes(Status) include} the
-     * {@link Status#USERNAME_UPDATED} status.</p>
+     * <p>Returns null when the result doesn't {@link #includes(Outcome) include} the
+     * {@link Outcome#USERNAME_UPDATED} status.</p>
      *
      * @return the old username
-     * @see Status#USERNAME_UPDATED
+     * @see Outcome#USERNAME_UPDATED
      */
     @Nullable String getOldUsername();
 
     /**
      * Gets the other uuids involved in the result.
      *
-     * <p>Returns null when the result doesn't {@link #includes(Status) include} the
-     * {@link Status#OTHER_UUIDS_PRESENT_FOR_USERNAME} status.</p>
+     * <p>Returns null when the result doesn't {@link #includes(Outcome) include} the
+     * {@link Outcome#OTHER_UUIDS_PRESENT_FOR_USERNAME} status.</p>
      *
      * @return the other uuids
-     * @see Status#OTHER_UUIDS_PRESENT_FOR_USERNAME
+     * @see Outcome#OTHER_UUIDS_PRESENT_FOR_USERNAME
      */
     @Nullable Set<UUID> getOtherUuids();
 
     /**
      * The various states the result can take
      */
-    enum Status {
+    enum Outcome {
 
         /**
          * There was no existing data saved for either the uuid or username

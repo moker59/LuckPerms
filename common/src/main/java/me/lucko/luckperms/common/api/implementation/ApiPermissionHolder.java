@@ -25,7 +25,6 @@
 
 package me.lucko.luckperms.common.api.implementation;
 
-import com.google.common.collect.ImmutableSetMultimap;
 import com.google.common.collect.ImmutableSortedSet;
 
 import me.lucko.luckperms.api.cacheddata.CachedDataManager;
@@ -182,7 +181,7 @@ public class ApiPermissionHolder implements me.lucko.luckperms.api.model.Permiss
         }
 
         @Override
-        public void clearMatching(@NonNull Predicate<Node> test) {
+        public void clearMatching(@NonNull Predicate<? super Node> test) {
             ApiPermissionHolder.this.handle.removeIfEnduring(test);
         }
 
@@ -249,7 +248,7 @@ public class ApiPermissionHolder implements me.lucko.luckperms.api.model.Permiss
         }
 
         @Override
-        public void clearMatching(@NonNull Predicate<Node> test) {
+        public void clearMatching(@NonNull Predicate<? super Node> test) {
             ApiPermissionHolder.this.handle.removeIfTransient(test);
         }
 

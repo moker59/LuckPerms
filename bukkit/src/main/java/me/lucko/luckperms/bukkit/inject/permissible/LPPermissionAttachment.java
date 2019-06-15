@@ -54,7 +54,7 @@ import java.util.Set;
  */
 public class LPPermissionAttachment extends PermissionAttachment implements NodeMetadata {
 
-    public static final NodeMetadataKey<LPPermissionAttachment> TRANSIENT_OPTION = new NodeMetadataKey<LPPermissionAttachment>(){};
+    public static final NodeMetadataKey<LPPermissionAttachment> TRANSIENT_SOURCE_KEY = NodeMetadataKey.of("TransientSource", LPPermissionAttachment.class);
 
     /**
      * The field in PermissionAttachment where the attachments applied permissions
@@ -184,7 +184,7 @@ public class LPPermissionAttachment extends PermissionAttachment implements Node
         Node node = NodeFactory.builder(name)
                 .value(value)
                 .withContext(this.permissible.getPlugin().getContextManager().getStaticContext())
-                .withMetadata(TRANSIENT_OPTION, this)
+                .withMetadata(TRANSIENT_SOURCE_KEY, this)
                 .build();
 
         // set the transient node
@@ -199,13 +199,13 @@ public class LPPermissionAttachment extends PermissionAttachment implements Node
 
         // remove transient permissions from the holder which were added by this attachment & equal the permission
         User user = this.permissible.getUser();
-        user.removeIfTransient(n -> n.getMetadata(TRANSIENT_OPTION).orElse(null) == this && n.getKey().equals(name));
+        user.removeIfTransient(n -> n.getMetadata(TRANSIENT_SOURCE_KEY).orElse(null) == this && n.getKey().equals(name));
     }
 
     private void clearInternal() {
         // remove all transient permissions added by this attachment
         User user = this.permissible.getUser();
-        user.removeIfTransient(n -> n.getMetadata(TRANSIENT_OPTION).orElse(null) == this);
+        user.removeIfTransient(n -> n.getMetadata(TRANSIENT_SOURCE_KEY).orElse(null) == this);
     }
 
     @Override

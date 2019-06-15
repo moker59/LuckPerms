@@ -30,8 +30,8 @@ import me.lucko.luckperms.common.bulkupdate.BulkUpdate;
 import me.lucko.luckperms.common.bulkupdate.comparison.Constraint;
 import me.lucko.luckperms.common.model.manager.group.GroupManager;
 import me.lucko.luckperms.common.model.manager.track.TrackManager;
+import me.lucko.luckperms.common.node.model.HeldNodeImpl;
 import me.lucko.luckperms.common.node.model.NodeDataContainer;
-import me.lucko.luckperms.common.node.model.NodeHeldPermission;
 import me.lucko.luckperms.common.plugin.LuckPermsPlugin;
 import me.lucko.luckperms.common.storage.implementation.file.loader.ConfigurateLoader;
 
@@ -275,7 +275,7 @@ public class CombinedConfigurateStorage extends AbstractConfigurateStorage {
                         if (!constraint.eval(e.getPermission())) {
                             continue;
                         }
-                        held.add(NodeHeldPermission.of(holder, e));
+                        held.add(HeldNodeImpl.of(holder, e.toNode()));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -329,7 +329,7 @@ public class CombinedConfigurateStorage extends AbstractConfigurateStorage {
                         if (!constraint.eval(e.getPermission())) {
                             continue;
                         }
-                        held.add(NodeHeldPermission.of(holder, e));
+                        held.add(HeldNodeImpl.of(holder, e.toNode()));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

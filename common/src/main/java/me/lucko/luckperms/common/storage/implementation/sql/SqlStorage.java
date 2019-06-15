@@ -46,8 +46,8 @@ import me.lucko.luckperms.common.model.UserIdentifier;
 import me.lucko.luckperms.common.model.manager.group.GroupManager;
 import me.lucko.luckperms.common.model.manager.track.TrackManager;
 import me.lucko.luckperms.common.node.factory.NodeFactory;
+import me.lucko.luckperms.common.node.model.HeldNodeImpl;
 import me.lucko.luckperms.common.node.model.NodeDataContainer;
-import me.lucko.luckperms.common.node.model.NodeHeldPermission;
 import me.lucko.luckperms.common.plugin.LuckPermsPlugin;
 import me.lucko.luckperms.common.storage.implementation.StorageImplementation;
 import me.lucko.luckperms.common.storage.implementation.sql.connection.ConnectionFactory;
@@ -550,7 +550,7 @@ public class SqlStorage implements StorageImplementation {
                         String contexts = rs.getString("contexts");
 
                         NodeDataContainer data = deserializeNode(perm, value, server, world, expiry, contexts);
-                        held.add(NodeHeldPermission.of(holder, data));
+                        held.add(HeldNodeImpl.of(holder, data.toNode()));
                     }
                 }
             }
@@ -796,7 +796,7 @@ public class SqlStorage implements StorageImplementation {
                         String contexts = rs.getString("contexts");
 
                         NodeDataContainer data = deserializeNode(perm, value, server, world, expiry, contexts);
-                        held.add(NodeHeldPermission.of(holder, data));
+                        held.add(HeldNodeImpl.of(holder, data.toNode()));
                     }
                 }
             }
