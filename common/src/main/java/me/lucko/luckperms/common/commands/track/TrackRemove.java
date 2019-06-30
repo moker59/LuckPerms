@@ -60,7 +60,7 @@ public class TrackRemove extends SubCommand<Track> {
 
         DataMutateResult result = track.removeGroup(groupName);
 
-        if (result.wasSuccess()) {
+        if (result.wasSuccessful()) {
             Message.TRACK_REMOVE_SUCCESS.send(sender, groupName, track.getName());
             if (track.getGroups().size() > 1) {
                 Message.BLANK.send(sender, MessageUtils.listToArrowSep(track.getGroups()));

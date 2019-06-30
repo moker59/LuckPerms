@@ -56,8 +56,6 @@ import java.util.function.Function;
  *
  * <p>Calculators should be registered using
  * {@link ContextManager#registerCalculator(ContextCalculator)}.</p>
- *
- * @since 5.0
  */
 @FunctionalInterface
 public interface ContextCalculator<T> {

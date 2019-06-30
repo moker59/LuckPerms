@@ -35,8 +35,6 @@ import java.util.Set;
 
 /**
  * An immutable implementation of {@link ContextSet}.
- *
- * @since 2.16
  */
 public interface ImmutableContextSet extends ContextSet {
 

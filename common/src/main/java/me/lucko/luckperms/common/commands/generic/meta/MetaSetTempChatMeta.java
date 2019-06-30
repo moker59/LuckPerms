@@ -131,7 +131,7 @@ public class MetaSetTempChatMeta extends SharedSubCommand {
 
         TemporaryDataMutateResult ret = holder.setPermission(NodeFactory.buildChatMetaNode(this.type, priority, meta).expiry(duration).withContext(context).build(), modifier);
 
-        if (((Result) ret.getResult()).wasSuccess()) {
+        if (((Result) ret.getResult()).wasSuccessful()) {
             duration = ret.getMergedNode().getExpiry().getEpochSecond();
 
             TextComponent.Builder builder = Message.ADD_TEMP_CHATMETA_SUCCESS.asComponent(plugin.getLocaleManager(), holder.getFormattedDisplayName(), this.type.name().toLowerCase(), meta, priority, DurationFormatter.LONG.formatDateDiff(duration), MessageUtils.contextSetToString(plugin.getLocaleManager(), context)).toBuilder();

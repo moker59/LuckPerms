@@ -34,8 +34,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
  * Represents an "action log" message.
  *
  * <p>Used to dispatch live action log updates to other servers.</p>
- *
- * @since 5.0
  */
 public interface ActionLogMessage extends Message {
 

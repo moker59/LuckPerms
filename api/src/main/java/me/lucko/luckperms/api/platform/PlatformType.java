@@ -29,8 +29,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Represents a type of platform which LuckPerms can run on.
- *
- * @since 2.7
  */
 public enum PlatformType {
 

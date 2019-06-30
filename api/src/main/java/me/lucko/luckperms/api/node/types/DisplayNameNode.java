@@ -34,8 +34,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * A sub-type of {@link Node} used to mark the display name of the node's holder.
- *
- * @since 4.2
  */
 public interface DisplayNameNode extends ScopedNode<DisplayNameNode, DisplayNameNode.Builder> {
 

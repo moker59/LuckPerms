@@ -34,8 +34,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Called when a groups {@link CachedDataManager} is loaded.
- *
- * @since 4.0
  */
 public interface GroupCacheLoadEvent extends LuckPermsEvent {
 

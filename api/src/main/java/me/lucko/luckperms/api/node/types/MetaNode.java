@@ -34,8 +34,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * A sub-type of {@link Node} used to store meta assignments.
- *
- * @since 4.2
  */
 public interface MetaNode extends ScopedNode<MetaNode, MetaNode.Builder> {
 

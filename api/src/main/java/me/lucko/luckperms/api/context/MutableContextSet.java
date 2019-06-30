@@ -63,7 +63,6 @@ public interface MutableContextSet extends ContextSet {
      * @param value2 the second value
      * @return a new MutableContextSet containing the two pairs
      * @throws NullPointerException if any of the keys or values are null
-     * @since 3.1
      */
     static @NonNull MutableContextSet of(@NonNull String key1, @NonNull String value1, @NonNull String key2, @NonNull String value2) {
         Objects.requireNonNull(key1, "key1");

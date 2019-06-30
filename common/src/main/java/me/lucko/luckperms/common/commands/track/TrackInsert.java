@@ -75,7 +75,7 @@ public class TrackInsert extends SubCommand<Track> {
         try {
             DataMutateResult result = track.insertGroup(group, pos - 1);
 
-            if (result.wasSuccess()) {
+            if (result.wasSuccessful()) {
                 Message.TRACK_INSERT_SUCCESS.send(sender, group.getName(), track.getName(), pos);
                 if (track.getGroups().size() > 1) {
                     Message.BLANK.send(sender, MessageUtils.listToArrowSep(track.getGroups(), group.getName()));

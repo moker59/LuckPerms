@@ -36,8 +36,6 @@ import java.util.UUID;
 
 /**
  * Called when a log is about to be published to the network via the MessagingService
- *
- * @since 3.3
  */
 public interface LogNetworkPublishEvent extends LuckPermsEvent, Cancellable {
 

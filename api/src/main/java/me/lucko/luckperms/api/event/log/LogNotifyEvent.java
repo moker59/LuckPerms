@@ -40,8 +40,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
  * <p>This event is not called for players without the notify permission,
  * but is called for objects which are ignoring log notifications (called with
  * the cancelled flag set to true).</p>
- *
- * @since 4.1
  */
 public interface LogNotifyEvent extends LuckPermsEvent, Cancellable {
 

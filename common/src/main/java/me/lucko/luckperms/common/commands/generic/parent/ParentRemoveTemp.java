@@ -74,7 +74,7 @@ public class ParentRemoveTemp extends SharedSubCommand {
 
         DataMutateResult result = holder.unsetPermission(NodeFactory.buildGroupNode(groupName).expiry(10L).withContext(context).build());
 
-        if (result.wasSuccess()) {
+        if (result.wasSuccessful()) {
             Message.UNSET_TEMP_INHERIT_SUCCESS.send(sender, holder.getFormattedDisplayName(), groupName, MessageUtils.contextSetToString(plugin.getLocaleManager(), context));
 
             ExtendedLogEntry.build().actor(sender).acted(holder)

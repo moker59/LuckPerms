@@ -32,8 +32,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * A sub-type of {@link Node} used to store prefix assignments.
- *
- * @since 4.2
  */
 public interface PrefixNode extends ChatMetaNode<PrefixNode, PrefixNode.Builder> {
 

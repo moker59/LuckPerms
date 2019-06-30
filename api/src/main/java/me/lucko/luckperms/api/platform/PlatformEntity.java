@@ -37,8 +37,6 @@ import java.util.UUID;
  * comparison is to a "CommandSender" or "CommandSource" in Bukkit/Sponge.</p>
  *
  * <p>The various types of {@link PlatformEntity} are detailed in {@link Type}.</p>
- *
- * @since 4.1
  */
 public interface PlatformEntity {
 

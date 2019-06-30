@@ -31,8 +31,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Extension of {@link DataMutateResult} for temporary set operations.
- *
- * @since 4.3
  */
 public interface TemporaryDataMutateResult {
 

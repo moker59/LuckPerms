@@ -31,8 +31,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * A superinterface for all LuckPerms events.
- *
- * @since 3.0
  */
 public interface LuckPermsEvent {
 
@@ -47,7 +45,6 @@ public interface LuckPermsEvent {
      * Gets the type of the event.
      *
      * @return the type of the event
-     * @since 4.4
      */
     @NonNull Class<? extends LuckPermsEvent> getEventType();
 

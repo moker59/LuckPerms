@@ -46,8 +46,6 @@ import java.util.function.Consumer;
  * <strong>not</strong> be called on the main server thread. If you need to use
  * the result of these operations on the main server thread, register a
  * callback using {@link CompletableFuture#thenAcceptAsync(Consumer, Executor)}.</p>
- *
- * @since 4.0
  */
 public interface TrackManager {
 
@@ -60,7 +58,6 @@ public interface TrackManager {
      * @param name the name of the track
      * @return the resultant track
      * @throws NullPointerException if the name is null
-     * @since 4.1
      */
     @NonNull CompletableFuture<Track> createAndLoadTrack(@NonNull String name);
 
@@ -73,7 +70,6 @@ public interface TrackManager {
      * @param name the name of the track
      * @return the resultant track
      * @throws NullPointerException if the name is null
-     * @since 4.1
      */
     @NonNull CompletableFuture<Optional<Track>> loadTrack(@NonNull String name);
 
@@ -86,7 +82,6 @@ public interface TrackManager {
      * @return a future to encapsulate the operation.
      * @throws NullPointerException  if track is null
      * @throws IllegalStateException if the track instance was not obtained from LuckPerms.
-     * @since 4.1
      */
     @NonNull CompletableFuture<Void> saveTrack(@NonNull Track track);
 
@@ -97,7 +92,6 @@ public interface TrackManager {
      * @return a future to encapsulate the operation.
      * @throws NullPointerException  if track is null
      * @throws IllegalStateException if the track instance was not obtained from LuckPerms.
-     * @since 4.1
      */
     @NonNull CompletableFuture<Void> deleteTrack(@NonNull Track track);
 
@@ -105,7 +99,6 @@ public interface TrackManager {
      * Loads all tracks into memory.
      *
      * @return a future to encapsulate the operation.
-     * @since 4.1
      */
     @NonNull CompletableFuture<Void> loadAllTracks();
 

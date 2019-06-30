@@ -36,7 +36,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
  * "Messaging Service" should implement and register this interface.</p>
  *
  * @see LuckPerms#registerMessengerProvider(MessengerProvider)
- * @since 4.1
  */
 public interface MessengerProvider {
 

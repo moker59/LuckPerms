@@ -33,8 +33,6 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * Represents the object responsible for handling action logging.
- *
- * @since 5.0
  */
 public interface ActionLogger {
 

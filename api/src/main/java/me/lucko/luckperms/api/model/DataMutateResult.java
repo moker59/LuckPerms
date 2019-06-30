@@ -62,7 +62,7 @@ public enum DataMutateResult implements Result {
     }
 
     @Override
-    public boolean wasSuccess() {
+    public boolean wasSuccessful() {
         return this.success;
     }
 }

@@ -32,8 +32,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
  *
  * <p>Generally, individual instances of this interface should fulfil the same
  * requirements as the {@link Object#equals(Object)} contract.</p>
- *
- * @since 4.1
  */
 @FunctionalInterface
 public interface NodeEqualityPredicate {

@@ -91,7 +91,7 @@ public class ParentAddTemp extends SharedSubCommand {
 
         TemporaryDataMutateResult ret = holder.setPermission(NodeFactory.buildGroupNode(group.getName()).expiry(duration).withContext(context).build(), modifier);
 
-        if (((Result) ret.getResult()).wasSuccess()) {
+        if (((Result) ret.getResult()).wasSuccessful()) {
             duration = ret.getMergedNode().getExpiry().getEpochSecond();
             Message.SET_TEMP_INHERIT_SUCCESS.send(sender, holder.getFormattedDisplayName(), group.getFormattedDisplayName(), DurationFormatter.LONG.formatDateDiff(duration), MessageUtils.contextSetToString(plugin.getLocaleManager(), context));
 

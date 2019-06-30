@@ -33,7 +33,6 @@ public interface ScopedNode<N extends ScopedNode<N, B>, B extends NodeBuilder<N,
      * TODO
      *
      * @return
-     * @since 5.0
      */
     @Override
     @NonNull B toBuilder();

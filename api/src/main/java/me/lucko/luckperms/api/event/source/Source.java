@@ -33,8 +33,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
  * Represents the source of an event.
  *
  * <p>Could also be described as the "thing" that caused an event to occur.</p>
- *
- * @since 4.1
  */
 public interface Source {
 

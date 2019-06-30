@@ -34,8 +34,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * Called when a groups cached data is refreshed
- *
- * @since 4.0
  */
 public interface GroupDataRecalculateEvent extends LuckPermsEvent {
 

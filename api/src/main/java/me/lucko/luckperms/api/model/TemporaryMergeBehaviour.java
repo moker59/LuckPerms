@@ -37,8 +37,6 @@ import me.lucko.luckperms.api.node.Node;
  *
  * <p>However, the {@link PermissionHolder.Data#addNode(Node, TemporaryMergeBehaviour)}
  * method allows this behaviour to be customized for temporary permissions.</p>
- *
- * @since 4.3
  */
 public enum TemporaryMergeBehaviour {
 

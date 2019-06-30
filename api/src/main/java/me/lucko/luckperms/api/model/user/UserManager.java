@@ -53,8 +53,6 @@ import java.util.function.Consumer;
  * <strong>not</strong> be called on the main server thread. If you need to use
  * the result of these operations on the main server thread, register a
  * callback using {@link CompletableFuture#thenAcceptAsync(Consumer, Executor)}.</p>
- *
- * @since 4.0
  */
 public interface UserManager {
 
@@ -65,7 +63,6 @@ public interface UserManager {
      * @param username the username, if known
      * @return the resultant user
      * @throws NullPointerException if the uuid is null
-     * @since 4.1
      */
     @NonNull CompletableFuture<User> loadUser(@NonNull UUID uuid, @Nullable String username);
 
@@ -75,7 +72,6 @@ public interface UserManager {
      * @param uuid the uuid of the user
      * @return the resultant user
      * @throws NullPointerException if the uuid is null
-     * @since 4.1
      */
     default @NonNull CompletableFuture<User> loadUser(@NonNull UUID uuid) {
         return loadUser(uuid, null);
@@ -90,7 +86,6 @@ public interface UserManager {
      * @return a uuid, could be null
      * @throws NullPointerException     if either parameters are null
      * @throws IllegalArgumentException if the username is invalid
-     * @since 4.2
      */
     @NonNull CompletableFuture<UUID> lookupUniqueId(@NonNull String username);
 
@@ -101,7 +96,6 @@ public interface UserManager {
      * @return a username, could be null
      * @throws NullPointerException     if either parameters are null
      * @throws IllegalArgumentException if the username is invalid
-     * @since 4.2
      */
     @NonNull CompletableFuture<String> lookupUsername(@NonNull UUID uuid);
 
@@ -114,7 +108,6 @@ public interface UserManager {
      * @return a future to encapsulate the operation.
      * @throws NullPointerException  if user is null
      * @throws IllegalStateException if the user instance was not obtained from LuckPerms.
-     * @since 4.1
      */
     @NonNull CompletableFuture<Void> saveUser(@NonNull User user);
 
@@ -126,7 +119,6 @@ public interface UserManager {
      * @return the result of the operation.
      * @throws NullPointerException     if either parameters are null
      * @throws IllegalArgumentException if the username is invalid
-     * @since 4.2
      */
     @NonNull CompletableFuture<PlayerSaveResult> savePlayerData(@NonNull UUID uuid, @NonNull String username);
 
@@ -136,7 +128,6 @@ public interface UserManager {
      * <p>"Unique" meaning the user isn't just a member of the "default" group.</p>
      *
      * @return a set of uuids
-     * @since 4.2
      */
     @NonNull CompletableFuture<Set<UUID>> getUniqueUsers();
 
@@ -146,7 +137,6 @@ public interface UserManager {
      * @param permission the permission to search for
      * @return a list of held permissions
      * @throws NullPointerException if the permission is null
-     * @since 4.2
      */
     @NonNull CompletableFuture<List<HeldNode<UUID>>> getWithPermission(@NonNull String permission);
 

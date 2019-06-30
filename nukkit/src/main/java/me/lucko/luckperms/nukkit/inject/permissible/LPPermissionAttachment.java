@@ -191,7 +191,7 @@ public class LPPermissionAttachment extends PermissionAttachment implements Node
 
         // set the transient node
         User user = this.permissible.getUser();
-        ((Result) user.setTransientPermission(node)).wasSuccess();
+        ((Result) user.setTransientPermission(node)).wasSuccessful();
     }
 
     private void unsetPermissionInternal(String name) {

@@ -35,8 +35,6 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * Represents an element within a {@link MetaStackDefinition}.
  *
  * <p>The element itself does not contain any mutable state.</p>
- *
- * @since 3.2
  */
 public interface MetaStackElement {
 

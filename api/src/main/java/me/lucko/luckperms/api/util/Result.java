@@ -26,9 +26,7 @@
 package me.lucko.luckperms.api.util;
 
 /**
- * Represents the result to a "mutation" on an object.
- *
- * @since 4.2
+ * Represents a generic result, which can either be successful or fail.
  */
 @FunctionalInterface
 public interface Result {
@@ -48,6 +46,6 @@ public interface Result {
      *
      * @return if the result indicates a success
      */
-    boolean wasSuccess();
+    boolean wasSuccessful();
 
 }

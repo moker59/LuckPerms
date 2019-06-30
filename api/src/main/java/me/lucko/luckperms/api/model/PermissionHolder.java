@@ -87,7 +87,6 @@ public interface PermissionHolder {
      * falling back to {@link #getObjectName()}.</p>
      *
      * @return a friendly identifier for this holder
-     * @since 3.2
      */
     @NonNull String getFriendlyName();
 
@@ -95,7 +94,6 @@ public interface PermissionHolder {
      * Gets the holders {@link CachedDataManager} cache.
      *
      * @return the holders cached data.
-     * @since 3.2
      */
     @NonNull CachedDataManager getCachedData();
 
@@ -106,7 +104,6 @@ public interface PermissionHolder {
      * behind the scenes by the implementation.</p>
      *
      * @return the task future
-     * @since 4.0
      */
     @NonNull CompletableFuture<Void> refreshCachedData();
 
@@ -173,7 +170,6 @@ public interface PermissionHolder {
          * @param equalityPredicate how to determine if a node matches
          * @return a Tristate for the holders permission status for the node
          * @throws NullPointerException if the node is null
-         * @since 4.1
          */
         @NonNull Tristate hasNode(@NonNull Node node, @NonNull NodeEqualityPredicate equalityPredicate);
 
@@ -196,7 +192,6 @@ public interface PermissionHolder {
          * @param node The node to be set
          * @return the result of the operation
          * @throws NullPointerException if the node is null
-         * @since 4.0
          */
         @NonNull DataMutateResult addNode(@NonNull Node node);
 
@@ -220,7 +215,6 @@ public interface PermissionHolder {
          * @param temporaryMergeBehaviour The behaviour used to merge temporary permission entries
          * @return the result of the operation
          * @throws NullPointerException if the node is null
-         * @since 4.3
          */
         @NonNull TemporaryDataMutateResult addNode(@NonNull Node node, @NonNull TemporaryMergeBehaviour temporaryMergeBehaviour);
 
@@ -243,7 +237,6 @@ public interface PermissionHolder {
          * @param node The node to be unset
          * @return the result of the operation
          * @throws NullPointerException if the node is null
-         * @since 4.0
          */
         @NonNull DataMutateResult removeNode(@NonNull Node node);
 
@@ -264,7 +257,6 @@ public interface PermissionHolder {
          * {@link GroupManager#loadGroup(String)} respectively.</p>
          *
          * @param test the predicate to test for nodes which should be removed
-         * @since 3.2
          */
         void clearMatching(@NonNull Predicate<? super Node> test);
 
@@ -281,8 +273,6 @@ public interface PermissionHolder {
          * the backing data from the storage if you haven't done so already, to avoid overwriting changes
          * made already. This can be done via {@link UserManager#loadUser(UUID)} or
          * {@link GroupManager#loadGroup(String)} respectively.</p>
-         *
-         * @since 2.17
          */
         void clearNodes();
 
@@ -301,7 +291,6 @@ public interface PermissionHolder {
          * {@link GroupManager#loadGroup(String)} respectively.</p>
          *
          * @param contextSet the contexts to filter by
-         * @since 3.2
          */
         void clearNodes(@NonNull ContextSet contextSet);
 
@@ -318,8 +307,6 @@ public interface PermissionHolder {
          * the backing data from the storage if you haven't done so already, to avoid overwriting changes
          * made already. This can be done via {@link UserManager#loadUser(UUID)} or
          * {@link GroupManager#loadGroup(String)} respectively.</p>
-         *
-         * @since 2.17
          */
         void clearParents();
 
@@ -338,7 +325,6 @@ public interface PermissionHolder {
          * {@link GroupManager#loadGroup(String)} respectively.</p>
          *
          * @param contextSet the contexts to filter by
-         * @since 3.2
          */
         void clearParents(@NonNull ContextSet contextSet);
 
@@ -358,8 +344,6 @@ public interface PermissionHolder {
          * the backing data from the storage if you haven't done so already, to avoid overwriting changes
          * made already. This can be done via {@link UserManager#loadUser(UUID)} or
          * {@link GroupManager#loadGroup(String)} respectively.</p>
-         *
-         * @since 2.17
          */
         void clearMeta();
 
@@ -381,7 +365,6 @@ public interface PermissionHolder {
          * {@link GroupManager#loadGroup(String)} respectively.</p>
          *
          * @param contextSet the contexts to filter by
-         * @since 3.2
          */
         void clearMeta(@NonNull ContextSet contextSet);
 
@@ -400,7 +383,6 @@ public interface PermissionHolder {
      * <p>This method <b>does not</b> resolve inheritance rules.</p>
      *
      * @return a list of the holders own nodes.
-     * @since 3.3
      */
     @NonNull List<Node> getNodes();
 
@@ -413,7 +395,6 @@ public interface PermissionHolder {
      * <p>This method <b>does not</b> resolve inheritance rules.</p>
      *
      * @return an immutable set of permissions in priority order
-     * @since 2.6
      */
     @NonNull SortedSet<Node> getDistinctNodes();
 
@@ -431,7 +412,6 @@ public interface PermissionHolder {
      *
      * @param queryOptions the query options
      * @return a list of nodes
-     * @since 3.3
      */
     @NonNull List<Node> resolveInheritedNodes(@NonNull QueryOptions queryOptions);
 
@@ -444,7 +424,6 @@ public interface PermissionHolder {
      * @param queryOptions the query options
      * @return an immutable sorted set of permissions
      * @throws NullPointerException if the context is null
-     * @since 2.11
      */
     @NonNull SortedSet<Node> resolveDistinctInheritedNodes(@NonNull QueryOptions queryOptions);
 
@@ -465,7 +444,6 @@ public interface PermissionHolder {
      * @param equalityPredicate how to determine if a node matches
      * @return a Tristate for the holders inheritance status for the node
      * @throws NullPointerException if the node is null
-     * @since 4.1
      */
     @NonNull Tristate inheritsNode(@NonNull Node node, @NonNull NodeEqualityPredicate equalityPredicate);
 

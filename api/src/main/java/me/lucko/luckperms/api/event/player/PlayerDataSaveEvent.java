@@ -38,8 +38,6 @@ import java.util.UUID;
  * Called when player data is saved to the storage.
  *
  * <p>Data can be saved using {@link UserManager#savePlayerData(UUID, String)}.</p>
- *
- * @since 4.3
  */
 public interface PlayerDataSaveEvent extends LuckPermsEvent {
 

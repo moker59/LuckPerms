@@ -66,7 +66,7 @@ public class TrackAppend extends SubCommand<Track> {
 
         DataMutateResult result = track.appendGroup(group);
 
-        if (result.wasSuccess()) {
+        if (result.wasSuccessful()) {
             Message.TRACK_APPEND_SUCCESS.send(sender, group.getName(), track.getName());
             if (track.getGroups().size() > 1) {
                 Message.BLANK.send(sender, MessageUtils.listToArrowSep(track.getGroups(), group.getName()));

@@ -49,15 +49,12 @@ public interface LogBroadcastEvent extends LuckPermsEvent, Cancellable {
      * Gets where the log entry originated from.
      *
      * @return the origin of the log
-     * @since 3.3
      */
     @Param(1)
     @NonNull Origin getOrigin();
 
     /**
      * Represents where a log entry is from
-     *
-     * @since 3.3
      */
     enum Origin {
 

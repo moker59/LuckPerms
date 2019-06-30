@@ -102,7 +102,7 @@ public class MetaRemoveChatMeta extends SharedSubCommand {
 
         DataMutateResult result = holder.unsetPermission(NodeFactory.buildChatMetaNode(this.type, priority, meta).withContext(context).build());
 
-        if (result.wasSuccess()) {
+        if (result.wasSuccessful()) {
             TextComponent.Builder builder = Message.REMOVE_CHATMETA_SUCCESS.asComponent(plugin.getLocaleManager(), holder.getFormattedDisplayName(), this.type.name().toLowerCase(), meta, priority, MessageUtils.contextSetToString(plugin.getLocaleManager(), context)).toBuilder();
             HoverEvent event = HoverEvent.showText(TextUtils.fromLegacy(
                     "¥3Raw " + this.type.name().toLowerCase() + ": ¥r" + meta,

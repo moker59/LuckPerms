@@ -36,8 +36,6 @@ import java.util.Set;
  * Functional interface which removes duplicate entries from a list.
  *
  * <p>Used by LuckPerms to remove duplicate entries from a MetaStack.</p>
- *
- * @since 4.4
  */
 public interface DuplicateRemovalFunction {
 

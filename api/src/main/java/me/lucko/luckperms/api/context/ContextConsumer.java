@@ -31,8 +31,6 @@ import java.util.Map;
 
 /**
  * Functional interface that accepts context key value pairs.
- *
- * @since 5.0
  */
 @FunctionalInterface
 public interface ContextConsumer {

@@ -438,7 +438,7 @@ public class LuckPermsVaultPermission extends AbstractVaultPermission {
             logMsg("#holderAddPermission: %s - %s - %s", holder.getPlainDisplayName(), permission, world);
         }
 
-        if (((Result) holder.setPermission(NodeFactory.make(permission, true, getVaultServer(), world))).wasSuccess()) {
+        if (((Result) holder.setPermission(NodeFactory.make(permission, true, getVaultServer(), world))).wasSuccessful()) {
             return holderSave(holder);
         }
         return false;
@@ -452,7 +452,7 @@ public class LuckPermsVaultPermission extends AbstractVaultPermission {
             logMsg("#holderRemovePermission: %s - %s - %s", holder.getPlainDisplayName(), permission, world);
         }
 
-        if (((Result) holder.unsetPermission(NodeFactory.make(permission, getVaultServer(), world))).wasSuccess()) {
+        if (((Result) holder.unsetPermission(NodeFactory.make(permission, getVaultServer(), world))).wasSuccessful()) {
             return holderSave(holder);
         }
         return false;

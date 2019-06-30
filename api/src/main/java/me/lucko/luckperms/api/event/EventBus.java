@@ -34,8 +34,6 @@ import java.util.function.Consumer;
  * The LuckPerms event bus.
  *
  * <p>Used to subscribe (or "listen") to LuckPerms events.</p>
- *
- * @since 3.0
  */
 public interface EventBus {
 

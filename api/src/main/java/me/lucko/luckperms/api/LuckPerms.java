@@ -79,7 +79,6 @@ public interface LuckPerms {
      * Gets information about the platform LuckPerms is running on.
      *
      * @return the platform info
-     * @since 4.0
      */
     @NonNull PlatformInfo getPlatformInfo();
 
@@ -91,7 +90,6 @@ public interface LuckPerms {
      * or name, or query all loaded users.</p>
      *
      * @return the user manager
-     * @since 4.0
      */
     @NonNull UserManager getUserManager();
 
@@ -103,7 +101,6 @@ public interface LuckPerms {
      * name, or query all loaded groups.</p>
      *
      * @return the group manager
-     * @since 4.0
      */
     @NonNull GroupManager getGroupManager();
 
@@ -115,7 +112,6 @@ public interface LuckPerms {
      * name, or query all loaded tracks.</p>
      *
      * @return the track manager
-     * @since 4.0
      */
     @NonNull TrackManager getTrackManager();
 
@@ -129,7 +125,6 @@ public interface LuckPerms {
      * ensure that any changes are fully applied and propagated.</p>
      *
      * @return a future
-     * @since 4.0
      */
     @NonNull CompletableFuture<Void> runUpdateTask();
 
@@ -138,7 +133,6 @@ public interface LuckPerms {
      * events.
      *
      * @return the event bus
-     * @since 3.0
      */
     @NonNull EventBus getEventBus();
 
@@ -163,7 +157,6 @@ public interface LuckPerms {
      * necessarily mean that it will be used.</p>
      *
      * @param messengerProvider the messenger provider.
-     * @since 4.1
      */
     void registerMessengerProvider(@NonNull MessengerProvider messengerProvider);
 
@@ -174,7 +167,6 @@ public interface LuckPerms {
      * actions occurring on the platform.</p>
      *
      * @return the action logger
-     * @since 4.1
      */
     @NonNull ActionLogger getActionLogger();
 
@@ -185,7 +177,6 @@ public interface LuckPerms {
      * applicable contexts for a given type.</p>
      *
      * @return the context manager
-     * @since 4.0
      */
     @NonNull ContextManager getContextManager();
 
@@ -193,7 +184,6 @@ public interface LuckPerms {
      * Gets a {@link Collection} of all known permission strings.
      *
      * @return a collection of the known permissions
-     * @since 4.4
      */
     @NonNull Collection<String> getKnownPermissions();
 
@@ -212,7 +202,6 @@ public interface LuckPerms {
      * {@link MetaStackDefinition}s.</p>
      *
      * @return the meta stack factory
-     * @since 3.2
      */
     @NonNull MetaStackFactory getMetaStackFactory();
 

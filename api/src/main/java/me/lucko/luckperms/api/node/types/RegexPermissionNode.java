@@ -37,8 +37,6 @@ import java.util.regex.Pattern;
 
 /**
  * A sub-type of {@link Node} used to store regex permissions.
- *
- * @since 4.3
  */
 public interface RegexPermissionNode extends ScopedNode<RegexPermissionNode, RegexPermissionNode.Builder> {
 

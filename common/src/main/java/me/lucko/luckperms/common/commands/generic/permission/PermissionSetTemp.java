@@ -91,7 +91,7 @@ public class PermissionSetTemp extends SharedSubCommand {
 
         TemporaryDataMutateResult result = holder.setPermission(builtNode, modifier);
 
-        if (((Result) result.getResult()).wasSuccess()) {
+        if (((Result) result.getResult()).wasSuccessful()) {
             duration = result.getMergedNode().getExpiry().getEpochSecond();
             Message.SETPERMISSION_TEMP_SUCCESS.send(sender, node, value, holder.getFormattedDisplayName(), DurationFormatter.LONG.formatDateDiff(duration), MessageUtils.contextSetToString(plugin.getLocaleManager(), context));
 

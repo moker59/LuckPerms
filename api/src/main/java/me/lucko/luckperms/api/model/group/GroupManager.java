@@ -49,8 +49,6 @@ import java.util.function.Consumer;
  * <strong>not</strong> be called on the main server thread. If you need to use
  * the result of these operations on the main server thread, register a
  * callback using {@link CompletableFuture#thenAcceptAsync(Consumer, Executor)}.</p>
- *
- * @since 4.0
  */
 public interface GroupManager {
 
@@ -63,7 +61,6 @@ public interface GroupManager {
      * @param name the name of the group
      * @return the resultant group
      * @throws NullPointerException if the name is null
-     * @since 4.1
      */
     @NonNull CompletableFuture<Group> createAndLoadGroup(@NonNull String name);
 
@@ -76,7 +73,6 @@ public interface GroupManager {
      * @param name the name of the group
      * @return the resultant group
      * @throws NullPointerException if the name is null
-     * @since 4.1
      */
     @NonNull CompletableFuture<Optional<Group>> loadGroup(@NonNull String name);
 

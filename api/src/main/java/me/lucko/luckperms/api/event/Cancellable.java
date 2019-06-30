@@ -46,7 +46,6 @@ public interface Cancellable {
      * Returns true if the event is currently cancelled.
      *
      * @return if the event is cancelled
-     * @since 4.1
      */
     default boolean isCancelled() {
         return getCancellationState().get();
@@ -56,7 +55,6 @@ public interface Cancellable {
      * Returns true if the event is not currently cancelled.
      *
      * @return if the event is not cancelled
-     * @since 4.1
      */
     default boolean isNotCancelled() {
         return !isCancelled();
@@ -67,7 +65,6 @@ public interface Cancellable {
      *
      * @param cancelled the new state
      * @return the previous state
-     * @since 4.1
      */
     default boolean setCancelled(boolean cancelled) {
         return getCancellationState().getAndSet(cancelled);

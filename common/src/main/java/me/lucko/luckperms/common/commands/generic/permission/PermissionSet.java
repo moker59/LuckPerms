@@ -85,7 +85,7 @@ public class PermissionSet extends SharedSubCommand {
 
         DataMutateResult result = holder.setPermission(builtNode);
 
-        if (result.wasSuccess()) {
+        if (result.wasSuccessful()) {
             Message.SETPERMISSION_SUCCESS.send(sender, node, value, holder.getFormattedDisplayName(), MessageUtils.contextSetToString(plugin.getLocaleManager(), context));
 
             ExtendedLogEntry.build().actor(sender).acted(holder)

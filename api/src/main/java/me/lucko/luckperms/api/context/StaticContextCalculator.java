@@ -33,8 +33,6 @@ import java.util.function.Supplier;
 /**
  * Extension of {@link ContextCalculator} which provides the same context
  * regardless of the subject.
- *
- * @since 5.0
  */
 @FunctionalInterface
 public interface StaticContextCalculator extends ContextCalculator<Object> {

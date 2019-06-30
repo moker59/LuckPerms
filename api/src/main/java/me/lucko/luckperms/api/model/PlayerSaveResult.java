@@ -39,8 +39,6 @@ import java.util.UUID;
  *
  * <p>The corresponding method can be found at
  * {@link UserManager#savePlayerData(UUID, String)}.</p>
- *
- * @since 4.2
  */
 public interface PlayerSaveResult {
 

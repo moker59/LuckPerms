@@ -56,8 +56,6 @@ import java.util.Set;
  * <p>Two default ContextSet implementations are provided.
  * {@link MutableContextSet} allows the addition and removal of context keys
  * after construction, and {@link ImmutableContextSet} does not.</p>
- *
- * @since 2.13
  */
 public interface ContextSet extends Iterable<Map.Entry<String, String>> {
 
@@ -87,7 +85,6 @@ public interface ContextSet extends Iterable<Map.Entry<String, String>> {
      * {@link #isImmutable() mutability} of this set.</p>
      *
      * @return a mutable ContextSet
-     * @since 2.16
      */
     @NonNull MutableContextSet mutableCopy();
 
@@ -168,7 +165,6 @@ public interface ContextSet extends Iterable<Map.Entry<String, String>> {
      *
      * @param key the key to find values for
      * @return an optional containing any match
-     * @since 3.1
      */
     default @NonNull Optional<String> getAnyValue(@NonNull String key) {
         return getValues(key).stream().findAny();
@@ -206,7 +202,6 @@ public interface ContextSet extends Iterable<Map.Entry<String, String>> {
      *
      * @param other the other set to check
      * @return true if all entries in this set are also in the other set
-     * @since 3.1
      */
     default boolean isSatisfiedBy(@NonNull ContextSet other) {
         if (this == other) {

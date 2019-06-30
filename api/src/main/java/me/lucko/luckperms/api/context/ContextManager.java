@@ -51,8 +51,6 @@ import java.util.Optional;
  * <li>{@code cn.nukkit.Player}</li>
  * <li>{@code com.velocitypowered.api.proxy.Player}</li>
  * </ul>
- *
- * @since 4.0
  */
 public interface ContextManager {
 
@@ -94,7 +92,6 @@ public interface ContextManager {
      *
      * @param mode the mode
      * @return a new query options builder
-     * @since 5.0
      */
     QueryOptions.@NonNull Builder queryOptionsBuilder(@NonNull QueryMode mode);
 
@@ -161,7 +158,6 @@ public interface ContextManager {
      * Unregisters a context calculator with the manager.
      *
      * @param calculator the calculator
-     * @since 4.4
      */
     void unregisterCalculator(@NonNull ContextCalculator<?> calculator);
 

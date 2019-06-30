@@ -28,6 +28,7 @@ package me.lucko.luckperms.api.event.player;
 import me.lucko.luckperms.api.event.LuckPermsEvent;
 import me.lucko.luckperms.api.event.Param;
 import me.lucko.luckperms.api.model.user.User;
+import me.lucko.luckperms.api.util.Result;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -49,10 +50,8 @@ import java.util.UUID;
  * for all connections, even if the operation to load User data was not
  * successful. Note that LuckPerms will usually cancel the platform connection
  * event if data could not be loaded.</p>
- *
- * @since 4.4
  */
-public interface PlayerLoginProcessEvent extends LuckPermsEvent {
+public interface PlayerLoginProcessEvent extends LuckPermsEvent, Result {
 
     /**
      * Gets the UUID of the connection which was processed
@@ -75,6 +74,7 @@ public interface PlayerLoginProcessEvent extends LuckPermsEvent {
      *
      * @return true if the login was successful
      */
+    @Override
     default boolean wasSuccessful() {
         return getUser() != null;
     }

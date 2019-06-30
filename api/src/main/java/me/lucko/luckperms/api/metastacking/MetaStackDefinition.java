@@ -39,8 +39,6 @@ import java.util.List;
  *
  * <p>Definitions can be passed to a users UserData instance using MetaContexts, and the result of this stack can be
  * retrieved from the returned MetaData instance.</p>
- *
- * @since 2.3
  */
 public interface MetaStackDefinition {
 
@@ -66,7 +64,6 @@ public interface MetaStackDefinition {
      * formatting takes place.
      *
      * @return the duplicate removal function
-     * @since 4.4
      */
     @NonNull DuplicateRemovalFunction getDuplicateRemovalFunction();
 

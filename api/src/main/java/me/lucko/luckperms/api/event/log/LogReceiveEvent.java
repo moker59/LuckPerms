@@ -35,8 +35,6 @@ import java.util.UUID;
 
 /**
  * Called when a log entry is received via the MessagingService
- *
- * @since 3.3
  */
 public interface LogReceiveEvent extends LuckPermsEvent {
 

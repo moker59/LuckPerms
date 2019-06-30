@@ -240,7 +240,7 @@ public class PermissionHolderSubjectData implements LPSubjectData {
                 () -> this.holder.setTransientPermission(node)
         );
 
-        if (!result.wasSuccess()) {
+        if (!result.wasSuccessful()) {
             return CompletableFuture.completedFuture(false);
         }
 
@@ -265,7 +265,7 @@ public class PermissionHolderSubjectData implements LPSubjectData {
                 () -> this.holder.unsetTransientPermission(node)
         );
 
-        if (!result.wasSuccess()) {
+        if (!result.wasSuccessful()) {
             return CompletableFuture.completedFuture(false);
         }
 

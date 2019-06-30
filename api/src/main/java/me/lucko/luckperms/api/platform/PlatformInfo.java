@@ -32,8 +32,6 @@ import java.util.UUID;
 
 /**
  * Provides information about the platform LuckPerms is running on.
- *
- * @since 4.0
  */
 public interface PlatformInfo {
 

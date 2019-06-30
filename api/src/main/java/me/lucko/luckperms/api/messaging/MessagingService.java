@@ -32,8 +32,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * A means to push changes to other servers using the platforms networking
- *
- * @since 2.14
  */
 public interface MessagingService {
 
@@ -41,7 +39,6 @@ public interface MessagingService {
      * Gets the name of this messaging service
      *
      * @return the name of this messaging service
-     * @since 4.1
      */
     String getName();
 
@@ -72,7 +69,6 @@ public interface MessagingService {
      * processed on the local server.</p>
      *
      * @param user the user to push the update for
-     * @since 4.1
      */
     void pushUserUpdate(@NonNull User user);
 

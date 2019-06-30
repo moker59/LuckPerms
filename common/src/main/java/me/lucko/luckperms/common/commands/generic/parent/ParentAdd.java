@@ -80,7 +80,7 @@ public class ParentAdd extends SharedSubCommand {
 
         DataMutateResult result = holder.setPermission(NodeFactory.buildGroupNode(group.getName()).withContext(context).build());
 
-        if (result.wasSuccess()) {
+        if (result.wasSuccessful()) {
             Message.SET_INHERIT_SUCCESS.send(sender, holder.getFormattedDisplayName(), group.getFormattedDisplayName(), MessageUtils.contextSetToString(plugin.getLocaleManager(), context));
 
             ExtendedLogEntry.build().actor(sender).acted(holder)

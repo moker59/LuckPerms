@@ -34,8 +34,6 @@ import java.util.Optional;
 
 /**
  * Encapsulates the result of {@link User}s demotion along a {@link Track}.
- *
- * @since 4.2
  */
 public interface DemotionResult extends Result {
 
@@ -47,8 +45,8 @@ public interface DemotionResult extends Result {
     @NonNull Status getStatus();
 
     @Override
-    default boolean wasSuccess() {
-        return getStatus().wasSuccess();
+    default boolean wasSuccessful() {
+        return getStatus().wasSuccessful();
     }
 
     /**
@@ -122,7 +120,7 @@ public interface DemotionResult extends Result {
         }
 
         @Override
-        public boolean wasSuccess() {
+        public boolean wasSuccessful() {
             return this.success;
         }
     }

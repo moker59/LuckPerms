@@ -84,7 +84,7 @@ public class PermissionUnset extends SharedSubCommand {
 
         DataMutateResult result = holder.unsetPermission(builtNode);
 
-        if (result.wasSuccess()) {
+        if (result.wasSuccessful()) {
             Message.UNSETPERMISSION_SUCCESS.send(sender, node, holder.getFormattedDisplayName(), MessageUtils.contextSetToString(plugin.getLocaleManager(), context));
 
             ExtendedLogEntry.build().actor(sender).acted(holder)
