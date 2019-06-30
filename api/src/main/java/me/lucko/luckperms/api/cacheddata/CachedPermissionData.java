@@ -59,6 +59,6 @@ public interface CachedPermissionData extends CachedData {
      *
      * @return an immutable set of permissions
      */
-    @NonNull Map<String, Boolean> getImmutableBacking();
+    @NonNull Map<String, Boolean> getPermissionMap();
 
 }

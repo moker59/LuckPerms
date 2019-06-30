@@ -44,7 +44,8 @@ public interface GroupCacheLoadEvent extends LuckPermsEvent {
      *
      * @return the group
      */
-    @NonNull @Param(0) Group getGroup();
+    @Param(0)
+    @NonNull Group getGroup();
 
     /**
      * Gets the data that was loaded
@@ -52,6 +53,6 @@ public interface GroupCacheLoadEvent extends LuckPermsEvent {
      * @return the loaded data
      */
     @Param(1)
-    CachedDataManager getLoadedData();
+    @NonNull CachedDataManager getLoadedData();
 
 }

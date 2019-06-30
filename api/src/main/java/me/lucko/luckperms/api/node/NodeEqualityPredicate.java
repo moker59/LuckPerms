@@ -55,7 +55,8 @@ public interface NodeEqualityPredicate {
      * Some 'default' implementations of NodeEqualityPredicate are provided below.
      *
      * These are implemented in the common code, by a special case in the
-     * implementation of Node#equals. As noted above, this generally be avoided.
+     * implementation of Node#equals. As noted above, this should generally be
+     * avoided.
      */
 
     /**

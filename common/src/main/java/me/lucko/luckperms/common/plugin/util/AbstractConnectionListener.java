@@ -74,14 +74,14 @@ public abstract class AbstractConnectionListener {
 
         // most likely because ip forwarding is not setup correctly
         // print a warning to the console
-        if (saveResult.includes(PlayerSaveResult.Outcome.OTHER_UUIDS_PRESENT_FOR_USERNAME)) {
-            Set<UUID> otherUuids = saveResult.getOtherUuids();
+        if (saveResult.includes(PlayerSaveResult.Outcome.OTHER_UNIQUE_IDS_PRESENT_FOR_USERNAME)) {
+            Set<UUID> otherUuids = saveResult.getOtherUniqueIds();
 
             this.plugin.getLogger().warn("LuckPerms already has data for player '" + username + "' - but this data is stored under a different UUID.");
             this.plugin.getLogger().warn("'" + username + "' has previously used the unique ids " + otherUuids + " but is now connecting with '" + uuid + "'");
 
             if (uuid.version() == 4) {
-                if (this.plugin.getBootstrap().getType() == PlatformType.BUNGEE) {
+                if (this.plugin.getBootstrap().getType() == PlatformType.BUNGEECORD) {
                     this.plugin.getLogger().warn("The UUID the player is connecting with now is Mojang-assigned (type 4). This implies that BungeeCord's IP-Forwarding has not been setup correctly on one (or more) of the backend servers.");
                 } if (this.plugin.getBootstrap().getType() == PlatformType.VELOCITY) {
                     this.plugin.getLogger().warn("The UUID the player is connecting with now is Mojang-assigned (type 4). This implies that Velocity's IP-Forwarding has not been setup correctly on one (or more) of the backend servers.");

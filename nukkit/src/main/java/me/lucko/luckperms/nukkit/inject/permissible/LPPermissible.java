@@ -208,7 +208,7 @@ public class LPPermissible extends PermissibleBase {
 
     @Override
     public Map<String, PermissionAttachmentInfo> getEffectivePermissions() {
-        return this.user.getCachedData().getPermissionData(this.queryOptionsSupplier.getQueryOptions()).getImmutableBacking().entrySet().stream()
+        return this.user.getCachedData().getPermissionData(this.queryOptionsSupplier.getQueryOptions()).getPermissionMap().entrySet().stream()
                 .collect(ImmutableCollectors.toMap(Map.Entry::getKey, entry -> new PermissionAttachmentInfo(this.player, entry.getKey(), null, entry.getValue())));
     }
 

@@ -270,7 +270,7 @@ public class LPNukkitPlugin extends AbstractLuckPermsPlugin {
         boolean value;
 
         if (user != null) {
-            Map<String, Boolean> permData = user.getCachedData().getPermissionData(this.contextManager.getQueryOptions(player)).getImmutableBacking();
+            Map<String, Boolean> permData = user.getCachedData().getPermissionData(this.contextManager.getQueryOptions(player)).getPermissionMap();
             value = permData.getOrDefault("luckperms.autoop", false);
         } else {
             value = false;

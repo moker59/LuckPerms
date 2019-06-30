@@ -77,12 +77,12 @@ public interface PlayerSaveResult {
      * Gets the other uuids involved in the result.
      *
      * <p>Returns null when the result doesn't {@link #includes(Outcome) include} the
-     * {@link Outcome#OTHER_UUIDS_PRESENT_FOR_USERNAME} status.</p>
+     * {@link Outcome#OTHER_UNIQUE_IDS_PRESENT_FOR_USERNAME} status.</p>
      *
      * @return the other uuids
-     * @see Outcome#OTHER_UUIDS_PRESENT_FOR_USERNAME
+     * @see Outcome#OTHER_UNIQUE_IDS_PRESENT_FOR_USERNAME
      */
-    @Nullable Set<UUID> getOtherUuids();
+    @Nullable Set<UUID> getOtherUniqueIds();
 
     /**
      * The various states the result can take
@@ -119,6 +119,6 @@ public interface PlayerSaveResult {
          * that the user of the plugin is running a network off a shared database with one
          * server in online mode and another in offline mode.</p>
          */
-        OTHER_UUIDS_PRESENT_FOR_USERNAME,
+        OTHER_UNIQUE_IDS_PRESENT_FOR_USERNAME,
     }
 }

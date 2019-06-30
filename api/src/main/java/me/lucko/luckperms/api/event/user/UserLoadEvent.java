@@ -41,6 +41,7 @@ public interface UserLoadEvent extends LuckPermsEvent {
      *
      * @return the user that was loaded
      */
-    @NonNull @Param(0) User getUser();
+    @Param(0)
+    @NonNull User getUser();
 
 }

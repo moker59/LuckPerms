@@ -158,7 +158,7 @@ public class LPBungeeBootstrap extends Plugin implements LuckPermsBootstrap {
 
     @Override
     public PlatformType getType() {
-        return PlatformType.BUNGEE;
+        return PlatformType.BUNGEECORD;
     }
 
     @Override

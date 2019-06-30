@@ -42,13 +42,15 @@ public interface TrackCreateEvent extends LuckPermsEvent {
      *
      * @return the new track
      */
-    @NonNull @Param(0) Track getTrack();
+    @Param(0)
+    @NonNull Track getTrack();
 
     /**
      * Gets the cause of the creation
      *
      * @return the cause of the creation
      */
-    @NonNull @Param(1) CreationCause getCause();
+    @Param(1)
+    @NonNull CreationCause getCause();
 
 }

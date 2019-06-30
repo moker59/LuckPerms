@@ -42,7 +42,8 @@ public interface UserCacheLoadEvent extends LuckPermsEvent {
      *
      * @return the user
      */
-    @NonNull @Param(0) User getUser();
+    @Param(0)
+    @NonNull User getUser();
 
     /**
      * Gets the data that was loaded
@@ -50,6 +51,6 @@ public interface UserCacheLoadEvent extends LuckPermsEvent {
      * @return the loaded data
      */
     @Param(1)
-    CachedDataManager getLoadedData();
+    @NonNull CachedDataManager getLoadedData();
 
 }

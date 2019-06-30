@@ -92,7 +92,7 @@ public interface UserManager {
      * @throws IllegalArgumentException if the username is invalid
      * @since 4.2
      */
-    @NonNull CompletableFuture<UUID> lookupUuid(@NonNull String username);
+    @NonNull CompletableFuture<UUID> lookupUniqueId(@NonNull String username);
 
     /**
      * Uses the LuckPerms cache to find a username for the given uuid.

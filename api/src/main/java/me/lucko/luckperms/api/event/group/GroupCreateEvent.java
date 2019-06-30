@@ -42,13 +42,15 @@ public interface GroupCreateEvent extends LuckPermsEvent {
      *
      * @return the new group
      */
-    @NonNull @Param(0) Group getGroup();
+    @Param(0)
+    @NonNull Group getGroup();
 
     /**
      * Gets the cause of the creation
      *
      * @return the cause of the creation
      */
-    @NonNull @Param(1) CreationCause getCause();
+    @Param(1)
+    @NonNull CreationCause getCause();
 
 }

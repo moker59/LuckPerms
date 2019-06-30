@@ -72,7 +72,7 @@ public class ApiUserManager extends ApiAbstractManager<User, me.lucko.luckperms.
     }
 
     @Override
-    public @NonNull CompletableFuture<UUID> lookupUuid(@NonNull String username) {
+    public @NonNull CompletableFuture<UUID> lookupUniqueId(@NonNull String username) {
         Objects.requireNonNull(username, "username");
         return this.plugin.getStorage().getPlayerUuid(username);
     }

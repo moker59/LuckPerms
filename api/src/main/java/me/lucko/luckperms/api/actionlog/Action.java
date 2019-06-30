@@ -41,7 +41,7 @@ import java.util.UUID;
 public interface Action extends Comparable<Action> {
 
     /**
-     * Gets a {@link Action.Builder}l
+     * Gets a {@link Action.Builder}
      *
      * @return a new builder
      */

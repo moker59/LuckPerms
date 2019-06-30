@@ -45,14 +45,15 @@ public interface LogReceiveEvent extends LuckPermsEvent {
      *
      * @return the id of the log entry being received
      */
-    @NonNull @Param(0) UUID getLogId();
+    @Param(0)
+    @NonNull UUID getLogId();
 
     /**
      * Gets the log entry being received
      *
      * @return the log entry being received
      */
-    @NonNull @Param(1)
-    Action getEntry();
+    @Param(1)
+    @NonNull Action getEntry();
 
 }

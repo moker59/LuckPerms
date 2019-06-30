@@ -42,8 +42,8 @@ public interface LogBroadcastEvent extends LuckPermsEvent, Cancellable {
      *
      * @return the log entry to be broadcasted
      */
-    @NonNull @Param(0)
-    Action getEntry();
+    @Param(0)
+    @NonNull Action getEntry();
 
     /**
      * Gets where the log entry originated from.
@@ -51,7 +51,8 @@ public interface LogBroadcastEvent extends LuckPermsEvent, Cancellable {
      * @return the origin of the log
      * @since 3.3
      */
-    @NonNull @Param(1) Origin getOrigin();
+    @Param(1)
+    @NonNull Origin getOrigin();
 
     /**
      * Represents where a log entry is from

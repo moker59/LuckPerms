@@ -42,7 +42,7 @@ public interface LogPublishEvent extends LuckPermsEvent, Cancellable {
      *
      * @return the log entry to be published
      */
-    @NonNull @Param(0)
-    Action getEntry();
+    @Param(0)
+    @NonNull Action getEntry();
 
 }

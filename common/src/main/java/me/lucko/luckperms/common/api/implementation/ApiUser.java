@@ -58,12 +58,12 @@ public class ApiUser extends ApiPermissionHolder implements me.lucko.luckperms.a
     }
 
     @Override
-    public @NonNull UUID getUuid() {
+    public @NonNull UUID getUniqueId() {
         return this.handle.getUuid();
     }
 
     @Override
-    public String getName() {
+    public String getUsername() {
         return this.handle.getName().orElse(null);
     }
 

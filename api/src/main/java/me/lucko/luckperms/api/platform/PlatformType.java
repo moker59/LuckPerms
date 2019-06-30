@@ -35,7 +35,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 public enum PlatformType {
 
     BUKKIT("Bukkit"),
-    BUNGEE("Bungee"),
+    BUNGEECORD("BungeeCord"),
     SPONGE("Sponge"),
     NUKKIT("Nukkit"),
     VELOCITY("Velocity");

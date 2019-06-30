@@ -50,23 +50,24 @@ public interface LogNotifyEvent extends LuckPermsEvent, Cancellable {
      *
      * @return the log entry to be sent
      */
-    @NonNull @Param(0)
-    Action getEntry();
+    @Param(0)
+    @NonNull Action getEntry();
 
     /**
      * Gets where the log entry originated from.
      *
      * @return the origin of the log
      */
-    @NonNull @Param(1) Origin getOrigin();
+    @Param(1)
+    @NonNull Origin getOrigin();
 
     /**
      * Gets the object to be notified.
      *
      * @return the object to notify
      */
-    @NonNull @Param(2)
-    PlatformEntity getNotifiable();
+    @Param(2)
+    @NonNull PlatformEntity getNotifiable();
 
     /**
      * Represents where a log entry is from

@@ -46,14 +46,15 @@ public interface LogNetworkPublishEvent extends LuckPermsEvent, Cancellable {
      *
      * @return the id of the log entry being published
      */
-    @NonNull @Param(0) UUID getLogId();
+    @Param(0)
+    @NonNull UUID getLogId();
 
     /**
      * Gets the log entry to be published
      *
      * @return the log entry to be published
      */
-    @NonNull @Param(1)
-    Action getEntry();
+    @Param(1)
+    @NonNull Action getEntry();
 
 }

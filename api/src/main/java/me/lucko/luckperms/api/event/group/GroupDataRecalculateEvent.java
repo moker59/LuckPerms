@@ -44,7 +44,8 @@ public interface GroupDataRecalculateEvent extends LuckPermsEvent {
      *
      * @return the group
      */
-    @NonNull @Param(0) Group getGroup();
+    @Param(0)
+    @NonNull Group getGroup();
 
     /**
      * Gets the data that was recalculated
@@ -52,6 +53,6 @@ public interface GroupDataRecalculateEvent extends LuckPermsEvent {
      * @return the data
      */
     @Param(1)
-    CachedDataManager getData();
+    @NonNull CachedDataManager getData();
 
 }

@@ -99,7 +99,7 @@ public class PermissionCache implements CachedPermissionData {
     }
 
     @Override
-    public @NonNull Map<String, Boolean> getImmutableBacking() {
+    public @NonNull Map<String, Boolean> getPermissionMap() {
         return this.permissionsUnmodifiable;
     }
 

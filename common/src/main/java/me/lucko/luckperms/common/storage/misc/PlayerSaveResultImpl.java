@@ -83,7 +83,7 @@ public final class PlayerSaveResultImpl implements PlayerSaveResult {
     }
 
     /**
-     * Returns a new {@link PlayerSaveResultImpl} with the {@link Outcome#OTHER_UUIDS_PRESENT_FOR_USERNAME}
+     * Returns a new {@link PlayerSaveResultImpl} with the {@link Outcome#OTHER_UNIQUE_IDS_PRESENT_FOR_USERNAME}
      * status attached to the state of this result.
      *
      * @param otherUuids the other uuids
@@ -91,7 +91,7 @@ public final class PlayerSaveResultImpl implements PlayerSaveResult {
      */
     public PlayerSaveResultImpl withOtherUuidsPresent(@NonNull Set<UUID> otherUuids) {
         EnumSet<Outcome> outcomes = EnumSet.copyOf(this.outcomes);
-        outcomes.add(Outcome.OTHER_UUIDS_PRESENT_FOR_USERNAME);
+        outcomes.add(Outcome.OTHER_UNIQUE_IDS_PRESENT_FOR_USERNAME);
         return new PlayerSaveResultImpl(outcomes, this.oldUsername, ImmutableSet.copyOf(otherUuids));
     }
 
@@ -106,7 +106,7 @@ public final class PlayerSaveResultImpl implements PlayerSaveResult {
     }
 
     @Override
-    public @Nullable Set<UUID> getOtherUuids() {
+    public @Nullable Set<UUID> getOtherUniqueIds() {
         return this.otherUuids;
     }
 

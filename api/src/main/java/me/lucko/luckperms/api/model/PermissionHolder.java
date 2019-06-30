@@ -63,11 +63,11 @@ public interface PermissionHolder {
      * of the same type of object.</p>
      *
      * <p>For {@link User}s, this method returns a {@link UUID#toString() string} representation of
-     * the users {@link User#getUuid() unique id}.</p>
+     * the users {@link User#getUniqueId() unique id}.</p>
      *
      * <p>For {@link Group}s, this method returns the {@link Group#getName() group name}.</p>
      *
-     * <p>The {@link User#getUuid()}, {@link User#getName()} and {@link Group#getName()} methods
+     * <p>The {@link User#getUniqueId()}, {@link User#getUsername()} and {@link Group#getName()} methods
      * define a "tighter" specification for obtaining object identifiers.</p>
      *
      * @return the identifier for this object. Either a uuid string or name.
@@ -80,7 +80,7 @@ public interface PermissionHolder {
      * <p>This will <strong>always</strong> return a value, eventually falling back to
      * {@link #getObjectName()} if no other "friendlier" identifiers are present.</p>
      *
-     * <p>For {@link User}s, this method will attempt to return the {@link User#getName() username},
+     * <p>For {@link User}s, this method will attempt to return the {@link User#getUsername() username},
      * before falling back to {@link #getObjectName()}.</p>
      *
      * <p>For {@link Group}s, this method will attempt to return the groups display name, before

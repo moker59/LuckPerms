@@ -38,6 +38,13 @@ import java.util.UUID;
 public interface PlatformInfo {
 
     /**
+     * Gets the type of platform LuckPerms is running on
+     *
+     * @return the type of platform LuckPerms is running on
+     */
+    @NonNull PlatformType getType();
+
+    /**
      * Gets the plugin version
      *
      * @return the version of the plugin running on the platform
@@ -50,13 +57,6 @@ public interface PlatformInfo {
      * @return the version of the API running on the platform
      */
     double getApiVersion();
-
-    /**
-     * Gets the type of platform LuckPerms is running on
-     *
-     * @return the type of platform LuckPerms is running on
-     */
-    @NonNull PlatformType getType();
 
     /**
      * Gets the unique players which have connected to the server since it started.

@@ -43,7 +43,7 @@ public interface User extends PermissionHolder {
      *
      * @return the users Mojang assigned unique id
      */
-    @NonNull UUID getUuid();
+    @NonNull UUID getUniqueId();
 
     /**
      * Gets the users username
@@ -52,7 +52,7 @@ public interface User extends PermissionHolder {
      *
      * @return the users username
      */
-    @Nullable String getName();
+    @Nullable String getUsername();
 
     /**
      * Gets the users current primary group.
