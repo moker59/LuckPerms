@@ -17,7 +17,7 @@ deploy:
   api_key: $GH_TOKEN
   file_glob: true
   file:
-    - "bukkit/build/libs/*.jar"
+    - "*/build/libs/*.jar"
   on:
-    tags: true
     all_branches: true
+#    tags: true
