@@ -6,8 +6,7 @@ git:
   depth: false
 notifications:
   email: false
-before_install:
-  - chmod +x gradlew
+before_install: chmod +x gradlew
 script: ./gradlew build -s
 jdk:
   - oraclejdk8
