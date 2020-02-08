@@ -18,4 +18,5 @@ deploy:
   file:
     - "*/build/libs/*.jar"
   on:
-    all_branches: true
+    branches:
+      - master
