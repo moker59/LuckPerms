@@ -2,8 +2,8 @@
 sudo: false
 dist: trusty
 language: java
-git:
-  depth: false
+#git:
+#  depth: false
 notifications:
   email: false
 before_install: chmod +x gradlew
